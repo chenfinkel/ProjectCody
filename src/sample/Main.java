@@ -45,7 +45,7 @@ public class Main extends Application {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS users (\n"
                 + "	userName text PRIMARY KEY,\n"
-                + "	password integer NOT NULL,\n"
+                + "	password text NOT NULL,\n"
                 + "	birthDate DATE, \n"
                 + "firstName text, \n"
                 + "lastName text, \n"
