@@ -21,7 +21,6 @@ public class Main extends Application {
     /**
      * Connect to a sample database
      *
-     * @param fileName the database file name
      */
     public static void createNewDatabase() {
 
@@ -44,10 +43,13 @@ public class Main extends Application {
         String url = "jdbc:sqlite:C:/sqlite/db/users.db";
 
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS warehouses (\n"
-                + "	id integer PRIMARY KEY,\n"
-                + "	name text NOT NULL,\n"
-                + "	capacity real\n"
+        String sql = "CREATE TABLE IF NOT EXISTS users (\n"
+                + "	userName text PRIMARY KEY,\n"
+                + "	password integer NOT NULL,\n"
+                + "	birthDate DATE, \n"
+                + "firstName text, \n"
+                + "lastName text, \n"
+                + "city text \n"
                 + ");";
 
 
