@@ -41,7 +41,7 @@ public class Main extends Application {
 
     public static void createNewTable() {
         // SQLite connection string
-        String url = "jdbc:sqlite:C:/Users/chenfi/users.db";
+        String url = "jdbc:sqlite:C:/sqlite/db/users.db";
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS warehouses (\n"
@@ -50,10 +50,12 @@ public class Main extends Application {
                 + "	capacity real\n"
                 + ");";
 
+
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
+            System.out.println("table created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -63,6 +65,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         createNewDatabase();
+        createNewTable();
         launch(args);
     }
 }
