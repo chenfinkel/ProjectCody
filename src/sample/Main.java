@@ -25,7 +25,7 @@ public class Main extends Application {
      */
     public static void createNewDatabase() {
 
-        String url = "jdbc:sqlite:C:/Users/chenfi/users.db";
+        String url = "jdbc:sqlite:C:/sqlite/db/users.db";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
