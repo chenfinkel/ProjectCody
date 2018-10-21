@@ -24,7 +24,7 @@ public class Main extends Application {
      */
     public static void createNewDatabase() {
 
-        String url = "jdbc:sqlite:C:/sqlite/db/users.db";
+        String url = "jdbc:sqlite:users.db";
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -40,7 +40,7 @@ public class Main extends Application {
 
     public static void createNewTable() {
         // SQLite connection string
-        String url = "jdbc:sqlite:C:/sqlite/db/users.db";
+        String url = "jdbc:sqlite:users.db";
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS users (\n"
