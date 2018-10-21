@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 
 public class Controller {
 
-    public void update(){}
+
+    /*public void update(){}
 
     public void updateFile(){
         try {
@@ -24,5 +25,5 @@ public class Controller {
         } catch (Exception e) {
 
         }
-    }
+    }*/
 }

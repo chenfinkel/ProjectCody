@@ -1,12 +1,17 @@
 package sample;
+import com.sun.org.apache.xpath.internal.operations.String;
+import javafx.scene.input.KeyCode;
 
 import java.sql.*;
 
-public class Model {
+import java.util.Observable;
 
-    public void update(String fieldName, String newValue, String userName){
 
-        String url= "jdbc:sqlite:C:/sqlite/db/users.db";
+public class Model extends Observable implements IModel {
+
+    /*public void update(String fieldName, String newValue, String userName){
+
+        String url= "jdbc:sqlite:C://sqlite/db/users.db";
 
 
         String sql = "UPDATE users SET "+fieldName+" = ? , "
@@ -23,5 +28,6 @@ public class Model {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
+    }*/
+
 }

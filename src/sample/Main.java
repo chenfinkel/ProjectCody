@@ -44,11 +44,11 @@ public class Main extends Application {
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS users (\n"
-                + "	userName text PRIMARY KEY,\n"
-                + "	password text NOT NULL,\n"
-                + "	birthDate DATE, \n"
+                + "userName text PRIMARY KEY,\n"
+                + "password text NOT NULL,\n"
                 + "firstName text, \n"
                 + "lastName text, \n"
+                + "birthDate DATE, \n"
                 + "city text \n"
                 + ");";
 
