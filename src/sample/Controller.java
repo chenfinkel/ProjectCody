@@ -7,8 +7,23 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Controller {
+import java.util.Observable;
+import java.util.Observer;
 
+public class Controller implements Observer {
+
+    private Model model;
+    private View view;
+
+    public  Controller(Model m, View v){
+        this.model = m;
+        this.view = v;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 
     /*public void update(){}
 

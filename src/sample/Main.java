@@ -12,8 +12,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        FXMLLoader fxmlLoader=new FXMLLoader();
+        Model model = new Model();
+        View view = new View();
+        Controller controller = new Controller(model, view);
+        view.addObserver(controller);
+        Parent root = fxmlLoader.load(getClass().getResource("view.fxml").openStream());
+        primaryStage.setTitle("login");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
@@ -48,7 +53,7 @@ public class Main extends Application {
                 + "password text NOT NULL,\n"
                 + "firstName text, \n"
                 + "lastName text, \n"
-                + "birthDate DATE, \n"
+                + "birthDate text, \n"
                 + "city text \n"
                 + ");";
 
@@ -58,6 +63,24 @@ public class Main extends Application {
             // create a new table
             stmt.execute(sql);
             System.out.println("table created");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void insert() {
+        String url = "jdbc:sqlite:users.db";
+        String sql1 = "INSERT INTO users(userName,password,firstName,lastName,birthDate,city) VALUES(?,?,?,?,?,?)";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql1)) {
+            pstmt.setString(1, "or");
+            pstmt.setString(2, "123");
+            pstmt.setString(3, "fd");
+            pstmt.setString(4, "sdf");
+            pstmt.setString(5, "101010");
+            pstmt.setString(6, "2");
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

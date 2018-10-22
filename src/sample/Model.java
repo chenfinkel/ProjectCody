@@ -1,5 +1,4 @@
 package sample;
-import com.sun.org.apache.xpath.internal.operations.String;
 import javafx.scene.input.KeyCode;
 
 import java.sql.*;
@@ -9,6 +8,12 @@ import java.util.Observable;
 
 public class Model extends Observable implements IModel {
 
+
+    private boolean isLogin;
+
+    public Model(){
+        isLogin=false;
+    }
     /*public void update(String fieldName, String newValue, String userName){
 
         String url= "jdbc:sqlite:C://sqlite/db/users.db";
@@ -30,4 +35,27 @@ public class Model extends Observable implements IModel {
         }
     }*/
 
+
+    public void login(String userName, String  password){
+        isLogin=false;
+        String url="jdbc:sqlite:users.db";
+        String sql="SELECT password FROM users WHERE userName = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            // create a new table
+            pstmt.setString(1,userName);
+            ResultSet rs  = pstmt.executeQuery();
+            while (rs.next()) {
+                if((rs.getString("password")).compareTo(password)==0)
+                    isLogin=true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
 }
