@@ -1,32 +1,35 @@
 package sample;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 
-import java.util.Observable;
-import java.util.Observer;
-
-public class Controller implements Observer {
+public class Controller {
 
     private Model model;
-    private View view;
 
-    public  Controller(Model m, View v){
-        this.model = m;
-        this.view = v;
+    public Controller(){
+        model=new Model();
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
+    @FXML
+    private javafx.scene.control.TextField userName;
+    @FXML
+    private javafx.scene.control.PasswordField password;
+
+
+    public void signIn(){
+        model.login(userName.getText(),password.getText());
+        if(model.isLogin()){
+            Alert al=new Alert(Alert.AlertType.INFORMATION);
+            al.setContentText("success");
+            al.show();
+        }
 
     }
 
-    /*public void update(){}
 
+
+/*
     public void updateFile(){
         try {
             Stage stage = new Stage();

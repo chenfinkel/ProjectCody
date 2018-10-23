@@ -13,11 +13,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader=new FXMLLoader();
-        Model model = new Model();
-        View view = new View();
-        Controller controller = new Controller(model, view);
-        view.addObserver(controller);
-        Parent root = fxmlLoader.load(getClass().getResource("view.fxml").openStream());
+        Controller controller = new Controller();
+        Parent root = fxmlLoader.load(getClass().getResource("View.fxml").openStream());
         primaryStage.setTitle("login");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();

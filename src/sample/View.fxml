@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="222.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <DialogPane headerText="Vacation4U !" layoutX="80.0" layoutY="14.0" prefHeight="8.0" prefWidth="80.0" />
-      <DialogPane headerText="New ?" layoutX="29.0" layoutY="189.0" prefHeight="12.0" prefWidth="42.0" />
-      <DialogPane headerText="Sign In" layoutX="29.0" layoutY="70.0" prefHeight="25.0" prefWidth="51.0" />
-      <DialogPane headerText="Continue as Guest" layoutX="131.0" layoutY="70.0" prefHeight="70.0" prefWidth="112.0" />
-      <PasswordField layoutX="29.0" layoutY="144.0" promptText="Password" />
-      <TextField layoutX="29.0" layoutY="105.0" promptText="Username" />
-      <Button layoutX="71.0" layoutY="189.0" mnemonicParsing="false" text="Sign Up" />
+      <TextField fx:id="userName" layoutX="29.0" layoutY="53.0" promptText="Username" />
+      <PasswordField fx:id="password" layoutX="29.0" layoutY="93.0" promptText="Password" />
+      <Button layoutX="178.0" layoutY="139.0" mnemonicParsing="false" text="Sign Up" />
+      <Button layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#signIn" text="Sign In" />
+      <Label layoutX="90.0" layoutY="14.0" prefHeight="25.0" prefWidth="71.0" text="Vacation4U !" />
+      <Label layoutX="147.0" layoutY="143.0" text="new?" />
+      <Button layoutX="25.0" layoutY="176.0" mnemonicParsing="false" text="Continue as guest" />
    </children>
 </Pane>

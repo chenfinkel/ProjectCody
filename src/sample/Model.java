@@ -1,8 +1,6 @@
 package sample;
-import javafx.scene.input.KeyCode;
 
 import java.sql.*;
-
 import java.util.Observable;
 
 
