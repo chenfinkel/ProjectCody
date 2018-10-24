@@ -61,7 +61,7 @@ public class Controller {
 
     }
 
-    public void update()throws Exception{
+    public void settings()throws Exception{
         Stage window=primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("UpdateFile.fxml").openStream()), 400, 300));
@@ -78,5 +78,13 @@ public class Controller {
         lName.setText(model.getDetails("lastName"));
         bDate.setText(model.getDetails("birthDate"));
         city.setText(model.getDetails("city"));
+    }
+
+    public void update(){
+        model.update(pass.getText(),fName.getText(),lName.getText(),bDate.getText(),city.getText());
+        setText();
+        Alert al=new Alert(Alert.AlertType.INFORMATION);
+        al.setContentText("Your account has been updated");
+        al.show();
     }
 }

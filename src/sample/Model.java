@@ -13,26 +13,31 @@ public class Model extends Observable implements IModel {
     public Model(){
         isLogin=false;
     }
-    /*public void update(String fieldName, String newValue, String userName){
-
-        String url= "jdbc:sqlite:C://sqlite/db/users.db";
 
 
-        String sql = "UPDATE users SET "+fieldName+" = ? , "
-                + "WHERE userName = ?";
+    public void update(String password, String fName, String lName, String bDate, String city){
+
+        String url= "jdbc:sqlite:users.db";
+
+        String sql = "UPDATE users SET password = ? , "+"firstName = ? , "+"lastName = ? , "+"birthDate = ? , "+"city = ?"
+                + " WHERE userName = ?";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, newValue);
-            pstmt.setString(2, userName);
+            pstmt.setString(1, password);
+            pstmt.setString(2, fName);
+            pstmt.setString(3, lName);
+            pstmt.setString(4, bDate);
+            pstmt.setString(5, city);
+            pstmt.setString(6, currentUser);
             // update
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }*/
+    }
 
 
     public void login(String userName, String  password){

@@ -12,7 +12,7 @@
       <TextField layoutX="219.0" layoutY="46.0" prefHeight="35.0" prefWidth="115.0" />
       <MenuButton layoutX="358.0" layoutY="46.0" mnemonicParsing="false">
         <items>
-          <MenuItem mnemonicParsing="false" onAction="#update" text="Settings" />
+          <MenuItem mnemonicParsing="false" onAction="#settings" text="Settings" />
         </items>
       </MenuButton>
    </children>
