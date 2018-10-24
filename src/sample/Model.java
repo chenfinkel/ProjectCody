@@ -8,6 +8,7 @@ public class Model extends Observable implements IModel {
 
 
     private boolean isLogin;
+    private String currentUser;
 
     public Model(){
         isLogin=false;
@@ -44,13 +45,32 @@ public class Model extends Observable implements IModel {
             pstmt.setString(1,userName);
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
-                if((rs.getString("password")).compareTo(password)==0)
-                    isLogin=true;
+                if((rs.getString("password")).compareTo(password)==0) {
+                    isLogin = true;
+                    currentUser=userName;
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public String getDetails(String label){
+        String url="jdbc:sqlite:users.db";
+        String sql="SELECT "+label+" FROM users WHERE userName = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            // create a new table
+            pstmt.setString(1,currentUser);
+            ResultSet rs  = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString(label);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return "";
     }
 
     public boolean isLogin() {

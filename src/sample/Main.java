@@ -13,9 +13,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader=new FXMLLoader();
-        Controller controller = new Controller();
         Parent root = fxmlLoader.load(getClass().getResource("View.fxml").openStream());
-        primaryStage.setTitle("login");
+        Controller viewControl = fxmlLoader.getController();
+        viewControl.setPrimStage(primaryStage);
+        primaryStage.setTitle("Vacation4U");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
@@ -71,8 +72,8 @@ public class Main extends Application {
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql1)) {
-            pstmt.setString(1, "or");
-            pstmt.setString(2, "123");
+            pstmt.setString(1, "dafna");
+            pstmt.setString(2, "1234");
             pstmt.setString(3, "fd");
             pstmt.setString(4, "sdf");
             pstmt.setString(5, "101010");
