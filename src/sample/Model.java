@@ -81,4 +81,16 @@ public class Model extends Observable implements IModel {
     public boolean isLogin() {
         return isLogin;
     }
+
+    public void delete(){
+        String url="jdbc:sqlite:users.db";
+        String sql="DELETE FROM users WHERE userName = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+            pstmt.setString(1,currentUser);
+            pstmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
