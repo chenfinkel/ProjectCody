@@ -61,13 +61,15 @@ public class Model extends Observable implements IModel {
 
     }
 
-    public String getDetails(String label){
+    public String getDetails(String label, String user){
+        if(user=="")
+            user=currentUser;
         String url="jdbc:sqlite:users.db";
         String sql="SELECT "+label+" FROM users WHERE userName = ?";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt  = conn.prepareStatement(sql)) {
             // create a new table
-            pstmt.setString(1,currentUser);
+            pstmt.setString(1,user);
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
                 return rs.getString(label);
@@ -92,5 +94,6 @@ public class Model extends Observable implements IModel {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        isLogin=false;
     }
 }

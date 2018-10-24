@@ -43,6 +43,20 @@ public class View {
     private javafx.scene.control.TextField bDate;
     @FXML
     private javafx.scene.control.TextField city;
+    @FXML
+    private javafx.scene.control.TextField searchText;
+    @FXML
+    private javafx.scene.control.TextField searchUser;
+    @FXML
+    private javafx.scene.control.TextField searchPass;
+    @FXML
+    private javafx.scene.control.TextField searchfName;
+    @FXML
+    private javafx.scene.control.TextField searchlName;
+    @FXML
+    private javafx.scene.control.TextField searchbDate;
+    @FXML
+    private javafx.scene.control.TextField searchCity;
 
 
     public void signIn(){
@@ -114,5 +128,36 @@ public class View {
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primStage);
         viewControl.setController(control);
+    }
+
+    public void returnUserPage() throws Exception{
+        Stage window=primStage;
+        FXMLLoader fxmlLoader=new FXMLLoader();
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("UserPage.fxml").openStream()), 400, 300));
+        View viewControl = fxmlLoader.getController();
+        viewControl.setPrimStage(primStage);
+        viewControl.setController(control);
+    }
+
+    public void search(){
+        control.search(searchText.getText());
+    }
+
+    public void showSearch(String user, String fName, String lName, String bDate, String city) throws Exception{
+        Stage window=primStage;
+        FXMLLoader fxmlLoader=new FXMLLoader();
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("Search.fxml").openStream()), 400, 300));
+        View viewControl = fxmlLoader.getController();
+        viewControl.setPrimStage(primStage);
+        viewControl.setController(control);
+        viewControl.setSearchText(user,fName,lName,bDate,city);
+    }
+
+    public void setSearchText(String user, String fName, String lName, String bDate, String city){
+        searchUser.setText(user);
+        searchfName.setText(fName);
+        searchlName.setText(lName);
+        searchbDate.setText(bDate);
+        searchCity.setText(city);
     }
 }
