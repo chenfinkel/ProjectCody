@@ -96,4 +96,41 @@ public class Model extends Observable implements IModel {
         }
         isLogin=false;
     }
+
+    public int signUp(String user, String password, String fName, String lName, String bDate, String city){
+        String url = "jdbc:sqlite:users.db";
+
+        String oldUser="";
+        String checkUser="SELECT userName FROM users WHERE userName = ?";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(checkUser)) {
+            pstmt1.setString(1,user);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                oldUser= rs.getString("userName");
+            }
+        } catch (Exception e){}
+
+        if(oldUser=="") {
+            String sql1 = "INSERT INTO users(userName,password,firstName,lastName,birthDate,city) VALUES(?,?,?,?,?,?)";
+
+            try (Connection conn = DriverManager.getConnection(url);
+                 PreparedStatement pstmt = conn.prepareStatement(sql1)) {
+                pstmt.setString(1, user);
+                pstmt.setString(2, password);
+                pstmt.setString(3, fName);
+                pstmt.setString(4, lName);
+                pstmt.setString(5, bDate);
+                pstmt.setString(6, city);
+                pstmt.executeUpdate();
+                currentUser=user;
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            return 0;
+        }
+        else
+            return 1;
+    }
 }

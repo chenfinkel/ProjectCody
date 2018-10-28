@@ -57,12 +57,28 @@ public class View {
     private javafx.scene.control.TextField searchbDate;
     @FXML
     private javafx.scene.control.TextField searchCity;
+    @FXML
+    private javafx.scene.control.TextField signUpUser;
+    @FXML
+    private javafx.scene.control.TextField signUpPass;
+    @FXML
+    private javafx.scene.control.TextField signUpFname;
+    @FXML
+    private javafx.scene.control.TextField signUpLname;
+    @FXML
+    private javafx.scene.control.TextField signUpBdate;
+    @FXML
+    private javafx.scene.control.TextField signUpCity;
 
+
+    public void guest(){
+        Alert al=new Alert(Alert.AlertType.INFORMATION);
+        al.setContentText("Currently unavailable");
+        al.show();
+    }
 
     public void signIn(){
         control.login(userName.getText(),password.getText());
-
-
     }
 
     public void login() throws Exception{
@@ -74,10 +90,38 @@ public class View {
         viewControl.setController(control);
     }
 
+
     public void incorrect(){
         Alert al=new Alert(Alert.AlertType.INFORMATION);
         al.setContentText("user name or password are incorrect");
         al.show();
+    }
+
+    public void signUp() throws Exception{
+        Stage window=primStage;
+        FXMLLoader fxmlLoader=new FXMLLoader();
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("SignUpPage.fxml").openStream()), 400, 300));
+        View viewControl = fxmlLoader.getController();
+        viewControl.setPrimStage(primStage);
+        viewControl.setController(control);
+    }
+
+    public void getMeIn(){
+        int isUser;
+        isUser=control.signUp(signUpUser.getText(),signUpPass.getText(),
+                signUpFname.getText(),signUpLname.getText(),signUpBdate.getText(),signUpCity.getText());
+        if(isUser==1){
+            Alert al=new Alert(Alert.AlertType.INFORMATION);
+            al.setContentText("user name taken");
+            al.show();
+        }
+        else{
+            Alert al=new Alert(Alert.AlertType.INFORMATION);
+            al.setContentText("You are now logged in");
+            al.show();
+            try{ returnUserPage();}
+            catch (Exception e){}
+        }
     }
 
     public void settings()throws Exception{

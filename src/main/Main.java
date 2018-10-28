@@ -66,24 +66,6 @@ public class Main extends Application {
         }
     }
 
-    public static void insert() {
-        String url = "jdbc:sqlite:users.db";
-        String sql1 = "INSERT INTO users(userName,password,firstName,lastName,birthDate,city) VALUES(?,?,?,?,?,?)";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement pstmt = conn.prepareStatement(sql1)) {
-            pstmt.setString(1, "dafna");
-            pstmt.setString(2, "1234");
-            pstmt.setString(3, "fd");
-            pstmt.setString(4, "sdf");
-            pstmt.setString(5, "101010");
-            pstmt.setString(6, "2");
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
 
     public static void main(String[] args) {
 

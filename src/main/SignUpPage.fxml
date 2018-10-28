@@ -12,7 +12,7 @@
         <ColumnConstraints />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -25,19 +25,17 @@
     </rowConstraints>
     <children>
         <Label text="User Name:" GridPane.columnIndex="1" />
-        <TextField fx:id="user" prefHeight="65.0" prefWidth="121.0" GridPane.columnIndex="2" />
+        <TextField fx:id="signUpUser" prefHeight="65.0" prefWidth="121.0" GridPane.columnIndex="2" />
         <Label text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="First Name:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label text="Last Name:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Label text="Birthdate:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <Label text="City:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <TextField fx:id="pass" prefHeight="65.0" prefWidth="140.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <TextField fx:id="fName" prefHeight="65.0" prefWidth="140.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <TextField fx:id="lName" prefHeight="65.0" prefWidth="140.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <TextField fx:id="bDate" prefHeight="65.0" prefWidth="161.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-        <TextField fx:id="city" prefHeight="65.0" prefWidth="176.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-        <Button mnemonicParsing="false" onAction="#update" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Button mnemonicParsing="false" onAction="#delete" text="Delete account" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <Button mnemonicParsing="false" onAction="#returnUserPage" text="Back" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+        <TextField fx:id="signUpPass" prefHeight="65.0" prefWidth="140.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <TextField fx:id="signUpFname" prefHeight="65.0" prefWidth="140.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <TextField fx:id="signUpLname" prefHeight="65.0" prefWidth="140.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="signUpBdate" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField fx:id="signUpCity" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+        <Button mnemonicParsing="false" onAction="#getMeIn" text="get me in!" GridPane.columnIndex="2" GridPane.rowIndex="6" />
     </children>
 </GridPane>

@@ -51,4 +51,8 @@ public class Controller {
                     model.getDetails("birthDate", user), model.getDetails("city", user));
         } catch (Exception e){}
     }
+
+    public int signUp(String user, String password, String fName, String lName, String bDate, String city){
+        return model.signUp(user, password,fName,lName,bDate,city);
+    }
 }
