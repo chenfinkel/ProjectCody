@@ -7,6 +7,7 @@
     <groupId>groupId</groupId>
     <artifactId>ProjectCody</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
         <dependency>
@@ -16,4 +17,5 @@
         </dependency>
     </dependencies>
 
+    
 </project>
