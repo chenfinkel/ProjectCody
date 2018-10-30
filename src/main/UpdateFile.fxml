@@ -46,25 +46,7 @@
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="388.0" layoutY="36.0" prefHeight="22.0" prefWidth="46.0" text="Day:" textFill="#0c3278">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="388.0" layoutY="81.0" prefHeight="22.0" prefWidth="66.0" text="Month:" textFill="#0c3278">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="12.0" />
-         </font>
-      </Label>
       <DatePicker fx:id="bDate" layoutX="36.0" layoutY="190.0" minHeight="0.0" prefHeight="20.0" />
-      <Label layoutX="379.0" layoutY="134.0" prefHeight="22.0" prefWidth="66.0" text="Year:" textFill="#0c3278">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="day" layoutX="383.0" layoutY="58.0" minHeight="0.0" prefHeight="20.0" prefWidth="57.0" />
-      <TextField fx:id="month" layoutX="383.0" layoutY="104.0" minHeight="0.0" prefHeight="20.0" prefWidth="57.0" />
-      <TextField fx:id="year" layoutX="383.0" layoutY="159.0" minHeight="0.0" prefHeight="20.0" prefWidth="57.0" />
       <TextField fx:id="city" layoutX="36.0" layoutY="232.0" minHeight="0.0" prefHeight="20.0" prefWidth="123.0" />
       <TextField fx:id="fName" layoutX="36.0" layoutY="146.0" minHeight="0.0" prefHeight="20.0" prefWidth="123.0" />
       <TextField fx:id="lName" layoutX="184.0" layoutY="147.0" minHeight="0.0" prefHeight="20.0" prefWidth="123.0" />
