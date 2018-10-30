@@ -18,15 +18,11 @@ public class Main extends Application {
         viewControl.setPrimStage(primaryStage);
         primaryStage.setTitle("Vacation4U");
         Scene scene = new Scene(root, 1000, 650);
-        //scene.getStylesheets().add(getClass().getResource("ViewStyle.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    /**
-     * Connect to a sample database
-     *
-     */
+
     public static void createNewDatabase() {
 
         String url = "jdbc:sqlite:users.db";
@@ -34,8 +30,6 @@ public class Main extends Application {
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
             }
 
         } catch (SQLException e) {
@@ -62,7 +56,6 @@ public class Main extends Application {
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            System.out.println("table created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

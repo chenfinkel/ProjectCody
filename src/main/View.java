@@ -16,6 +16,7 @@ public class View {
 
     private Controller control;
     private Stage primStage;
+    private Stage updateStage;
 
     public View(){
         control=new Controller();
@@ -74,21 +75,27 @@ public class View {
 
     public void signIn(){
         control.login(userName.getText(),password.getText());
+        userName.clear();
+        password.clear();
+    }
+
+    public void setUpdateStage(Stage s) {
+        updateStage = s;
     }
 
     public void goToProfile(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UpdateFile.fxml"));
         try {
             Parent root1 = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
+            Stage updateStage = new Stage();
+            updateStage.setScene(new Scene(root1));
             View viewControl = fxmlLoader.getController();
             viewControl.setController(control);
+            viewControl.setUpdateStage(updateStage);
             viewControl.setText();
-            stage.setTitle("Profile");
-            stage.show();
-        }catch (Exception e) {
-        }
+            updateStage.setTitle("Settings");
+            updateStage.show();
+        }catch (Exception e) { }
     }
 
     public void login() throws Exception{
@@ -96,8 +103,9 @@ public class View {
         FXMLLoader fxmlLoader=new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
-        viewControl.setPrimStage(primStage);
+        viewControl.setPrimStage(window);
         viewControl.setController(control);
+        control.setView(viewControl);
         viewControl.currentUser.setText(control.getCurrentUser());
     }
 
@@ -134,15 +142,6 @@ public class View {
         al.show();
     }
 
-    public void settings()throws Exception{
-        Stage window=primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UpdateFile.fxml").openStream()), 1000, 650));
-        View viewControl = fxmlLoader.getController();
-        viewControl.setPrimStage(primStage);
-        viewControl.setController(control);
-        viewControl.setText();
-    }
 
     public void setText(){
         user.setText(control.getDetails("userName"));
@@ -169,7 +168,7 @@ public class View {
         if (result.get() == ButtonType.OK){
 
             control.delete();
-
+            updateStage.close();
         }
         else {
             al.close();
@@ -181,26 +180,20 @@ public class View {
         FXMLLoader fxmlLoader=new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/View.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
-        viewControl.setPrimStage(primStage);
+        viewControl.setPrimStage(window);
         viewControl.setController(control);
+        control.setView(viewControl);
     }
 
-    public void returnUserPage() throws Exception{
-        Stage window=primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
-        View viewControl = fxmlLoader.getController();
-        viewControl.setPrimStage(primStage);
-        viewControl.setController(control);
-    }
 
     public void search(){
         control.search(searchText.getText());
+        searchText.clear();
     }
 
     public void showSearch(String user, String fName, String lName, String bDate, String city) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/Search.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));
         View viewControl = fxmlLoader.getController();

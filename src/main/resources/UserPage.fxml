@@ -40,7 +40,7 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="Profile" layoutX="865.0" layoutY="18.0" onMouseClicked="#goToProfile" text="Profile" textFill="#3fe15d">
+      <Label fx:id="Profile" layoutX="855.0" layoutY="18.0" onMouseClicked="#goToProfile" text="Settings" textFill="#3fe15d">
          <font>
             <Font name="Arial" size="15.0" />
          </font>

@@ -27,19 +27,21 @@ public class Model extends Observable implements IModel {
 
         String url= "jdbc:sqlite:users.db";
 
-        String sql = "UPDATE users SET password = ? , "+"firstName = ? , "+"lastName = ? , "+"birthDate = ? , "+"city = ?"
+        String sql = "UPDATE users SET userName = ? , "+"password = ? , "+"firstName = ? , "+"lastName = ? , "+"birthDate = ? , "+"city = ?"
                 + " WHERE userName = ?";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, password);
-            pstmt.setString(2, fName);
-            pstmt.setString(3, lName);
-            pstmt.setString(4, day+"/"+month+"/"+year);
-            pstmt.setString(5, city);
-            pstmt.setString(6, user);
+            pstmt.setString(1, user);
+            pstmt.setString(2, password);
+            pstmt.setString(3, fName);
+            pstmt.setString(4, lName);
+            pstmt.setString(5, day+"/"+month+"/"+year);
+            pstmt.setString(6, city);
+            pstmt.setString(7, currentUser);
+            currentUser=user;
             // update
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -76,7 +78,6 @@ public class Model extends Observable implements IModel {
         String sql="SELECT "+label+" FROM users WHERE userName = ?";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt  = conn.prepareStatement(sql)) {
-            // create a new table
             pstmt.setString(1,user);
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {

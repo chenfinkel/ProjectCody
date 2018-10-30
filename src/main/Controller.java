@@ -2,7 +2,6 @@ package main;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Calendar;
 
 public class Controller {
 
@@ -63,7 +62,6 @@ public class Controller {
     public void delete(){
         model.delete();
         try {
-
             view.returnMain();
         }catch(Exception e){
             System.out.println(e.getMessage());
