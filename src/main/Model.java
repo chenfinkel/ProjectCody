@@ -22,6 +22,7 @@ public class Model extends Observable implements IModel {
     public String getCurrentUser(){
         return currentUser;
     }
+
     public void update(String user, String password, String fName, String lName, String day, String month, String year, String city){
 
         String url= "jdbc:sqlite:users.db";
@@ -53,7 +54,6 @@ public class Model extends Observable implements IModel {
         String sql="SELECT password FROM users WHERE userName = ?";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt  = conn.prepareStatement(sql)) {
-            // create a new table
             pstmt.setString(1,userName);
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
@@ -103,7 +103,7 @@ public class Model extends Observable implements IModel {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        isLogin=false;
+        logOff();
     }
 
     public void signUp(String user, String password, String fName, String lName, String bDate, String city){
@@ -125,6 +125,9 @@ public class Model extends Observable implements IModel {
     }
 
     public boolean UsernameExist(String user){
+
+        if(user.equals(currentUser))
+            return false;
         String url = "jdbc:sqlite:users.db";
 
         String oldUser="";

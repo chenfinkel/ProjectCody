@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class View {
@@ -41,12 +43,6 @@ public class View {
     @FXML
     private javafx.scene.control.TextField lName;
     @FXML
-    private javafx.scene.control.TextField day;
-    @FXML
-    private javafx.scene.control.TextField month;
-    @FXML
-    private javafx.scene.control.TextField year;
-    @FXML
     private javafx.scene.control.TextField city;
     @FXML
     private javafx.scene.control.TextField searchText;
@@ -76,13 +72,6 @@ public class View {
     private javafx.scene.control.DatePicker bDate;
 
 
-
-    public void guest(){
-        Alert al=new Alert(Alert.AlertType.INFORMATION);
-        al.setContentText("Currently unavailable");
-        al.show();
-    }
-
     public void signIn(){
         control.login(userName.getText(),password.getText());
     }
@@ -90,7 +79,7 @@ public class View {
     public void goToProfile(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UpdateFile.fxml"));
         try {
-            Parent root1 = (Parent) fxmlLoader.load();
+            Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             View viewControl = fxmlLoader.getController();
@@ -99,14 +88,13 @@ public class View {
             stage.setTitle("Profile");
             stage.show();
         }catch (Exception e) {
-
         }
     }
 
     public void login() throws Exception{
         Stage window=primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene((Parent) fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primStage);
         viewControl.setController(control);
@@ -127,10 +115,17 @@ public class View {
     }
 
     public void getMeIn(){
-        Alert al = new Alert(Alert.AlertType.INFORMATION);
         control.signUp(signUpUser.getText(),signUpPass.getText(),
                 signUpFname.getText(),signUpLname.getText(),signUpBdate.getValue(),signUpCity.getText());
+    }
 
+    public void clear(){
+        signUpUser.clear();
+        signUpPass.clear();
+        signUpFname.clear();
+        signUpLname.clear();
+        signUpBdate.getEditor().clear();
+        signUpCity.clear();
     }
 
     public void alert(String alertMessage) {
@@ -142,7 +137,7 @@ public class View {
     public void settings()throws Exception{
         Stage window=primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene((Parent) fxmlLoader.load(getClass().getResource("resources/UpdateFile.fxml").openStream()), 1000, 650));
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UpdateFile.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primStage);
         viewControl.setController(control);
@@ -154,7 +149,10 @@ public class View {
         UpdatePass.setText(control.getDetails("password"));
         fName.setText(control.getDetails("firstName"));
         lName.setText(control.getDetails("lastName"));
-        bDate.setPromptText(control.getDetails("birthDate"));
+        String date=control.getDetails("birthDate");
+        DateTimeFormatter form= DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate ldate = LocalDate.parse(date,form);
+        bDate.setValue(ldate);
         city.setText(control.getDetails("city"));
     }
 
@@ -169,6 +167,7 @@ public class View {
         Optional<ButtonType> result = al.showAndWait();
 
         if (result.get() == ButtonType.OK){
+
             control.delete();
 
         }

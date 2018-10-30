@@ -52,7 +52,7 @@ public class Controller {
 
     public void update(String user, String password, String fName, String lName, LocalDate bDate, String city){
         if (valid(user, password, fName, lName, bDate, city)) {
-            String day = bDate.getDayOfMonth() + "";
+            String day = bDate.getDayOfMonth()+"";
             String month = bDate.getMonthValue() + "";
             String year = bDate.getYear() + "";
             model.update(user, password, fName, lName, day, month, year, city);
@@ -63,6 +63,7 @@ public class Controller {
     public void delete(){
         model.delete();
         try {
+
             view.returnMain();
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -89,6 +90,7 @@ public class Controller {
                 String month = bDate.getMonthValue() + "";
                 String year = bDate.getYear() + "";
                 model.signUp(user, password, fName, lName, day + "/" + month + "/" + year, city);
+                view.clear();
                 view.alert("You successfully signed up. You can now login");
         }
     }
