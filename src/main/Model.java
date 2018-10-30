@@ -14,8 +14,15 @@ public class Model extends Observable implements IModel {
         isLogin=false;
     }
 
+    public void logOff(){
+        isLogin = false;
+        currentUser = "";
+    }
 
-    public void update(String password, String fName, String lName, String bDate, String city){
+    public String getCurrentUser(){
+        return currentUser;
+    }
+    public void update(String user, String password, String fName, String lName, String day, String month, String year, String city){
 
         String url= "jdbc:sqlite:users.db";
 
@@ -29,9 +36,9 @@ public class Model extends Observable implements IModel {
             pstmt.setString(1, password);
             pstmt.setString(2, fName);
             pstmt.setString(3, lName);
-            pstmt.setString(4, bDate);
+            pstmt.setString(4, day+"/"+month+"/"+year);
             pstmt.setString(5, city);
-            pstmt.setString(6, currentUser);
+            pstmt.setString(6, user);
             // update
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -62,8 +69,9 @@ public class Model extends Observable implements IModel {
     }
 
     public String getDetails(String label, String user){
-        if(user=="")
-            user=currentUser;
+        String ans = "";
+        if (user.equals(""))
+            user = currentUser;
         String url="jdbc:sqlite:users.db";
         String sql="SELECT "+label+" FROM users WHERE userName = ?";
         try (Connection conn = DriverManager.getConnection(url);
@@ -72,8 +80,9 @@ public class Model extends Observable implements IModel {
             pstmt.setString(1,user);
             ResultSet rs  = pstmt.executeQuery();
             while (rs.next()) {
-                return rs.getString(label);
+                ans = rs.getString(label);
             }
+            return ans;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -97,24 +106,9 @@ public class Model extends Observable implements IModel {
         isLogin=false;
     }
 
-    public int signUp(String user, String password, String fName, String lName, String bDate, String city){
-        String url = "jdbc:sqlite:users.db";
-
-        String oldUser="";
-        String checkUser="SELECT userName FROM users WHERE userName = ?";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement pstmt1 = conn.prepareStatement(checkUser)) {
-            pstmt1.setString(1,user);
-            ResultSet rs  = pstmt1.executeQuery();
-            while (rs.next()) {
-                oldUser= rs.getString("userName");
-            }
-        } catch (Exception e){}
-
-        if(oldUser=="") {
+    public void signUp(String user, String password, String fName, String lName, String bDate, String city){
             String sql1 = "INSERT INTO users(userName,password,firstName,lastName,birthDate,city) VALUES(?,?,?,?,?,?)";
-
+            String url = "jdbc:sqlite:users.db";
             try (Connection conn = DriverManager.getConnection(url);
                  PreparedStatement pstmt = conn.prepareStatement(sql1)) {
                 pstmt.setString(1, user);
@@ -128,9 +122,24 @@ public class Model extends Observable implements IModel {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            return 0;
-        }
-        else
-            return 1;
+    }
+
+    public boolean UsernameExist(String user){
+        String url = "jdbc:sqlite:users.db";
+
+        String oldUser="";
+        String checkUser="SELECT userName FROM users WHERE userName = ?";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(checkUser)) {
+            pstmt1.setString(1,user);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                oldUser= rs.getString("userName");
+            }
+        } catch (Exception e){}
+        if (oldUser.equals(""))
+            return false;
+        return true;
     }
 }

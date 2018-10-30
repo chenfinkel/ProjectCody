@@ -1,10 +1,15 @@
 package main;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -34,29 +39,21 @@ public class View {
     @FXML
     private javafx.scene.control.TextField user;
     @FXML
-    private javafx.scene.control.TextField pass;
+    private javafx.scene.control.PasswordField UpdatePass;
     @FXML
     private javafx.scene.control.TextField fName;
     @FXML
     private javafx.scene.control.TextField lName;
     @FXML
-    private javafx.scene.control.TextField bDate;
+    private javafx.scene.control.TextField day;
+    @FXML
+    private javafx.scene.control.TextField month;
+    @FXML
+    private javafx.scene.control.TextField year;
     @FXML
     private javafx.scene.control.TextField city;
     @FXML
     private javafx.scene.control.TextField searchText;
-    @FXML
-    private javafx.scene.control.TextField searchUser;
-    @FXML
-    private javafx.scene.control.TextField searchPass;
-    @FXML
-    private javafx.scene.control.TextField searchfName;
-    @FXML
-    private javafx.scene.control.TextField searchlName;
-    @FXML
-    private javafx.scene.control.TextField searchbDate;
-    @FXML
-    private javafx.scene.control.TextField searchCity;
     @FXML
     private javafx.scene.control.TextField signUpUser;
     @FXML
@@ -66,9 +63,22 @@ public class View {
     @FXML
     private javafx.scene.control.TextField signUpLname;
     @FXML
-    private javafx.scene.control.TextField signUpBdate;
+    private javafx.scene.control.DatePicker signUpBdate;
     @FXML
     private javafx.scene.control.TextField signUpCity;
+    @FXML
+    private javafx.scene.control.Label SearchUsername;
+    @FXML
+    private javafx.scene.control.Label SearchFullName;
+    @FXML
+    private javafx.scene.control.Label SearchBdate;
+    @FXML
+    private javafx.scene.control.Label SearchCity;
+    @FXML
+    private javafx.scene.control.Label currentUser;
+    @FXML
+    private javafx.scene.control.DatePicker bDate;
+
 
 
     public void guest(){
@@ -81,53 +91,62 @@ public class View {
         control.login(userName.getText(),password.getText());
     }
 
+    public void goToProfile(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateFile.fxml"));
+        try {
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            View viewControl = fxmlLoader.getController();
+            viewControl.setController(control);
+            viewControl.setText();
+            stage.setTitle("Profile");
+            stage.show();
+        }catch (Exception e) {
+
+        }
+    }
+
     public void login() throws Exception{
         Stage window=primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("UserPage.fxml").openStream()), 400, 300));
+        window.setScene(new Scene((Parent) fxmlLoader.load(getClass().getResource("UserPage.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primStage);
         viewControl.setController(control);
+        viewControl.currentUser.setText(control.getCurrentUser());
     }
 
 
-    public void incorrect(){
+    public void incorrectLogin(){
         Alert al=new Alert(Alert.AlertType.INFORMATION);
-        al.setContentText("user name or password are incorrect");
+        al.setContentText("Username or password are incorrect");
         al.show();
     }
 
-    public void signUp() throws Exception{
-        Stage window=primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("SignUpPage.fxml").openStream()), 400, 300));
-        View viewControl = fxmlLoader.getController();
-        viewControl.setPrimStage(primStage);
-        viewControl.setController(control);
+    public void notFound(){
+        Alert al=new Alert(Alert.AlertType.INFORMATION);
+        al.setContentText("Username not found");
+        al.show();
     }
 
     public void getMeIn(){
-        int isUser;
-        isUser=control.signUp(signUpUser.getText(),signUpPass.getText(),
-                signUpFname.getText(),signUpLname.getText(),signUpBdate.getText(),signUpCity.getText());
-        if(isUser==1){
-            Alert al=new Alert(Alert.AlertType.INFORMATION);
-            al.setContentText("user name taken");
-            al.show();
-        }
-        else{
-            Alert al=new Alert(Alert.AlertType.INFORMATION);
-            al.setContentText("You are now logged in");
-            al.show();
-            try{ returnUserPage();}
-            catch (Exception e){}
-        }
+        Alert al = new Alert(Alert.AlertType.INFORMATION);
+        control.signUp(signUpUser.getText(),signUpPass.getText(),
+                signUpFname.getText(),signUpLname.getText(),signUpBdate.getValue(),signUpCity.getText());
+
+    }
+
+    public void alert(String alertMessage) {
+        Alert al = new Alert(Alert.AlertType.INFORMATION);
+        al.setContentText(alertMessage);
+        al.show();
     }
 
     public void settings()throws Exception{
         Stage window=primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("UpdateFile.fxml").openStream()), 400, 300));
+        window.setScene(new Scene((Parent) fxmlLoader.load(getClass().getResource("UpdateFile.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primStage);
         viewControl.setController(control);
@@ -136,19 +155,16 @@ public class View {
 
     public void setText(){
         user.setText(control.getDetails("userName"));
-        pass.setText(control.getDetails("password"));
+        UpdatePass.setText(control.getDetails("password"));
         fName.setText(control.getDetails("firstName"));
         lName.setText(control.getDetails("lastName"));
-        bDate.setText(control.getDetails("birthDate"));
+        bDate.setPromptText(control.getDetails("birthDate"));
         city.setText(control.getDetails("city"));
     }
 
     public void update(){
-        control.update(pass.getText(),fName.getText(),lName.getText(),bDate.getText(),city.getText());
+        control.update(user.getText(), UpdatePass.getText(),fName.getText(),lName.getText(),bDate.getValue(),city.getText());
         setText();
-        Alert al=new Alert(Alert.AlertType.INFORMATION);
-        al.setContentText("Your account has been updated");
-        al.show();
     }
 
     public void delete(){
@@ -168,7 +184,7 @@ public class View {
     public void returnMain() throws Exception{
         Stage window=primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("View.fxml").openStream()), 400, 300));
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("View.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primStage);
         viewControl.setController(control);
@@ -177,7 +193,7 @@ public class View {
     public void returnUserPage() throws Exception{
         Stage window=primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("UserPage.fxml").openStream()), 400, 300));
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("UserPage.fxml").openStream()), 1000, 650));
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primStage);
         viewControl.setController(control);
@@ -188,20 +204,25 @@ public class View {
     }
 
     public void showSearch(String user, String fName, String lName, String bDate, String city) throws Exception{
-        Stage window=primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("Search.fxml").openStream()), 400, 300));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Search.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
         View viewControl = fxmlLoader.getController();
-        viewControl.setPrimStage(primStage);
         viewControl.setController(control);
         viewControl.setSearchText(user,fName,lName,bDate,city);
+        stage.setTitle("Search Result");
+        stage.show();
     }
 
     public void setSearchText(String user, String fName, String lName, String bDate, String city){
-        searchUser.setText(user);
-        searchfName.setText(fName);
-        searchlName.setText(lName);
-        searchbDate.setText(bDate);
-        searchCity.setText(city);
+        SearchUsername.setText(user);
+        SearchFullName.setText(fName + " " + lName);
+        SearchBdate.setText(bDate);
+        SearchCity.setText(city);
+    }
+
+    public void LogOff(){
+        control.logOff();
     }
 }
