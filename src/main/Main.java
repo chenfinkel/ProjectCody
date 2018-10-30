@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader=new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("View.fxml").openStream());
+        Parent root = fxmlLoader.load(getClass().getResource("resources/View.fxml").openStream());
         View viewControl = fxmlLoader.getController();
         viewControl.setPrimStage(primaryStage);
         primaryStage.setTitle("Vacation4U");
