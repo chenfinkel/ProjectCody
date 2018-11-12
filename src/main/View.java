@@ -84,7 +84,7 @@ public class View {
     }
 
     public void goToProfile(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UpdateFile.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/tmpsearch.fxml")); // CHANGE TO "UpdateFile" !!!!!!!!!!
         try {
             Parent root1 = fxmlLoader.load();
             Stage updateStage = new Stage();
