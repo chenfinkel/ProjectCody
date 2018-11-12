@@ -84,7 +84,7 @@ public class View {
     }
 
     public void goToProfile(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/tmpsearch.fxml")); // CHANGE TO "UpdateFile" !!!!!!!!!!
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UpdateFile.fxml"));
         try {
             Parent root1 = fxmlLoader.load();
             Stage updateStage = new Stage();
@@ -95,7 +95,9 @@ public class View {
             viewControl.setText();
             updateStage.setTitle("Settings");
             updateStage.show();
-        }catch (Exception e) { }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void login() throws Exception{
