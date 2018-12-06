@@ -1,4 +1,4 @@
-package main;
+package View;
 
 public interface IView {
 }

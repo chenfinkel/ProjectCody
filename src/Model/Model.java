@@ -1,4 +1,4 @@
-package main;
+package Model;
 
 import java.sql.*;
 import java.util.Observable;

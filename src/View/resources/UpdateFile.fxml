@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="313.0" prefWidth="470.0" style="-fx-background-image: url('woman.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.View">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="313.0" prefWidth="470.0" style="-fx-background-image: url('woman.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff92" height="286.0" layoutX="12.0" layoutY="12.0" stroke="WHITE" strokeType="INSIDE" width="337.0" />
       <TextField fx:id="user" layoutX="33.0" layoutY="51.0" minHeight="0.0" prefHeight="25.0" prefWidth="123.0" />

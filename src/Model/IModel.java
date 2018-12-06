@@ -1,4 +1,4 @@
-package main;
+package Model;
 
 public interface IModel {
 }

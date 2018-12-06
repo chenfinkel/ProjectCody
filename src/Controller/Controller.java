@@ -1,4 +1,7 @@
-package main;
+package Controller;
+
+import Model.Model;
+import View.View;
 
 import java.time.LocalDate;
 import java.time.Period;
