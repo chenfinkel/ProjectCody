@@ -13,7 +13,6 @@ public class Controller {
 
     public Controller(){
         model=new Model();
-
     }
 
     public String getCurrentUser(){
@@ -24,25 +23,16 @@ public class Controller {
         view=v;
     }
 
-    public void login(String userName, String password){
-        if (!userName.equals("") && !password.equals("")) {
+    public boolean login(String userName, String password){
+        if (!userName.equals("") && !password.equals(""))
             model.login(userName, password);
-            if (model.isLogin()) {
-                try {
-                    view.login();
-
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            } else
-                view.incorrectLogin();
-        }
+        return model.isLogin();
     }
 
     public void logOff(){
         model.logOff();
         try {
-            view.returnMain();
+            view.returnLoginPage();
         } catch (Exception e){
 
         }
@@ -65,7 +55,7 @@ public class Controller {
     public void delete(){
         model.delete();
         try {
-            view.returnMain();
+            view.returnLoginPage();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -91,7 +81,7 @@ public class Controller {
                 String month = bDate.getMonthValue() + "";
                 String year = bDate.getYear() + "";
                 model.signUp(user, password, fName, lName, day + "/" + month + "/" + year, city);
-                view.clear();
+                //view.clear();
                 view.alert("You successfully signed up. You can now login");
         }
     }
@@ -111,4 +101,5 @@ public class Controller {
         }
         return true;
     }
+
 }

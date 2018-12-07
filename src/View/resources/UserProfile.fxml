@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="313.0" prefWidth="470.0" style="-fx-background-image: url('woman.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.View">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="313.0" prefWidth="470.0" style="-fx-background-image: url('woman.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UserProfileView">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff92" height="249.0" layoutX="24.0" layoutY="24.0" stroke="WHITE" strokeType="INSIDE" width="242.0" />
       <Label fx:id="SearchUsername" contentDisplay="CENTER" layoutX="37.0" layoutY="24.0" prefHeight="63.0" prefWidth="216.0" textAlignment="CENTER" textFill="#ab5a5a">
