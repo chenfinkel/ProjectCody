@@ -28,7 +28,7 @@
                 <Font name="Arial Rounded MT Bold" size="20.0" />
             </font>
         </Label>
-        <Button layoutX="617.0" layoutY="192.0" mnemonicParsing="false" onAction="#search" text="Find" />
+        <Button layoutX="617.0" layoutY="192.0" mnemonicParsing="false" text="Find" />
         <TextField fx:id="searchText" layoutX="450.0" layoutY="192.0" opacity="0.75" prefHeight="25.0" prefWidth="139.0" promptText="Enter username" />
       <Label layoutX="605.0" layoutY="18.0" text="You are logged in as" textFill="#d7d6d6">
          <font>

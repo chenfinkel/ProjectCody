@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Observable;
 
 
@@ -25,7 +26,7 @@ public class Model extends Observable implements IModel {
 
     public void update(String user, String password, String fName, String lName, String day, String month, String year, String city){
 
-        String url= "jdbc:sqlite:users.db";
+        String url= "jdbc:sqlite:Vacation4U.db";
 
         String sql = "UPDATE users SET userName = ? , "+"password = ? , "+"firstName = ? , "+"lastName = ? , "+"birthDate = ? , "+"city = ?"
                 + " WHERE userName = ?";
@@ -52,7 +53,7 @@ public class Model extends Observable implements IModel {
 
     public void login(String userName, String  password){
         isLogin=false;
-        String url="jdbc:sqlite:users.db";
+        String url="jdbc:sqlite:Vacation4U.db";
         String sql="SELECT password FROM users WHERE userName = ?";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt  = conn.prepareStatement(sql)) {
@@ -74,7 +75,7 @@ public class Model extends Observable implements IModel {
         String ans = "";
         if (user.equals(""))
             user = currentUser;
-        String url="jdbc:sqlite:users.db";
+        String url="jdbc:sqlite:Vacation4U.db";
         String sql="SELECT "+label+" FROM users WHERE userName = ?";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt  = conn.prepareStatement(sql)) {
@@ -95,7 +96,7 @@ public class Model extends Observable implements IModel {
     }
 
     public void delete(){
-        String url="jdbc:sqlite:users.db";
+        String url="jdbc:sqlite:Vacation4U.db";
         String sql="DELETE FROM users WHERE userName = ?";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt  = conn.prepareStatement(sql)) {
@@ -109,7 +110,7 @@ public class Model extends Observable implements IModel {
 
     public void signUp(String user, String password, String fName, String lName, String bDate, String city){
             String sql1 = "INSERT INTO users(userName,password,firstName,lastName,birthDate,city) VALUES(?,?,?,?,?,?)";
-            String url = "jdbc:sqlite:users.db";
+            String url = "jdbc:sqlite:Vacation4U.db";
             try (Connection conn = DriverManager.getConnection(url);
                  PreparedStatement pstmt = conn.prepareStatement(sql1)) {
                 pstmt.setString(1, user);
@@ -129,7 +130,7 @@ public class Model extends Observable implements IModel {
 
         if(user.equals(currentUser))
             return false;
-        String url = "jdbc:sqlite:users.db";
+        String url = "jdbc:sqlite:Vacation4U.db";
 
         String oldUser="";
         String checkUser="SELECT userName FROM users WHERE userName = ?";
@@ -145,5 +146,9 @@ public class Model extends Observable implements IModel {
         if (oldUser.equals(""))
             return false;
         return true;
+    }
+
+    public void searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelers) {
+
     }
 }

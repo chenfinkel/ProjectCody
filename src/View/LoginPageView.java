@@ -51,7 +51,7 @@ public class LoginPageView {
         else{
             try{
                 view.login();
-            }catch (Exception e){}
+            }catch (Exception e){System.out.println(e.getMessage());}
         }
     }
 
@@ -64,6 +64,7 @@ public class LoginPageView {
     public void SignUp(){
         view.signUp(signUpUser.getText(),signUpPass.getText(),
                 signUpFname.getText(),signUpLname.getText(),signUpBdate.getValue(),signUpCity.getText());
+        clear();
     }
 
     public void clear(){

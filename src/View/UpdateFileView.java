@@ -47,14 +47,11 @@ public class UpdateFileView {
         setText();
     }
 
-
     public void delete(){
         Alert al=new Alert(Alert.AlertType.CONFIRMATION);
         al.setContentText("Are you sure you want to delete your account?");
         Optional<ButtonType> result = al.showAndWait();
-
         if (result.get() == ButtonType.OK){
-
             view.delete();
         }
         else {

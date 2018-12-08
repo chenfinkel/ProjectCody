@@ -13,13 +13,16 @@ public class View {
 
     private Controller control;
 
+    private Stage updateStage;
+
     public View(){
         control=new Controller();
         control.setView(this);
+        updateStage=new Stage();
     }
 
     public void searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelers){
-
+        control.searchVac(from, to, depart, returnDate, travelers);
     }
 
     public boolean login(String userName, String password) {
@@ -27,42 +30,22 @@ public class View {
     }
 
     public void login() throws Exception{
-        /*
-        //Stage window=Main.primStage;
+        Stage window=Main.primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
-        (Main.primStage).setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
         UserPageView viewControl = fxmlLoader.getController();
-        //viewControl.setPrimStage(window);
         viewControl.setView(this);
         viewControl.setUserName();
-        (Main.primStage).show();
-        */
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UserPage.fxml"));
-        try {
-            Parent root1 = fxmlLoader.load();
-            Stage updateStage = new Stage();
-            updateStage.setScene(new Scene(root1));
-            UserPageView viewControl = fxmlLoader.getController();
-            viewControl.setView(this);
-            //viewControl.setUpdateStage(updateStage);
-            viewControl.setUserName();
-            updateStage.setTitle("Settings");
-            updateStage.show();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        window.show();
     }
-
 
     public void goToProfile(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UpdateFile.fxml"));
         try {
             Parent root1 = fxmlLoader.load();
-            Stage updateStage = new Stage();
             updateStage.setScene(new Scene(root1));
             UpdateFileView viewControl = fxmlLoader.getController();
             viewControl.setView(this);
-            //viewControl.setUpdateStage(updateStage);
             viewControl.setText();
             updateStage.setTitle("Settings");
             updateStage.show();
@@ -76,7 +59,6 @@ public class View {
         FXMLLoader fxmlLoader=new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/LoginPage.fxml").openStream()), 1000, 650));
         LoginPageView viewControl = fxmlLoader.getController();
-        //viewControl.setPrimStage(window);
         viewControl.setView(this);
         window.show();
     }
@@ -93,15 +75,13 @@ public class View {
         stage.show();
     }
 
-
-
     public void signUp(String userName, String password, String fName, String lName, LocalDate bDate, String city) {
         control.signUp(userName,password,  fName, lName, bDate, city);
     }
 
     public void delete() {
         control.delete();
-        //updateStage.close();
+        updateStage.close();
     }
 
     public String getDetails(String s) {
@@ -135,4 +115,5 @@ public class View {
     public String getCurrentUser() {
         return control.getCurrentUser();
     }
+
 }

@@ -81,7 +81,6 @@ public class Controller {
                 String month = bDate.getMonthValue() + "";
                 String year = bDate.getYear() + "";
                 model.signUp(user, password, fName, lName, day + "/" + month + "/" + year, city);
-                //view.clear();
                 view.alert("You successfully signed up. You can now login");
         }
     }
@@ -102,4 +101,7 @@ public class Controller {
         return true;
     }
 
+    public void searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelers) {
+        model.searchVac(from, to, depart, returnDate, travelers);
+    }
 }

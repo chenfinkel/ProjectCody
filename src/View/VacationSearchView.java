@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -35,7 +36,8 @@ public class VacationSearchView {
         List<Integer> num=new LinkedList<>();
         for(int i=1; i<11; i++)
             num.add(i);
-        travelers.setItems((ObservableList<Integer>) num);
+        travelers=new ComboBox<>();
+        travelers.setItems(FXCollections.observableList(num));
     }
 
     public void searchVac(){
@@ -46,6 +48,12 @@ public class VacationSearchView {
             returnDate.getEditor().clear();
         }
         view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),travelers.getEditor().getText());
+    }
+
+    public void goToLogin(){
+        try {
+            view.returnLoginPage();
+        }catch(Exception e){}
     }
 
     public void searchUser(){

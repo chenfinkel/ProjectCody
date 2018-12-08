@@ -15,6 +15,6 @@
       <ComboBox fx:id="travelers" layoutX="566.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Travelers:" />
       <Button layoutX="615.0" layoutY="193.0" mnemonicParsing="false" onAction="#searchVac" prefHeight="32.0" prefWidth="60.0" text="Search" />
       <Button layoutX="480.0" layoutY="193.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />
-      <Button layoutX="589.0" layoutY="56.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="Sign In/Sign Up" />
+      <Button layoutX="589.0" layoutY="56.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="32.0" prefWidth="112.0" text="Sign In/Sign Up" />
    </children>
 </Pane>
