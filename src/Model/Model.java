@@ -122,7 +122,7 @@ public class Model extends Observable implements IModel {
                 pstmt.setString(5, bDate);
                 pstmt.setString(6, city);
                 pstmt.executeUpdate();
-                currentUser=user;
+                //currentUser=user;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -240,5 +240,32 @@ public class Model extends Observable implements IModel {
             }
         } catch (Exception e){}
         return list;
+    }
+
+    public void addVacation( String userName, String from, String to, String departDate, String returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
+        String sql1 = "INSERT INTO vacation(userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String url = "jdbc:sqlite:Vacation4U.db";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql1)) {
+            //pstmt.setString(1, vacID+"");
+            pstmt.setString(1, userName);
+            pstmt.setString(2, airline);
+            pstmt.setString(3, from);
+            pstmt.setString(4, to);
+            pstmt.setString(5, departDate);
+            pstmt.setString(6, returnDate);
+            pstmt.setString(7, travelersA);
+            pstmt.setString(8, travelersC);
+            pstmt.setString(9, travelersB);
+            pstmt.setString(10, isDirect+"");
+            pstmt.setString(11, price);
+            pstmt.setString(12, baggage);
+            pstmt.setString(13, type);
+            pstmt.setString(14, hotelName);
+            pstmt.setString(15, hotelRank);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

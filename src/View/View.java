@@ -115,13 +115,13 @@ public class View {
         return control.getCurrentUser();
     }
 
-    public void goToSearch(String currentUser) throws Exception{
+    public void goToSearch() throws Exception{
         Stage window=Main.primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream()), 1000, 650));
         VacationSearchView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
-        viewControl.setCurrentUser(currentUser);
+        viewControl.setCurrentUser(getCurrentUser());
         viewControl.setLoginButton();
         window.show();
     }
@@ -129,11 +129,20 @@ public class View {
     public void addVacation() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/AddVacation.fxml"));
         Parent root1 = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
         AddVacationView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
+        viewControl.setCombos();
+        viewControl.setCurrentUser(getCurrentUser());
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
         stage.setTitle("Add Vacation");
         stage.show();
+    }
+
+    public void addVac(String userName, String from, String to, LocalDate departDate, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline,
+                       String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
+        control.addVac(userName, from, to, departDate, returnDate, travelersA, travelersC, travelersB, airline,
+                baggage, isDirect, price, type, hotelName, hotelRank);
+
     }
 }

@@ -25,9 +25,9 @@ public class VacationSearchView {
     @FXML
     private ComboBox<String> adultTravelers;
     @FXML
-    private ComboBox<Integer> childTravelers;
+    private ComboBox<String> childTravelers;
     @FXML
-    private ComboBox<Integer> babyTravelers;
+    private ComboBox<String> babyTravelers;
     @FXML
     private TextField airline;
     @FXML
@@ -51,8 +51,9 @@ public class VacationSearchView {
         for(int i=1; i<11; i++)
             items.add(i+"");
         ObservableList<String> list= FXCollections.observableArrayList(items);
-        adultTravelers=new ComboBox<>(list);
-
+        adultTravelers.setItems(list);
+        childTravelers.setItems(list);
+        babyTravelers.setItems(list);
         baggage.getItems().addAll("None","Trolly","10kg suitcase","20kg suitcase");
     }
 
@@ -60,7 +61,7 @@ public class VacationSearchView {
         view=v;
     }
 
-    public void searchVac(){/*
+    public void searchVac(){
         if(from.getText().equals("") || to.getText().equals("") || departDate.toString().equals("") || adultTravelers.toString().equals("") || childTravelers.toString().equals("")
                 || babyTravelers.toString().equals("") || airline.getText().equals("") || baggage.toString().equals("") || priceFrom.getText().equals("") || priceTo.getText().equals("")){
             view.alert("All fields are required!");
@@ -76,8 +77,7 @@ public class VacationSearchView {
         view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),adultTravelers.getEditor().getText(),
                 childTravelers.getEditor().getText(), babyTravelers.getEditor().getText(), airline.getText(), baggage.getEditor().getText(),
                 isDirect.isSelected(), priceFrom.getText(), priceTo.getText());
-                */
-        System.out.println(returnDate.getEditor().getText());
+
     }
 
     public void goToLogin(){

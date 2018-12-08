@@ -19,6 +19,7 @@ public class Main extends Application {
         Parent root = fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream());
         VacationSearchView viewControl = fxmlLoader.getController();
         viewControl.setView(new View());
+        viewControl.setCombos();
         primaryStage.setTitle("Vacation4U");
         Scene scene = new Scene(root, 1000, 650);
         primaryStage.setScene(scene);
@@ -43,22 +44,21 @@ public class Main extends Application {
         String url = "jdbc:sqlite:Vacation4U.db";
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS vacation (\n"
-                + "id text PRIMARY KEY,\n"
-                + "userName text NOT NULL,\n"
-                + "airline text NOT NULL,\n"
-                + "from text NOT NULL, \n"
+                + "userName text NOT NULL, \n"
+                + "airline text NOT NULL, \n"
+                + "fromC text NOT NULL, \n"
                 + "destination text NOT NULL, \n"
                 + "Depart text NOT NULL, \n"
-                + "Return text NOT NULL, \n"
-                + "travelersA text, \n"
+                + "Return text, \n"
+                + "travelersA text NOT NULL, \n"
                 + "travelersC text, \n"
                 + "travelersB text, \n"
-                + "direct INTEGER, \n"
+                + "direct text, \n"
                 + "price text NOT NULL, \n"
                 + "baggage text, \n"
                 + "type text, \n"
                 + "hotel text, \n"
-                + "hotelRating text, \n"
+                + "hotelRating text \n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);

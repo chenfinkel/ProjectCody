@@ -34,13 +34,13 @@ public class UserPageView {
 
     public void goToSearch(){
         try {
-            view.goToSearch(currentUser.getText());
+            view.goToSearch();
         }catch(Exception e){}
     }
 
     public void addVacation(){
         try {
             view.addVacation();
-        }catch(Exception e){}
+        }catch(Exception e){System.out.println(e.getMessage());}
     }
 }

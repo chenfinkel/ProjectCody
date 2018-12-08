@@ -103,6 +103,27 @@ public class Controller {
 
     public void searchVac(String from,String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
                           String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo) {
-       // model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+       model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+    }
+
+    public void addVac( String userName, String from, String to, LocalDate departDate, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
+        if (Period.between(LocalDate.now(), departDate).isNegative()){
+            view.alert("please enter a depart date starting from today");
+        }
+        else {
+            String departday = departDate.getDayOfMonth() + "";
+            String departmonth = departDate.getMonthValue() + "";
+            String departyear = departDate.getYear() + "";
+            String departDateS = departday + "/" + departmonth + "/" + departyear;
+            String returnDateS = "";
+            if (returnDate != null) {
+                String returnDay = returnDate.getDayOfMonth() + "";
+                String returnMonth = returnDate.getMonthValue() + "";
+                String returnYear = returnDate.getYear() + "";
+                returnDateS = returnDay + "/" + returnMonth + "/" + returnYear;
+            }
+            model.addVacation(userName, from, to, departDateS, returnDateS, travelersA, travelersC, travelersB, airline,
+                    baggage, isDirect, price, type, hotelName, hotelRank);
+        }
     }
 }
