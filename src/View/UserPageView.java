@@ -11,9 +11,9 @@ import java.util.Optional;
 public class UserPageView {
 
     private View view;
-
     @FXML
     private Label currentUser;
+
 
     public void setView(View v){
         view=v;
@@ -30,5 +30,17 @@ public class UserPageView {
 
     public void setUserName(){
         currentUser.setText(view.getCurrentUser());
+    }
+
+    public void goToSearch(){
+        try {
+            view.goToSearch(currentUser.getText());
+        }catch(Exception e){}
+    }
+
+    public void addVacation(){
+        try {
+            view.addVacation();
+        }catch(Exception e){}
     }
 }

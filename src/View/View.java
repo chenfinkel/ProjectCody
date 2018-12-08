@@ -21,8 +21,9 @@ public class View {
         updateStage=new Stage();
     }
 
-    public void searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelers){
-        control.searchVac(from, to, depart, returnDate, travelers);
+    public void searchVac(String from,String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
+                String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo){
+        control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
     }
 
     public boolean login(String userName, String password) {
@@ -49,9 +50,7 @@ public class View {
             viewControl.setText();
             updateStage.setTitle("Settings");
             updateStage.show();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        }catch (Exception e) {e.printStackTrace();}
     }
 
     public void returnLoginPage() throws Exception{
@@ -63,7 +62,7 @@ public class View {
         window.show();
     }
 
-    public void showSearch(String user, String fName, String lName, String bDate, String city) throws Exception{
+    public void showUserSearch(String user, String fName, String lName, String bDate, String city) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UserProfile.fxml"));
         Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
@@ -96,8 +95,8 @@ public class View {
         control.logOff();
     }
 
-    public void search(String text) {
-        control.search(text);
+    public void searchUser(String text) {
+        control.searchUser(text);
     }
 
     public void alert(String alertMessage) {
@@ -116,4 +115,25 @@ public class View {
         return control.getCurrentUser();
     }
 
+    public void goToSearch(String currentUser) throws Exception{
+        Stage window=Main.primStage;
+        FXMLLoader fxmlLoader=new FXMLLoader();
+        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream()), 1000, 650));
+        VacationSearchView viewControl = fxmlLoader.getController();
+        viewControl.setView(this);
+        viewControl.setCurrentUser(currentUser);
+        viewControl.setLoginButton();
+        window.show();
+    }
+
+    public void addVacation() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/AddVacation.fxml"));
+        Parent root1 = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+        AddVacationView viewControl = fxmlLoader.getController();
+        viewControl.setView(this);
+        stage.setTitle("Add Vacation");
+        stage.show();
+    }
 }

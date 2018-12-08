@@ -46,8 +46,11 @@ public class LoginPageView {
 
     public void signIn(){
         boolean isLogin=view.login(userName.getText(),password.getText());
-        if(!isLogin)
+        if(!isLogin) {
             incorrectLogin();
+            userName.clear();
+            password.clear();
+        }
         else{
             try{
                 view.login();

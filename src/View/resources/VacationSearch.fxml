@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationSearchView">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationSearchView">
    <children>
-      <TextField fx:id="from" layoutX="22.0" layoutY="125.0" prefHeight="25.0" prefWidth="123.0" promptText="From:" />
-      <TextField fx:id="to" layoutX="157.0" layoutY="125.0" prefHeight="25.0" prefWidth="123.0" promptText="To:" />
-      <DatePicker fx:id="departDate" layoutX="287.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Depart:" />
-      <DatePicker fx:id="returnDate" layoutX="432.0" layoutY="125.0" prefHeight="25.0" prefWidth="123.0" promptText="Return:" />
-      <ComboBox fx:id="travelers" layoutX="566.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Travelers:" />
-      <Button layoutX="615.0" layoutY="193.0" mnemonicParsing="false" onAction="#searchVac" prefHeight="32.0" prefWidth="60.0" text="Search" />
-      <Button layoutX="480.0" layoutY="193.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />
-      <Button layoutX="589.0" layoutY="56.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="32.0" prefWidth="112.0" text="Sign In/Sign Up" />
+      <TextField fx:id="from" layoutX="22.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="From:" />
+      <TextField fx:id="to" layoutX="185.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="To:" />
+      <DatePicker fx:id="departDate" layoutX="22.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Depart:" />
+      <DatePicker fx:id="returnDate" layoutX="185.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Return:" />
+      <ComboBox fx:id="adultTravelers" layoutX="349.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Adult Travelers:" />
+      <Button layoutX="750.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchVac" prefHeight="32.0" prefWidth="60.0" text="Search" />
+      <Button layoutX="611.0" layoutY="365.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />
+      <Button fx:id="loginButton" layoutX="860.0" layoutY="67.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="32.0" prefWidth="112.0" text="Sign In/Sign Up" />
+      <Label layoutX="789.0" layoutY="31.0" text="You are logged in as">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="currentUser" layoutX="926.0" layoutY="31.0" text="guest" textFill="#d75252">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="29.0" layoutY="22.0" text="Fing a user:">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="searchUserName" layoutX="117.0" layoutY="18.0" prefHeight="25.0" prefWidth="112.0" promptText="Enter Username:" />
+      <Button layoutX="235.0" layoutY="18.0" mnemonicParsing="false" onAction="#searchUser" text="find" />
+      <ComboBox fx:id="childTravelers" layoutX="514.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Child Travelers:" />
+      <ComboBox fx:id="babyTravelers" layoutX="682.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Baby Travalers:" />
+      <TextField fx:id="airline" layoutX="349.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Airline:" />
+      <CheckBox fx:id="isDirect" layoutX="22.0" layoutY="227.0" mnemonicParsing="false" text="Direct" />
+      <ComboBox fx:id="baggage" layoutX="514.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Baggage:" />
+      <TextField fx:id="priceFrom" layoutX="682.0" layoutY="179.0" prefHeight="25.0" prefWidth="97.0" promptText="Price from:" />
+      <TextField fx:id="priceTo" layoutX="795.0" layoutY="179.0" prefHeight="25.0" prefWidth="97.0" promptText="Price to:" />
    </children>
 </Pane>

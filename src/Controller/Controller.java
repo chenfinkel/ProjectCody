@@ -61,13 +61,13 @@ public class Controller {
         }
     }
 
-    public void search(String user) {
+    public void searchUser(String user) {
         if (!user.equals("")) {
             try {
                 if (model.getDetails("userName", user).equals("")) {
                     view.notFound();
                 } else {
-                view.showSearch(user, model.getDetails("firstName", user), model.getDetails("lastName", user),
+                view.showUserSearch(user, model.getDetails("firstName", user), model.getDetails("lastName", user),
                         model.getDetails("birthDate", user), model.getDetails("city", user));
                 }
             } catch (Exception e) {
@@ -101,7 +101,8 @@ public class Controller {
         return true;
     }
 
-    public void searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelers) {
-        model.searchVac(from, to, depart, returnDate, travelers);
+    public void searchVac(String from,String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
+                          String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo) {
+       // model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
     }
 }
