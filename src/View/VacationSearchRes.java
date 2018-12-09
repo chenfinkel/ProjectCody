@@ -37,7 +37,9 @@ public class VacationSearchRes {
     @FXML
     private Label lbl9;
     @FXML
-    private Button buy0;
+    private Label userName;
+/*    @FXML
+    private Button buy0=new Button("Buy");
     @FXML
     private Button buy1=new Button("Buy");
     @FXML
@@ -56,7 +58,7 @@ public class VacationSearchRes {
     private Button buy8=new Button("Buy");
     @FXML
     private Button buy9=new Button("Buy");
-
+*/
 
     public void setView(View v){
         view=v;
@@ -81,47 +83,46 @@ public class VacationSearchRes {
                 lab+="  Hotel Rank: "+temp[14];
             if(i==0) {
                 lbl0.setText(lab);
-                buy0.setDisable(false);
             }
             if(i==1) {
                 lbl1.setText(lab);
-                buy1.setVisible(true);
             }
             if(i==2) {
                 lbl2.setText(lab);
-                buy2.setVisible(true);
             }
             if(i==3) {
                 lbl3.setText(lab);
-                buy3.setVisible(true);
             }
             if(i==4) {
                 lbl4.setText(lab);
-                buy4.setVisible(true);
             }
             if(i==5) {
-                buy5.setVisible(true);
                 lbl5.setText(lab);
             }
             if(i==6) {
                 lbl6.setText(lab);
-                buy6.setVisible(true);
             }
             if(i==7) {
                 lbl7.setText(lab);
-                buy7.setVisible(true);
             }
             if(i==8) {
                 lbl8.setText(lab);
-                buy8.setVisible(true);
             }
             if(i==9) {
                 lbl9.setText(lab);
-                buy9.setVisible(true);
             }
         }
     }
 
+    public void login(){
+        try {
+            view.returnLoginPage();
+        }catch(Exception e){System.out.println(e.getMessage());}
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.userName.setText(currentUser);
+    }
 
     public void returnSearch(){
         try{

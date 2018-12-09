@@ -43,4 +43,8 @@ public class UserPageView {
             view.addVacation();
         }catch(Exception e){System.out.println(e.getMessage());}
     }
+
+    public void setVacations() {
+
+    }
 }

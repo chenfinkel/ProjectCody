@@ -70,6 +70,26 @@ public class Main extends Application {
         }
     }
 
+    public static void createPurchaseTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Vacation4U.db";
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS purchases (\n"
+                + "id INTEGER PRIMARY KEY, \n"
+                + "airline text NOT NULL, \n"
+                + "fromC text NOT NULL, \n"
+                + "destination text NOT NULL, \n"
+                + "Depart text NOT NULL, \n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void createUsersTable() {
         // SQLite connection string

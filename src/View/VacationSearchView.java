@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,10 +61,6 @@ public class VacationSearchView {
     }
 
     public void searchVac(){
-        if(from.getText().equals("") || to.getText().equals("") || departDate.toString().equals("") || adultTravelers.getValue()==null
-                 || airline.getText().equals("") || baggage.toString().equals("") || priceFrom.getText().equals("") || priceTo.getText().equals("")){
-            view.alert("All fields are required!");
-        }
         if(!returnDate.getEditor().getText().equals("")) {
             if (returnDate.getValue().isBefore(departDate.getValue())) {
                 Alert al = new Alert(Alert.AlertType.INFORMATION);
@@ -72,13 +69,17 @@ public class VacationSearchView {
                 returnDate.getEditor().clear();
             }
         }
-        String travelersC="", travelersB="";
+        String travelersC="", travelersB="" , travelersA="", baggageS="";
+        if(baggage.getValue()!=null)
+            baggageS=(String)baggage.getValue();
+        if(adultTravelers.getValue()!=null)
+            travelersA=adultTravelers.getValue();
         if(childTravelers.getValue()!=null)
             travelersC=childTravelers.getValue();
         if(babyTravelers.getValue()!=null)
             travelersB=babyTravelers.getValue();
-        view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),adultTravelers.getValue(),
-                travelersC, travelersB, airline.getText(),(String) baggage.getValue(),
+        view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),travelersA,
+                travelersC, travelersB, airline.getText(),baggageS,
                 isDirect.isSelected(), priceFrom.getText(), priceTo.getText());
     }
 

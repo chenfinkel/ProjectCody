@@ -37,6 +37,7 @@ public class View {
         VacationSearchRes viewControl = fxmlLoader.getController();
         viewControl.setView(this);
         viewControl.setGrid(vacs);
+        viewControl.setCurrentUser(getCurrentUser());
         s= new Scene(root, 1300, 650);
         window.setScene(s);
         window.show();
@@ -53,6 +54,7 @@ public class View {
         UserPageView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
         viewControl.setUserName();
+        viewControl.setVacations();
         window.show();
     }
 
