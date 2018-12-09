@@ -153,24 +153,46 @@ public class Model extends Observable {
     public List<String> searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline,String baggage, boolean direct, String priceFrom, String priceTo) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
-        String vac="SELECT userName, airline, fromC, destination, Depart, Return, travelersA, travelersC, travelersB, direct, price, baggage, type, hotel, hotelRating FROM vacation WHERE airline = ? AND fromC = ? AND destination = ? AND Depart = ? AND Return = ? AND travelersA = ? AND " +
-                "travelersC = ? AND travelersB = ? AND direct = ? AND baggage = ? AND price >= ? AND price <= ? ";
+        String vac="SELECT * FROM vacation";
+        if(!from.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE fromC = "+from);
+        }
+        if(!to.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE destination = "+to);
+        }
+        if(depart != null){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE Depart = "+depart.getDayOfMonth()+"/"+depart.getMonthValue()+"/"+depart.getYear());
+        }
+        if(returnDate != null){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE Return = "+returnDate.getDayOfMonth()+"/"+returnDate.getMonthValue()+"/"+returnDate.getYear());
+        }
+        if(!travelersA.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE travelersA = "+travelersA);
+        }
+        if(!travelersB.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE travelersB = "+travelersB);
+        }
+        if(!travelersC.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE travelersC = "+travelersC);
+        }
+        if(direct){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE direct = True");
+        }
+        if(!airline.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE airline = "+airline);
+        }
+        if(!baggage.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE baggage = "+baggage);
+        }
+        if(!priceFrom.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE price >= "+Integer.parseInt(priceFrom));
+        }
+        if(!priceTo.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE price <= "+Integer.parseInt(priceTo));
+        }
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
-            pstmt1.setString(1,airline);
-            pstmt1.setString(2,from);
-            pstmt1.setString(3,to);
-            pstmt1.setString(4,(depart.getDayOfMonth()+"/"+depart.getMonthValue()+"/"+depart.getYear()));
-            pstmt1.setString(5,(returnDate.getDayOfMonth()+"/"+returnDate.getMonthValue()+"/"+returnDate.getYear()));
-            pstmt1.setString(6,travelersA);
-            pstmt1.setString(7,travelersC);
-            pstmt1.setString(8,travelersB);
-            pstmt1.setString(9,direct+"");
-            pstmt1.setString(10,baggage);
-            pstmt1.setString(11,priceFrom);
-            pstmt1.setString(12,priceTo);
-
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
                 String s= rs.getString("userName");
@@ -247,7 +269,6 @@ public class Model extends Observable {
         String url = "jdbc:sqlite:Vacation4U.db";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql1)) {
-            //pstmt.setString(1, vacID+"");
             pstmt.setString(1, userName);
             pstmt.setString(2, airline);
             pstmt.setString(3, from);
