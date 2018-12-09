@@ -2,12 +2,15 @@ package View;
 
 import Controller.Controller;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class View {
 
@@ -21,9 +24,22 @@ public class View {
         updateStage=new Stage();
     }
 
-    public void searchVac(String from,String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
-                String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo){
-        control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+    public void searchVac(String from, String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
+                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo){
+        List<String> vacs=control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+        Stage window=Main.primStage;
+        FXMLLoader fxmlLoader=new FXMLLoader();
+        Scene s=null;
+        Parent root=null;
+        try {
+            root=fxmlLoader.load(getClass().getResource("resources/VacationSearchRes.fxml").openStream());
+        }catch(IOException e){}
+        VacationSearchRes viewControl = fxmlLoader.getController();
+        viewControl.setView(this);
+        viewControl.setGrid(vacs);
+        s= new Scene(root, 1300, 650);
+        window.setScene(s);
+        window.show();
     }
 
     public boolean login(String userName, String password) {
@@ -112,6 +128,8 @@ public class View {
     }
 
     public String getCurrentUser() {
+        if(control.getCurrentUser()==null)
+            return "guest";
         return control.getCurrentUser();
     }
 
@@ -121,8 +139,11 @@ public class View {
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream()), 1000, 650));
         VacationSearchView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
-        viewControl.setCurrentUser(getCurrentUser());
-        viewControl.setLoginButton();
+        String s=getCurrentUser();
+        viewControl.setCurrentUser(s);
+        if(!s.equals("guest"))
+            viewControl.setLoginButton();
+        viewControl.setCombos();
         window.show();
     }
 

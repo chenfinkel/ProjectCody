@@ -5,6 +5,7 @@ import View.View;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 public class Controller {
 
@@ -101,9 +102,10 @@ public class Controller {
         return true;
     }
 
-    public void searchVac(String from,String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
-                          String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo) {
-       model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+    public List<String> searchVac(String from, String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
+                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo) {
+       return model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+        //return model.userVac("rt");
     }
 
     public void addVac( String userName, String from, String to, LocalDate departDate, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {

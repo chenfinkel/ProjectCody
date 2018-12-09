@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Observable;
 
 
-public class Model extends Observable implements IModel {
+public class Model extends Observable {
 
 
     private boolean isLogin;
@@ -153,16 +153,16 @@ public class Model extends Observable implements IModel {
     public List<String> searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline,String baggage, boolean direct, String priceFrom, String priceTo) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
-        String vac="SELECT * FROM vacation WHERE airline = ? AND from = ? AND destination = ? AND Depart = ? AND Return = ? AND travelersA = ?" +
-                "travelersC = ? AND travelersB = ? AND direct = ? AND baggage = ? AND price >= ? AND price <= ?";
+        String vac="SELECT userName, airline, fromC, destination, Depart, Return, travelersA, travelersC, travelersB, direct, price, baggage, type, hotel, hotelRating FROM vacation WHERE airline = ? AND fromC = ? AND destination = ? AND Depart = ? AND Return = ? AND travelersA = ? AND " +
+                "travelersC = ? AND travelersB = ? AND direct = ? AND baggage = ? AND price >= ? AND price <= ? ";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
             pstmt1.setString(1,airline);
             pstmt1.setString(2,from);
             pstmt1.setString(3,to);
-            pstmt1.setString(4,(depart.getDayOfMonth()+"/"+depart.getMonth()+"/"+depart.getYear()));
-            pstmt1.setString(5,(returnDate.getDayOfMonth()+"/"+returnDate.getMonth()+"/"+returnDate.getYear()));
+            pstmt1.setString(4,(depart.getDayOfMonth()+"/"+depart.getMonthValue()+"/"+depart.getYear()));
+            pstmt1.setString(5,(returnDate.getDayOfMonth()+"/"+returnDate.getMonthValue()+"/"+returnDate.getYear()));
             pstmt1.setString(6,travelersA);
             pstmt1.setString(7,travelersC);
             pstmt1.setString(8,travelersB);
@@ -175,7 +175,7 @@ public class Model extends Observable implements IModel {
             while (rs.next()) {
                 String s= rs.getString("userName");
                 s+=("," +rs.getString("airline"));
-                s+=("," +rs.getString("from"));
+                s+=("," +rs.getString("fromC"));
                 s+=("," +rs.getString("destination"));
                 s+=("," +rs.getString("Depart"));
                 s+=("," +rs.getString("Return"));
@@ -190,7 +190,7 @@ public class Model extends Observable implements IModel {
                 s+=("," +rs.getString("hotelRating"));
                 list.add(s);
             }
-        } catch (Exception e){}
+        } catch (Exception e){System.out.println(e.getMessage());}
         return list;
     }
 
@@ -199,7 +199,7 @@ public class Model extends Observable implements IModel {
         String url = "jdbc:sqlite:Vacation4U.db";
 
         String oldUser="";
-        String vac="SELECT * FROM vacation WHERE airline = ? AND from = ? AND destination = ? AND Depart = ? AND Return = ? AND travelersA = ?" +
+        String vac="SELECT * FROM vacation WHERE airline = ? AND fromC = ? AND destination = ? AND Depart = ? AND Return = ? AND travelersA = ?" +
                 "travelersC = ? AND travelersB = ? AND direct = ? AND baggage = ? AND price >= ? AND price <= ? AND type = ? AND hotel = ? AND hotelRating = ? ";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -207,15 +207,15 @@ public class Model extends Observable implements IModel {
             pstmt1.setString(1,airline);
             pstmt1.setString(2,from);
             pstmt1.setString(3,to);
-            pstmt1.setString(4,(depart.getDayOfMonth()+"/"+depart.getMonth()+"/"+depart.getYear()));
-            pstmt1.setString(5,(returnDate.getDayOfMonth()+"/"+returnDate.getMonth()+"/"+returnDate.getYear()));
+            pstmt1.setString(4,(depart.getDayOfMonth()+"/"+depart.getMonthValue()+"/"+depart.getYear()));
+            pstmt1.setString(5,(returnDate.getDayOfMonth()+"/"+returnDate.getMonthValue()+"/"+returnDate.getYear()));
             pstmt1.setString(6,travelersA);
             pstmt1.setString(7,travelersC);
             pstmt1.setString(8,travelersB);
             pstmt1.setString(9,direct+"");
             pstmt1.setString(10,baggage);
-            pstmt1.setString(11,priceFrom);
-            pstmt1.setString(12,priceTo);
+            pstmt1.setInt(11,Integer.parseInt(priceFrom));
+            pstmt1.setInt(12,Integer.parseInt(priceTo));
             pstmt1.setString(13,type);
             pstmt1.setString(14,hotel);
             pstmt1.setString(15,hotelRating);
@@ -223,7 +223,7 @@ public class Model extends Observable implements IModel {
             while (rs.next()) {
                 String s= rs.getString("userName");
                 s+=("," +rs.getString("airline"));
-                s+=("," +rs.getString("from"));
+                s+=("," +rs.getString("fromC"));
                 s+=("," +rs.getString("destination"));
                 s+=("," +rs.getString("Depart"));
                 s+=("," +rs.getString("Return"));
@@ -258,7 +258,7 @@ public class Model extends Observable implements IModel {
             pstmt.setString(8, travelersC);
             pstmt.setString(9, travelersB);
             pstmt.setString(10, isDirect+"");
-            pstmt.setString(11, price);
+            pstmt.setInt(11, Integer.parseInt(price));
             pstmt.setString(12, baggage);
             pstmt.setString(13, type);
             pstmt.setString(14, hotelName);
@@ -267,5 +267,35 @@ public class Model extends Observable implements IModel {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public List<String> userVac(String userName) {
+        List<String> list=new LinkedList<>();
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String vac="SELECT userName, airline, fromC, destination, Depart, Return, travelersA, travelersC, travelersB, direct, price, baggage, type, hotel, hotelRating FROM vacation WHERE userName = ? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
+            pstmt1.setString(1,userName);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                String s= rs.getString("userName");
+                s+=("," +rs.getString("airline"));
+                s+=("," +rs.getString("fromC"));
+                s+=("," +rs.getString("destination"));
+                s+=("," +rs.getString("Depart"));
+                s+=("," +rs.getString("Return"));
+                s+=("," +rs.getString("travelersA"));
+                s+=("," +rs.getString("travelersC"));
+                s+=("," +rs.getString("travelersB"));
+                s+=("," +rs.getString("direct"));
+                s+=("," +rs.getString("price"));
+                s+=("," +rs.getString("baggage"));
+                s+=("," +rs.getString("type"));
+                s+=("," +rs.getString("hotel"));
+                s+=("," +rs.getString("hotelRating"));
+                list.add(s);
+            }
+        } catch (Exception e){System.out.println(e.getMessage());}
+        return list;
     }
 }

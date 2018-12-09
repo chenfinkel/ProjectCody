@@ -1,13 +1,11 @@
 package View;
 
-import Controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -62,8 +60,8 @@ public class VacationSearchView {
     }
 
     public void searchVac(){
-        if(from.getText().equals("") || to.getText().equals("") || departDate.toString().equals("") || adultTravelers.toString().equals("") || childTravelers.toString().equals("")
-                || babyTravelers.toString().equals("") || airline.getText().equals("") || baggage.toString().equals("") || priceFrom.getText().equals("") || priceTo.getText().equals("")){
+        if(from.getText().equals("") || to.getText().equals("") || departDate.toString().equals("") || adultTravelers.getValue()==null
+                 || airline.getText().equals("") || baggage.toString().equals("") || priceFrom.getText().equals("") || priceTo.getText().equals("")){
             view.alert("All fields are required!");
         }
         if(!returnDate.getEditor().getText().equals("")) {
@@ -74,10 +72,14 @@ public class VacationSearchView {
                 returnDate.getEditor().clear();
             }
         }
-        view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),adultTravelers.getEditor().getText(),
-                childTravelers.getEditor().getText(), babyTravelers.getEditor().getText(), airline.getText(), baggage.getEditor().getText(),
+        String travelersC="", travelersB="";
+        if(childTravelers.getValue()!=null)
+            travelersC=childTravelers.getValue();
+        if(babyTravelers.getValue()!=null)
+            travelersB=babyTravelers.getValue();
+        view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),adultTravelers.getValue(),
+                travelersC, travelersB, airline.getText(),(String) baggage.getValue(),
                 isDirect.isSelected(), priceFrom.getText(), priceTo.getText());
-
     }
 
     public void goToLogin(){

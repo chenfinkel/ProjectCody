@@ -60,6 +60,7 @@ public class AddVacationView {
     public void setCurrentUser(String userName){
         currentUser=userName;
     }
+
     private void clear(){
         from.clear();
         to.clear();
@@ -90,6 +91,9 @@ public class AddVacationView {
         else if (Period.between(LocalDate.now(), departDate.getValue()).isNegative()){
             view.alert("please enter a depart date starting from today");
         }
+        else if(!isNumber( price.getText())){
+            view.alert("price must be a valid number!");
+        }
         else {
             if (!returnDate.getEditor().getText().equals("")) {
                 if (returnDate.getValue().isBefore(departDate.getValue())) {
@@ -100,11 +104,24 @@ public class AddVacationView {
                     return;
                 }
             }
+            String StravelersC="", StravelersB="";
+            if(travelersC.getValue()!=null)
+                StravelersC=travelersC.getValue();
+            if(travelersB.getValue()!=null)
+                StravelersB=travelersB.getValue();
             view.addVac(currentUser, from.getText(), to.getText(), departDate.getValue(), returnDate.getValue(), travelersA.getValue(),
-                    travelersC.getValue(), travelersB.getValue(), airline.getText(), baggage.getValue(),
+                    StravelersC, StravelersB, airline.getText(), baggage.getValue(),
                     isDirect.isSelected(), price.getText(), type.getValue(), hotelName.getText(), hotelRank.getValue());
             view.alert("vacation added");
             clear();
         }
+    }
+
+    private boolean isNumber(String text) {
+        for(int i=0; i<text.length(); i++){
+            if(text.charAt(i)<'0' || text.charAt(i)>'9')
+                return false;
+        }
+       return true;
     }
 }

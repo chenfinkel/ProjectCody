@@ -13,8 +13,8 @@
    <children>
       <TextField fx:id="from" layoutX="22.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="From:" />
       <TextField fx:id="to" layoutX="185.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="To:" />
-      <DatePicker fx:id="departDate" layoutX="22.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Depart:" />
-      <DatePicker fx:id="returnDate" layoutX="185.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Return:" />
+      <DatePicker fx:id="departDate" editable="false" layoutX="22.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Depart:" />
+      <DatePicker fx:id="returnDate" editable="false" layoutX="185.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Return:" />
       <ComboBox fx:id="adultTravelers" layoutX="349.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Adult Travelers:" />
       <Button layoutX="750.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchVac" prefHeight="32.0" prefWidth="60.0" text="Search" />
       <Button layoutX="611.0" layoutY="365.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />

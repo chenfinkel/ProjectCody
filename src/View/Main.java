@@ -54,7 +54,7 @@ public class Main extends Application {
                 + "travelersC text, \n"
                 + "travelersB text, \n"
                 + "direct text, \n"
-                + "price text NOT NULL, \n"
+                + "price INTEGER NOT NULL, \n"
                 + "baggage text, \n"
                 + "type text, \n"
                 + "hotel text, \n"

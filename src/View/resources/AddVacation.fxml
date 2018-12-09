@@ -23,8 +23,8 @@
       <ComboBox fx:id="travelersC" layoutX="403.0" layoutY="48.0" prefHeight="25.0" prefWidth="99.0" />
       <Label layoutX="535.0" layoutY="31.0" text="Baby travelers:" />
       <ComboBox fx:id="travelersB" layoutX="535.0" layoutY="48.0" prefHeight="25.0" prefWidth="99.0" />
-      <DatePicker fx:id="departDate" layoutX="22.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
-      <DatePicker fx:id="returnDate" layoutX="142.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
+      <DatePicker fx:id="departDate" editable="false" layoutX="22.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
+      <DatePicker fx:id="returnDate" editable="false" layoutX="142.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
       <TextField fx:id="airline" layoutX="268.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
       <Label layoutX="403.0" layoutY="94.0" text="Baggage:" />
       <ComboBox fx:id="baggage" layoutX="403.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
