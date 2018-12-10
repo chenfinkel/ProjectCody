@@ -104,14 +104,18 @@ public class AddVacationView {
                     return;
                 }
             }
-            String StravelersC="", StravelersB="";
+            String StravelersC="", StravelersB="",types="",rank="";
             if(travelersC.getValue()!=null)
                 StravelersC=travelersC.getValue();
             if(travelersB.getValue()!=null)
                 StravelersB=travelersB.getValue();
+            if(type.getValue()!=null)
+                types=type.getValue();
+            if(hotelRank.getValue()!=null)
+                rank=hotelRank.getValue();
             view.addVac(currentUser, from.getText(), to.getText(), departDate.getValue(), returnDate.getValue(), travelersA.getValue(),
                     StravelersC, StravelersB, airline.getText(), baggage.getValue(),
-                    isDirect.isSelected(), price.getText(), type.getValue(), hotelName.getText(), hotelRank.getValue());
+                    isDirect.isSelected(), price.getText(), types, hotelName.getText(), rank);
             view.alert("vacation added");
             clear();
         }

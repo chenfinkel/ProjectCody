@@ -1,5 +1,7 @@
 package Model;
 
+import View.Main;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -150,15 +152,15 @@ public class Model extends Observable {
         return true;
     }
 
-    public List<String> searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline,String baggage, boolean direct, String priceFrom, String priceTo) {
+    public List<String> searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean direct, String priceFrom, String priceTo, String type, String hotel, String rank) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM vacation";
         if(!from.equals("")){
-            vac+=(" INTERSECT SELECT * FROM vacation WHERE fromC = "+from);
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE fromC = \""+from+"\"");
         }
         if(!to.equals("")){
-            vac+=(" INTERSECT SELECT * FROM vacation WHERE destination = "+to);
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE destination = \""+to+"\"");
         }
         if(depart != null){
             vac+=(" INTERSECT SELECT * FROM vacation WHERE Depart = "+depart.getDayOfMonth()+"/"+depart.getMonthValue()+"/"+depart.getYear());
@@ -176,13 +178,13 @@ public class Model extends Observable {
             vac+=(" INTERSECT SELECT * FROM vacation WHERE travelersC = "+travelersC);
         }
         if(direct){
-            vac+=(" INTERSECT SELECT * FROM vacation WHERE direct = True");
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE direct = \"true\"");
         }
         if(!airline.equals("")){
-            vac+=(" INTERSECT SELECT * FROM vacation WHERE airline = "+airline);
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE airline = \""+airline+"\"");
         }
         if(!baggage.equals("")){
-            vac+=(" INTERSECT SELECT * FROM vacation WHERE baggage = "+baggage);
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE baggage = \""+baggage+"\"");
         }
         if(!priceFrom.equals("")){
             vac+=(" INTERSECT SELECT * FROM vacation WHERE price >= "+Integer.parseInt(priceFrom));
@@ -190,100 +192,63 @@ public class Model extends Observable {
         if(!priceTo.equals("")){
             vac+=(" INTERSECT SELECT * FROM vacation WHERE price <= "+Integer.parseInt(priceTo));
         }
+        if(!hotel.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE hotel = \""+hotel+"\"");
+        }
+        if(!type.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE type = \""+type+"\"");
+        }
+        if(!rank.equals("")){
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE hotelRating >= "+Integer.parseInt(rank));
+        }
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
                 String s= rs.getString("userName");
-                s+=("," +rs.getString("airline"));
-                s+=("," +rs.getString("fromC"));
-                s+=("," +rs.getString("destination"));
-                s+=("," +rs.getString("Depart"));
-                s+=("," +rs.getString("Return"));
-                s+=("," +rs.getString("travelersA"));
-                s+=("," +rs.getString("travelersC"));
-                s+=("," +rs.getString("travelersB"));
-                s+=("," +rs.getString("direct"));
-                s+=("," +rs.getString("price"));
-                s+=("," +rs.getString("baggage"));
-                s+=("," +rs.getString("type"));
-                s+=("," +rs.getString("hotel"));
-                s+=("," +rs.getString("hotelRating"));
+                s+=(", " +rs.getString("airline"));
+                s+=(", " +rs.getString("fromC"));
+                s+=(", " +rs.getString("destination"));
+                s+=(", " +rs.getString("Depart"));
+                s+=(", " +rs.getString("Return"));
+                s+=(", " +rs.getString("travelersA"));
+                s+=(", " +rs.getString("travelersC"));
+                s+=(", " +rs.getString("travelersB"));
+                s+=(", " +rs.getString("direct"));
+                s+=(", " +rs.getString("price"));
+                s+=(", " +rs.getString("baggage"));
+                s+=(", " +rs.getString("type"));
+                s+=(", " +rs.getString("hotel"));
+                s+=(", " +rs.getString("hotelRating"));
+                s+=(", " +rs.getString("id"));
                 list.add(s);
             }
         } catch (Exception e){System.out.println(e.getMessage());}
         return list;
     }
 
-    public List<String> searchVacAdv(String airline, LocalDate depart, LocalDate returnDate, boolean direct, String baggage, String travelersA, String travelersC, String travelersB, String to, String from, String type, String hotel, String hotelRating, String priceFrom, String priceTo) {
-        List<String> list=new LinkedList<>();
-        String url = "jdbc:sqlite:Vacation4U.db";
-
-        String oldUser="";
-        String vac="SELECT * FROM vacation WHERE airline = ? AND fromC = ? AND destination = ? AND Depart = ? AND Return = ? AND travelersA = ?" +
-                "travelersC = ? AND travelersB = ? AND direct = ? AND baggage = ? AND price >= ? AND price <= ? AND type = ? AND hotel = ? AND hotelRating = ? ";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
-            pstmt1.setString(1,airline);
-            pstmt1.setString(2,from);
-            pstmt1.setString(3,to);
-            pstmt1.setString(4,(depart.getDayOfMonth()+"/"+depart.getMonthValue()+"/"+depart.getYear()));
-            pstmt1.setString(5,(returnDate.getDayOfMonth()+"/"+returnDate.getMonthValue()+"/"+returnDate.getYear()));
-            pstmt1.setString(6,travelersA);
-            pstmt1.setString(7,travelersC);
-            pstmt1.setString(8,travelersB);
-            pstmt1.setString(9,direct+"");
-            pstmt1.setString(10,baggage);
-            pstmt1.setInt(11,Integer.parseInt(priceFrom));
-            pstmt1.setInt(12,Integer.parseInt(priceTo));
-            pstmt1.setString(13,type);
-            pstmt1.setString(14,hotel);
-            pstmt1.setString(15,hotelRating);
-            ResultSet rs  = pstmt1.executeQuery();
-            while (rs.next()) {
-                String s= rs.getString("userName");
-                s+=("," +rs.getString("airline"));
-                s+=("," +rs.getString("fromC"));
-                s+=("," +rs.getString("destination"));
-                s+=("," +rs.getString("Depart"));
-                s+=("," +rs.getString("Return"));
-                s+=("," +rs.getString("travelersA"));
-                s+=("," +rs.getString("travelersC"));
-                s+=("," +rs.getString("travelersB"));
-                s+=("," +rs.getString("direct"));
-                s+=("," +rs.getString("price"));
-                s+=("," +rs.getString("baggage"));
-                s+=("," +rs.getString("type"));
-                s+=("," +rs.getString("hotel"));
-                s+=("," +rs.getString("hotelRating"));
-                list.add(s);
-            }
-        } catch (Exception e){}
-        return list;
-    }
-
     public void addVacation( String userName, String from, String to, String departDate, String returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
-        String sql1 = "INSERT INTO vacation(userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1 = "INSERT INTO vacation(id,userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         String url = "jdbc:sqlite:Vacation4U.db";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql1)) {
-            pstmt.setString(1, userName);
-            pstmt.setString(2, airline);
-            pstmt.setString(3, from);
-            pstmt.setString(4, to);
-            pstmt.setString(5, departDate);
-            pstmt.setString(6, returnDate);
-            pstmt.setString(7, travelersA);
-            pstmt.setString(8, travelersC);
-            pstmt.setString(9, travelersB);
-            pstmt.setString(10, isDirect+"");
-            pstmt.setInt(11, Integer.parseInt(price));
-            pstmt.setString(12, baggage);
-            pstmt.setString(13, type);
-            pstmt.setString(14, hotelName);
-            pstmt.setString(15, hotelRank);
+            pstmt.setInt(1, Main.idVac++);
+            pstmt.setString(2, userName);
+            pstmt.setString(3, airline);
+            pstmt.setString(4, from);
+            pstmt.setString(5, to);
+            pstmt.setString(6, departDate);
+            pstmt.setString(7, returnDate);
+            pstmt.setString(8, travelersA);
+            pstmt.setString(9, travelersC);
+            pstmt.setString(10, travelersB);
+            pstmt.setString(11, isDirect+"");
+            pstmt.setInt(12, Integer.parseInt(price));
+            pstmt.setString(13, baggage);
+            pstmt.setString(14, type);
+            pstmt.setString(15, hotelName);
+            pstmt.setString(16, hotelRank);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -293,30 +258,56 @@ public class Model extends Observable {
     public List<String> userVac(String userName) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
-        String vac="SELECT userName, airline, fromC, destination, Depart, Return, travelersA, travelersC, travelersB, direct, price, baggage, type, hotel, hotelRating FROM vacation WHERE userName = ? ";
+        String vac="SELECT * FROM vacation WHERE userName = ? ";
+        String vacReq="SELECT buyer FROM requests WHERE idVac = ? ";
         try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
+             PreparedStatement pstmt1 = conn.prepareStatement(vac);
+             PreparedStatement pstmt2 = conn.prepareStatement(vacReq)) {
+
             pstmt1.setString(1,userName);
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
-                String s= rs.getString("userName");
-                s+=("," +rs.getString("airline"));
-                s+=("," +rs.getString("fromC"));
-                s+=("," +rs.getString("destination"));
-                s+=("," +rs.getString("Depart"));
-                s+=("," +rs.getString("Return"));
-                s+=("," +rs.getString("travelersA"));
-                s+=("," +rs.getString("travelersC"));
-                s+=("," +rs.getString("travelersB"));
-                s+=("," +rs.getString("direct"));
-                s+=("," +rs.getString("price"));
-                s+=("," +rs.getString("baggage"));
-                s+=("," +rs.getString("type"));
-                s+=("," +rs.getString("hotel"));
-                s+=("," +rs.getString("hotelRating"));
+                pstmt2.setString(1,rs.getString("id"));
+                ResultSet rs2  = pstmt2.executeQuery();
+                String s="Id: "+ rs.getString("id") +
+                        ", From: " + rs.getString("fromC")+
+                        ", To: " +rs.getString("destination") + "\n" +
+                        "Depart: " + rs.getString("Depart")+
+                        ", Return: " + rs.getString("Return")+ "\n" +
+                        "Price: " + rs.getString("price");
+                while (rs2.next()){
+                    s+= ", Requested by: " + rs2.getString("buyer");
+                }
                 list.add(s);
             }
         } catch (Exception e){System.out.println(e.getMessage());}
         return list;
+    }
+
+    public void requestVac(String vac, String currentUser) {
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String[] temp=vac.split("  Seller: ");
+        String[] temp2=temp[0].split(": ");
+        int id= Integer.parseInt(temp2[1]);
+        String[] temp3=temp[1].split("  ");
+        String seller=temp3[0];
+
+        String sql="UPDATE status FROM vacation WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setInt(1,id);
+            pstmt1.executeUpdate();
+        } catch (Exception e){}
+
+        String sql1 = "INSERT INTO requests(idVac,seller,buyer) VALUES(?,?,?)";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
+            pstmt1.setInt(1,id);
+            pstmt1.setString(2,seller);
+            pstmt1.setString(3,currentUser);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
     }
 }

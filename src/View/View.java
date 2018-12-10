@@ -25,8 +25,8 @@ public class View {
     }
 
     public void searchVac(String from, String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
-                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo){
-        List<String> vacs=control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotelName, String hotelRank){
+        List<String> vacs=control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo, type, hotelName, hotelRank);
         Stage window=Main.primStage;
         FXMLLoader fxmlLoader=new FXMLLoader();
         Scene s=null;
@@ -167,5 +167,24 @@ public class View {
         control.addVac(userName, from, to, departDate, returnDate, travelersA, travelersC, travelersB, airline,
                 baggage, isDirect, price, type, hotelName, hotelRank);
 
+    }
+
+    public void requestVac(String vac) {
+        String currentUser = getCurrentUser();
+        if(!currentUser.equals("guest")){
+            String[] split = vac.split("Seller: ");
+            String seller = split[1].split("  From")[0];
+            if (currentUser.equals(seller))
+                alert("You can't submit a request for a vacation you added");
+            else
+                control.requestVac(vac);
+        }
+        else{
+            alert("Please login in order to submit a purchase request");
+        }
+    }
+
+    public List<String> getUserVac(String user){
+        return control.getUserVac(user);
     }
 }

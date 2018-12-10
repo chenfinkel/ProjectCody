@@ -17,7 +17,7 @@
       <DatePicker fx:id="returnDate" editable="false" layoutX="185.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Return:" />
       <ComboBox fx:id="adultTravelers" layoutX="349.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Adult Travelers:" />
       <Button layoutX="750.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchVac" prefHeight="32.0" prefWidth="60.0" text="Search" />
-      <Button layoutX="611.0" layoutY="365.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />
+      <Button layoutX="611.0" layoutY="365.0" mnemonicParsing="false" onAction="#showAdv" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />
       <Button fx:id="loginButton" layoutX="860.0" layoutY="67.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="32.0" prefWidth="112.0" text="Sign In/Sign Up" />
       <Label layoutX="789.0" layoutY="31.0" text="You are logged in as">
          <font>
@@ -37,9 +37,12 @@
       <ComboBox fx:id="childTravelers" layoutX="514.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Child Travelers:" />
       <ComboBox fx:id="babyTravelers" layoutX="682.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Baby Travalers:" />
       <TextField fx:id="airline" layoutX="349.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Airline:" />
-      <CheckBox fx:id="isDirect" layoutX="22.0" layoutY="227.0" mnemonicParsing="false" text="Direct" />
+      <CheckBox fx:id="isDirect" layoutX="852.0" layoutY="129.0" mnemonicParsing="false" text="Direct" />
       <ComboBox fx:id="baggage" layoutX="514.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Baggage:" />
       <TextField fx:id="priceFrom" layoutX="682.0" layoutY="179.0" prefHeight="25.0" prefWidth="97.0" promptText="Price from:" />
       <TextField fx:id="priceTo" layoutX="795.0" layoutY="179.0" prefHeight="25.0" prefWidth="97.0" promptText="Price to:" />
+      <ComboBox fx:id="type" layoutX="185.0" layoutY="235.0" prefHeight="25.0" prefWidth="137.0" promptText="Vacation type:" visible="false" />
+      <TextField fx:id="hotelName" layoutX="349.0" layoutY="235.0" prefHeight="25.0" prefWidth="137.0" promptText="Hotel name:" visible="false" />
+      <ComboBox fx:id="hotelRank" layoutX="514.0" layoutY="235.0" prefHeight="25.0" prefWidth="137.0" promptText="Hotel Rank:" visible="false" />
    </children>
 </Pane>

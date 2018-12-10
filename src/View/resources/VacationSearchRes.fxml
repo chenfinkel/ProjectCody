@@ -39,20 +39,19 @@
       <Label fx:id="lbl8" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
       <Label fx:id="lbl9" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
       <Button mnemonicParsing="false" onAction="#returnSearch" text="Return to search " GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy0" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy1" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy2" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy3" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy4" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy5" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy6" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy7" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy8" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-      <Button fx:id="Buy9" mnemonicParsing="false" text="Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
-      <Button fx:id="login" mnemonicParsing="false" onAction="#login" text="Login/Signup" GridPane.columnIndex="1" />
+      <Button fx:id="Buy0" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy1" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy2" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy3" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy4" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy5" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy6" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request6" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy7" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy8" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+      <Button fx:id="Buy9" mnemonicParsing="false" text="Send Request" visible="false" onAction="#request9" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
       <HBox>
          <children>
-            <Label alignment="CENTER" text="You are logged in as:     " />
+            <Label alignment="CENTER" text="You are logged in as:   " />
             <Label fx:id="userName" alignment="CENTER" textFill="#dd5252">
                <font>
                   <Font name="System Bold" size="12.0" />

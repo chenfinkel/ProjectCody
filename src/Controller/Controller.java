@@ -103,8 +103,8 @@ public class Controller {
     }
 
     public List<String> searchVac(String from, String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
-                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo) {
-       return model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo);
+                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotel, String rank) {
+       return model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo, type, hotel, rank);
 
     }
 
@@ -127,5 +127,13 @@ public class Controller {
             model.addVacation(userName, from, to, departDateS, returnDateS, travelersA, travelersC, travelersB, airline,
                     baggage, isDirect, price, type, hotelName, hotelRank);
         }
+    }
+
+    public void requestVac(String vac) {
+        model.requestVac(vac, getCurrentUser());
+    }
+
+    public List<String> getUserVac(String user) {
+        return model.userVac(user);
     }
 }

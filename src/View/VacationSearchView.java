@@ -43,6 +43,12 @@ public class VacationSearchView {
     private Label currentUser;
     @FXML
     private Button loginButton;
+    @FXML
+    private ComboBox<String> type;
+    @FXML
+    private ComboBox<String> hotelRank;
+    @FXML
+    private TextField hotelName;
 
 
     public void setCombos(){
@@ -54,6 +60,8 @@ public class VacationSearchView {
         childTravelers.setItems(list);
         babyTravelers.setItems(list);
         baggage.getItems().addAll("None","Trolly","10kg suitcase","20kg suitcase");
+        type.getItems().addAll("Exotic","Urban");
+        hotelRank.getItems().addAll("1","2","3","4","5");
     }
 
     public void setView(View v){
@@ -69,7 +77,11 @@ public class VacationSearchView {
                 returnDate.getEditor().clear();
             }
         }
-        String travelersC="", travelersB="" , travelersA="", baggageS="";
+        String travelersC="", travelersB="" , travelersA="", baggageS="", types="", rank="";
+        if(type.getValue()!=null)
+            types=type.getValue();
+        if(hotelRank.getValue()!=null)
+            rank=hotelRank.getValue();
         if(baggage.getValue()!=null)
             baggageS=(String)baggage.getValue();
         if(adultTravelers.getValue()!=null)
@@ -80,7 +92,7 @@ public class VacationSearchView {
             travelersB=babyTravelers.getValue();
         view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),travelersA,
                 travelersC, travelersB, airline.getText(),baggageS,
-                isDirect.isSelected(), priceFrom.getText(), priceTo.getText());
+                isDirect.isSelected(), priceFrom.getText(), priceTo.getText(),types,hotelName.getText(),rank);
     }
 
     public void goToLogin(){
@@ -100,5 +112,11 @@ public class VacationSearchView {
 
     public void setLoginButton() {
         loginButton.setDisable(true);
+    }
+
+    public void showAdv(){
+        type.setVisible(true);
+        hotelName.setVisible(true);
+        hotelRank.setVisible(true);
     }
 }

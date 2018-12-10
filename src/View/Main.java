@@ -12,6 +12,8 @@ import java.time.LocalDate;
 public class Main extends Application {
 
     public static Stage primStage;
+    public static int idVac;
+    public static int idPurchas;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -44,6 +46,7 @@ public class Main extends Application {
         String url = "jdbc:sqlite:Vacation4U.db";
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS vacation (\n"
+                + "id INTEGER PRIMARY KEY, \n"
                 + "userName text NOT NULL, \n"
                 + "airline text NOT NULL, \n"
                 + "fromC text NOT NULL, \n"
@@ -58,7 +61,9 @@ public class Main extends Application {
                 + "baggage text, \n"
                 + "type text, \n"
                 + "hotel text, \n"
-                + "hotelRating text \n"
+                + "hotelRating INTEGER, \n"
+                + "status text, \n"
+                + "FOREIGN KEY(userName) REFERENCES users(userName) \n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -76,10 +81,35 @@ public class Main extends Application {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS purchases (\n"
                 + "id INTEGER PRIMARY KEY, \n"
-                + "airline text NOT NULL, \n"
-                + "fromC text NOT NULL, \n"
-                + "destination text NOT NULL, \n"
-                + "Depart text NOT NULL, \n"
+                + "idVac INTEGER NOT NULL, \n"
+                + "Date text, \n"
+                + "seller text NOT NULL, \n"
+                + "buyer text NOT NULL, \n"
+                + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
+                + "FOREIGN KEY(seller) REFERENCES users(userName), \n"
+                + "FOREIGN KEY(buyer) REFERENCES users(userName) \n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void requestsTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Vacation4U.db";
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS requests (\n"
+                + "idVac INTEGER NOT NULL, \n"
+                + "seller text NOT NULL, \n"
+                + "buyer text NOT NULL, \n"
+                + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
+                + "FOREIGN KEY(seller) REFERENCES users(userName), \n"
+                + "FOREIGN KEY(buyer) REFERENCES users(userName) \n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -113,11 +143,39 @@ public class Main extends Application {
         }
     }
 
+    public static void getID(){
+        String url= "jdbc:sqlite:Vacation4U.db";
+
+        String sql = "SELECT MAX(id) FROM vacation ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt1.executeQuery();
+            while (rs.next()) {
+                idVac = rs.getInt("MAX(id)");
+                idVac++;
+            }
+        }catch (Exception e){e.printStackTrace();}
+
+        sql="SELECT MAX(id) FROM purchases ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt1.executeQuery();
+            while (rs.next()) {
+                idPurchas = rs.getInt("MAX(id)");
+                idPurchas++;
+            }
+        }catch (Exception e){e.printStackTrace();}
+    }
+
 
     public static void main(String[] args) {
         createNewDatabase();
         createUsersTable();
         createVacationTable();
+        createPurchaseTable();
+        requestsTable();
+        getID();
         launch(args);
     }
 }
