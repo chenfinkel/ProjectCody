@@ -47,16 +47,18 @@ public class View {
         return control.login(userName,password);
     }
 
-    public void login() throws Exception{
-        Stage window=Main.primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
-        window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
-        UserPageView viewControl = fxmlLoader.getController();
-        viewControl.setView(this);
-        viewControl.setUserName();
-        viewControl.setVacations();
-        viewControl.setRequests();
-        window.show();
+    public void goToUserPage(){
+        try {
+            Stage window = Main.primStage;
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
+            UserPageView viewControl = fxmlLoader.getController();
+            viewControl.setView(this);
+            viewControl.setUserName();
+            //viewControl.setVacations();
+            //viewControl.setRequests();
+            window.show();
+        }catch (Exception e){ e.printStackTrace(); }
     }
 
     public void goToProfile(){
@@ -144,8 +146,10 @@ public class View {
         viewControl.setView(this);
         String s=getCurrentUser();
         viewControl.setCurrentUser(s);
-        if(!s.equals("guest"))
+        if(!s.equals("guest")) {
             viewControl.setLoginButton();
+            viewControl.setProfilLogOff();
+        }
         viewControl.setCombos();
         window.show();
     }
@@ -193,6 +197,10 @@ public class View {
 
     public List<String> getUserReq(String user) {
         return control.getUserReq(user);
+    }
+
+    public List<String> getIncomingReq(String user){
+        return control.getIncomingReq(user);
     }
 
     public void buyVac(String text) {

@@ -148,4 +148,8 @@ public class Controller {
     public void declineReq(String request) {
         model.declineReq(request);
     }
+
+    public List<String> getIncomingReq(String user) {
+        return model.userIncomingReq(user);
+    }
 }

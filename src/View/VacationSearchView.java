@@ -49,6 +49,12 @@ public class VacationSearchView {
     private ComboBox<String> hotelRank;
     @FXML
     private TextField hotelName;
+    @FXML
+    private Label Profile;
+    @FXML
+    private Label Profile2;
+    @FXML
+    private Label LogOff;
 
 
     public void setCombos(){
@@ -111,12 +117,22 @@ public class VacationSearchView {
     }
 
     public void setLoginButton() {
-        loginButton.setDisable(true);
+        loginButton.setVisible(false);
     }
 
     public void showAdv(){
         type.setVisible(true);
         hotelName.setVisible(true);
         hotelRank.setVisible(true);
+    }
+
+    public void setProfilLogOff() {
+        Profile.setVisible(true);
+        Profile2.setVisible(true);
+        LogOff.setVisible(true);
+    }
+
+    public void goToProfile(){
+        view.goToUserPage();
     }
 }

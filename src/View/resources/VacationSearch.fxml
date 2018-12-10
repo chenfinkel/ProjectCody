@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -18,18 +19,40 @@
       <ComboBox fx:id="adultTravelers" layoutX="349.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Adult Travelers:" />
       <Button layoutX="750.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchVac" prefHeight="32.0" prefWidth="60.0" text="Search" />
       <Button layoutX="611.0" layoutY="365.0" mnemonicParsing="false" onAction="#showAdv" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />
-      <Button fx:id="loginButton" layoutX="860.0" layoutY="67.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="32.0" prefWidth="112.0" text="Sign In/Sign Up" />
-      <Label layoutX="789.0" layoutY="31.0" text="You are logged in as">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label fx:id="currentUser" layoutX="926.0" layoutY="31.0" text="guest" textFill="#d75252">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Label>
-      <Label layoutX="29.0" layoutY="22.0" text="Fing a user:">
+      <Button fx:id="loginButton" layoutX="826.0" layoutY="19.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="32.0" prefWidth="112.0" text="Sign In/Sign Up" />
+      <Label layoutX="29.0" layoutY="22.0" text="Find a user:">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="605.0" layoutY="25.0" text="You are logged in as" textFill="#d7d6d6">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="currentUser" layoutX="764.0" layoutY="25.0" text="guest" textFill="#b95858">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="Profile" layoutX="855.0" layoutY="25.0" text="Profile" onMouseClicked="#goToProfile" textFill="#3fe15d" visible="false">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Label>
+      <Label fx:id="LogOff" layoutX="923.0" layoutY="25.0" text="Log off" textFill="#3fe15d" visible="false">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="Profile2" layoutX="914.0" layoutY="25.0" text="|" textFill="#c9c9c9" visible="false">
+         <font>
+            <Font name="Arial" size="15.0" />
          </font>
       </Label>
       <TextField fx:id="searchUserName" layoutX="117.0" layoutY="18.0" prefHeight="25.0" prefWidth="112.0" promptText="Enter Username:" />

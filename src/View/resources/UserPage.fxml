@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -15,12 +11,15 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-image: url('Airplane.png'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UserPageView">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000079" height="54.0" layoutY="-1.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeType="INSIDE" width="1000.0" />
-        <Text fill="#e8d50b" layoutX="15.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vacation4U" wrappingWidth="191.71484375">
+        <Text fill="#e8d50b" layoutX="15.0" layoutY="37.0" onMouseClicked="#goToSearch" strokeType="OUTSIDE" strokeWidth="0.0" text="Vacation4U" wrappingWidth="191.71484375">
             <font>
                 <Font name="Bauhaus 93" size="35.0" />
             </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
         </Text>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000006c" height="455.0" layoutX="64.0" layoutY="103.0" stroke="BLACK" strokeType="INSIDE" width="715.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000006c" height="550.0" layoutX="248.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" width="721.0" />
       <Label layoutX="605.0" layoutY="18.0" text="You are logged in as" textFill="#d7d6d6">
          <font>
             <Font name="Arial Bold" size="15.0" />
@@ -51,74 +50,47 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="864.0" layoutY="150.0" mnemonicParsing="false" onAction="#addVacation" prefHeight="25.0" prefWidth="101.0" text="Add Vacation" />
-      <Button layoutX="864.0" layoutY="192.0" mnemonicParsing="false" onAction="#goToSearch" text="Search Vacation" />
-      <GridPane layoutX="63.0" layoutY="108.0" prefHeight="447.0" prefWidth="715.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Text fill="#1b1a10" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Vacations" wrappingWidth="238.71484375" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="Bauhaus 93" size="35.0" />
-               </font>
-            </Text>
-            <Label text="Your requests" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="Bauhaus 93" size="43.0" />
-               </font></Label>
-            <Label fx:id="labVac0" textFill="#fffbfb" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label fx:id="labVac1" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label fx:id="labVac2" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-            <Label fx:id="labReq0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
-            <Label fx:id="labReq1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
-            <Label fx:id="labReq2" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font></Label>
-            <Button fx:id="buy0" mnemonicParsing="false" text="Buy" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button fx:id="buy1" mnemonicParsing="false" text="Buy" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button fx:id="buy2" mnemonicParsing="false" text="Buy" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <children>
-                  <Button fx:id="apr0" mnemonicParsing="false" onAction="#apr0" text="Approve" visible="false" />
-                  <Button fx:id="dcl0" mnemonicParsing="false" onAction="#dcl0" text="Decline" visible="false" />
-               </children>
-            </VBox>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <children>
-                  <Button fx:id="apr1" mnemonicParsing="false" onAction="#apr1" text="Approve" visible="false" />
-                  <Button fx:id="dcl1" mnemonicParsing="false" onAction="#dcl1" text="Decline" visible="false" />
-               </children>
-            </VBox>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <children>
-                  <Button fx:id="apr2" mnemonicParsing="false" onAction="#apr2" text="Approve" visible="false" />
-                  <Button fx:id="dcl2" mnemonicParsing="false" onAction="#dcl2" text="Decline" visible="false" />
-               </children></VBox>
-         </children>
-      </GridPane>
+      <Label layoutX="63.0" layoutY="404.0" onMouseClicked="#addVacation" text="Add Vacation" textFill="#e8d50b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+             <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label layoutX="59.0" layoutY="224.0" text="Your Requests" onMouseClicked="#setRequests" textFill="#e8d50b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+             <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label layoutX="37.0" layoutY="284.0" onMouseClicked="#setIncomingRequests" text="Incoming Requests" textFill="#e8d50b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+             <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <ListView fx:id="RequestsList" layoutX="248.0" layoutY="73.0" opacity="0.5" prefHeight="550.0" prefWidth="721.0" visible="false" />
+      <Label layoutX="56.0" layoutY="164.0" onMouseClicked="#setVacations" text="Your Vacations" textFill="#e8d50b">
+          <font>
+              <Font name="System Bold" size="20.0" />
+          </font>
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
+      </Label>
+      <ListView fx:id="VacationList" layoutX="248.0" layoutY="73.0" opacity="0.5" prefHeight="550.0" prefWidth="721.0" visible="false" />
+      <Label layoutX="47.0" layoutY="344.0" text="Purchase History" textFill="#e8d50b">
+          <font>
+              <Font name="System Bold" size="20.0" />
+          </font>
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
+      </Label>
     </children>
 </Pane>

@@ -1,50 +1,44 @@
 package View;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class UserPageView {
 
+    @FXML
     private View view;
     @FXML
     private Label currentUser;
     @FXML
-    private Label labVac0;
+    private Label VacationLbl;
     @FXML
-    private Label labVac1;
+    private ListView VacationList;
     @FXML
-    private Label labVac2;
-    @FXML
-    private Label labReq0;
-    @FXML
-    private Label labReq1;
-    @FXML
-    private Label labReq2;
-    @FXML
-    private Button apr0;
-    @FXML
-    private Button apr1;
-    @FXML
-    private Button apr2;
-    @FXML
-    private Button dcl0;
-    @FXML
-    private Button dcl1;
-    @FXML
-    private Button dcl2;
-    @FXML
-    private Button buy0;
-    @FXML
-    private Button buy1;
-    @FXML
-    private Button buy2;
+    private ListView RequestsList;
+
+    private ArrayList<Button> approves;
+
+    private ArrayList<Button> declines;
+
+    private ArrayList<String> requests;
+
 
 
 
@@ -79,114 +73,117 @@ public class UserPageView {
 
     public void setVacations() {
         List<String> l=view.getUserVac(currentUser.getText());
+        RequestsList.setVisible(false);
+        VacationList.setVisible(true);
+        ObservableList vacations = FXCollections.observableArrayList();
         if(l.size()==0){
-            labVac0.setText("No vacations added");
+            vacations.add("No vacations added");
         }
         else {
-            int i;
-            for (i = 0; i < 3 && i < l.size(); i++) {
-                String vacation = l.get(i);
-                if (i == 0) {
-                    labVac0.setText(vacation);
-                    if (vacation.contains("Requested")) {
-                        apr0.setVisible(true);
-                        dcl0.setVisible(true);
-                    }
-                }
-                if (i == 1) {
-                    labVac1.setText(vacation);
-                    if (vacation.contains("Requested")) {
-                        apr1.setVisible(true);
-                        dcl1.setVisible(true);
-                    }
-                }
-                if (i == 2) {
-                    labVac2.setText(vacation);
-                    if (vacation.contains("Requested")) {
-                        apr2.setVisible(true);
-                        dcl2.setVisible(true);
-                    }
-                }
+            for (int i = 0; i < l.size(); i++) {
+                vacations.add(l.get(i));
             }
         }
+        VacationList.setItems(vacations);
+    }
+
+    public void setIncomingRequests() {
+        approves = new ArrayList<>();
+        declines = new ArrayList<>();
+        requests = new ArrayList<>();
+        List<String> l=view.getIncomingReq(currentUser.getText());
+        VacationList.setVisible(false);
+        RequestsList.setVisible(true);
+        ObservableList lines = FXCollections.observableArrayList();
+        if(l.size()==0){
+            lines.add("No requests submitted");
+        }
+        else {
+            for (int i = 0; i < l.size(); i++) {
+                HBox hbox = new HBox();
+                Label label = new Label(l.get(i));
+                requests.add(label.getText());
+                Button app = new Button("Approve");
+                app.setId(i+"");
+                app.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override public void handle(ActionEvent e) {
+                        approveRequest((Button)e.getSource());
+                    }
+                });
+                approves.add(app);
+                app.setLayoutY(label.getHeight());
+                Button dec = new Button("Decline");
+                dec.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override public void handle(ActionEvent e) {
+                        declineRequest((Button)e.getSource());
+                    }
+                });
+                declines.add(dec);
+                hbox.setSpacing(20);
+                hbox.setHgrow(label, Priority.ALWAYS);
+                hbox.setHgrow(app, Priority.ALWAYS);
+                hbox.setHgrow(dec, Priority.ALWAYS);
+                hbox.getChildren().addAll(label, app, dec);
+                lines.add(hbox);
+            }
+        }
+        RequestsList.setItems(lines);
     }
 
     public void setRequests() {
+        requests = new ArrayList<>();
         List<String> l=view.getUserReq(currentUser.getText());
+        VacationList.setVisible(false);
+        RequestsList.setVisible(true);
+        ObservableList lines = FXCollections.observableArrayList();
         if(l.size()==0){
-            labReq0.setText("No requests submitted");
+            lines.add("No requests submitted");
         }
         else {
-            int i;
-            for (i = 0; i < 3 && i < l.size(); i++) {
-                String request = l.get(i);
-                if (i == 0) {
-                    labReq0.setText(request);
-                    if(request.contains("approved"))
-                        buy0.setVisible(true);
-                }
-                if (i == 1) {
-                    labReq1.setText(request);
-                    if(request.contains("approved"))
-                        buy1.setVisible(true);
-                }
-                if (i == 2) {
-                    labReq2.setText(request);
-                    if(request.contains("approved"))
-                        buy2.setVisible(true);
-                }
+            for (int i = 0; i < l.size(); i++) {
+                HBox hbox = new HBox();
+                Label label = new Label(l.get(i));
+                requests.add(label.getText());
+                Button app = new Button("Approve");
+                app.setId(i+"");
+                app.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override public void handle(ActionEvent e) {
+                        approveRequest((Button)e.getSource());
+                    }
+                });
+                approves.add(app);
+                app.setLayoutY(label.getHeight());
+                Button dec = new Button("Decline");
+                dec.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override public void handle(ActionEvent e) {
+                        declineRequest((Button)e.getSource());
+                    }
+                });
+                declines.add(dec);
+                hbox.setSpacing(20);
+                hbox.setHgrow(label, Priority.ALWAYS);
+                hbox.setHgrow(app, Priority.ALWAYS);
+                hbox.setHgrow(dec, Priority.ALWAYS);
+                hbox.getChildren().addAll(label, app, dec);
+                lines.add(hbox);
             }
         }
+        RequestsList.setItems(lines);
     }
 
-    public void apr0(){
-        view.approveReq(labVac0.getText());
-        apr0.setDisable(true);
-        dcl0.setDisable(true);
+    private void declineRequest(Button b) {
+        String request = requests.get(declines.indexOf(b));
+        view.approveReq(request);
+        b.setDisable(true);
+        Button approve = approves.get(declines.indexOf(b));
+        approve.setDisable(true);
     }
 
-    public void apr1(){
-        view.approveReq(labVac1.getText());
-        apr1.setDisable(true);
-        dcl1.setDisable(true);
-    }
-
-    public void apr2(){
-        view.approveReq(labVac2.getText());
-        apr2.setDisable(true);
-        dcl2.setDisable(true);
-    }
-
-    public void dcl0(){
-        view.declineReq(labVac0.getText());
-        apr0.setDisable(true);
-        dcl0.setDisable(true);
-    }
-
-    public void dcl1(){
-        view.declineReq(labVac1.getText());
-        apr1.setDisable(true);
-        dcl1.setDisable(true);
-    }
-
-    public void dcl2(){
-        view.declineReq(labVac2.getText());
-        apr2.setDisable(true);
-        dcl2.setDisable(true);
-    }
-
-    public void buy0(){
-        view.buyVac(labReq0.getText());
-        buy0.setDisable(true);
-    }
-
-    public void buy1(){
-        view.buyVac(labReq1.getText());
-        buy1.setDisable(true);
-    }
-
-    public void buy2(){
-        view.buyVac(labReq2.getText());
-        buy2.setDisable(true);
+    private void approveRequest(Button b) {
+        String request = requests.get(approves.indexOf(b));
+        view.approveReq(request);
+        b.setDisable(true);
+        Button decline = declines.get(approves.indexOf(b));
+        decline.setDisable(true);
     }
 }

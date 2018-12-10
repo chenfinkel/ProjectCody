@@ -53,7 +53,7 @@ public class LoginPageView {
         }
         else{
             try{
-                view.login();
+                view.goToSearch();
             }catch (Exception e){e.printStackTrace();}
         }
     }

@@ -263,27 +263,27 @@ public class Model extends Observable {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM vacation WHERE userName = ? ";
-        String vacReq="SELECT * FROM requests WHERE idVac = ? ";
+        //String vacReq="SELECT * FROM requests WHERE idVac = ? ";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vac);
-             PreparedStatement pstmt2 = conn.prepareStatement(vacReq)) {
+             /*PreparedStatement pstmt2 = conn.prepareStatement(vacReq)*/) {
 
             pstmt1.setString(1,userName);
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
-                pstmt2.setString(1,rs.getString("id"));
-                ResultSet rs2  = pstmt2.executeQuery();
-                String s="Id: "+ rs.getString("id") +
+                //pstmt2.setString(1,rs.getString("id"));
+                //ResultSet rs2  = pstmt2.executeQuery();
+                String s="Vacation ID: "+ rs.getString("id") +
                         ", From: " + rs.getString("fromC")+
                         ", To: " +rs.getString("destination") + "\n" +
                         "Depart: " + rs.getString("Depart")+
                         ", Return: " + rs.getString("Return")+ "\n" +
                         "Price: " + rs.getString("price")+ "\n" +
                         "Status: " + rs.getString("status");
-                while (rs2.next()){
+                /*while (rs2.next()){
                     s+= ", Requested by: " + rs2.getString("buyer") +"\n" +
                             "Request ID: " + rs2.getString("id");
-                }
+                }*/
                 list.add(s);
             }
         } catch (Exception e){System.out.println(e.getMessage());}
@@ -333,7 +333,7 @@ public class Model extends Observable {
             while (rs.next()) {
                 pstmt2.setString(1,rs.getString("idVac"));
                 ResultSet rs2  = pstmt2.executeQuery();
-                String s = "Request Id: " + rs.getString("id")+
+                String s = "Request ID: " + rs.getString("id")+
                             ", Status: " + rs.getString("status")+"\n";
                 while(rs2.next()) {
                             s+="From: " + rs2.getString("fromC") +
@@ -348,10 +348,39 @@ public class Model extends Observable {
         return list;
     }
 
+    public List<String> userIncomingReq(String user) {
+        List<String> list=new LinkedList<>();
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String vacReq="SELECT * FROM requests WHERE seller = ? AND status=\"waiting\"";
+        String vac="SELECT * FROM vacation WHERE id = ? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(vacReq);
+             PreparedStatement pstmt2 = conn.prepareStatement(vac)) {
+
+            pstmt1.setString(1,user);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                pstmt2.setString(1,rs.getString("idVac"));
+                ResultSet rs2  = pstmt2.executeQuery();
+                String s = "Request ID: " + rs.getString("id")+
+                        ", Status: " + rs.getString("status")+"\n";
+                while(rs2.next()) {
+                    s+="From: " + rs2.getString("fromC") +
+                            ", To: " + rs2.getString("destination") + "\n" +
+                            "Depart: " + rs2.getString("Depart") +
+                            ", Return: " + rs2.getString("Return") + "\n" +
+                            "Price: " + rs2.getString("price");
+                    list.add(s);
+                }
+            }
+        } catch (Exception e){e.printStackTrace();}
+        return list;
+    }
+
     public void approveReq(String vacation) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=vacation.split("Request ID: ");
-        int vacID=Integer.parseInt(temp[1]);
+        int vacID=Integer.parseInt(temp[1].split(",")[0]);
 
         String sql="UPDATE requests SET status = \"approved\" WHERE id = ? ";
 
