@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -85,15 +86,38 @@
                <font>
                   <Font size="15.0" />
                </font></Label>
-            <Label fx:id="labReq0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="labReq1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label fx:id="labReq2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Button fx:id="apr0" mnemonicParsing="false" text="Approve" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button fx:id="apr1" mnemonicParsing="false" text="Approve" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button fx:id="apr2" mnemonicParsing="false" text="Approve" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label fx:id="labReq0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label fx:id="labReq1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label fx:id="labReq2" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             <Button fx:id="buy0" mnemonicParsing="false" text="Buy" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Button fx:id="buy1" mnemonicParsing="false" text="Buy" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button fx:id="buy2" mnemonicParsing="false" text="Buy" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <children>
+                  <Button fx:id="apr0" mnemonicParsing="false" onAction="#apr0" text="Approve" visible="false" />
+                  <Button fx:id="dcl0" mnemonicParsing="false" onAction="#dcl0" text="Decline" visible="false" />
+               </children>
+            </VBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <children>
+                  <Button fx:id="apr1" mnemonicParsing="false" onAction="#apr1" text="Approve" visible="false" />
+                  <Button fx:id="dcl1" mnemonicParsing="false" onAction="#dcl1" text="Decline" visible="false" />
+               </children>
+            </VBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <children>
+                  <Button fx:id="apr2" mnemonicParsing="false" onAction="#apr2" text="Approve" visible="false" />
+                  <Button fx:id="dcl2" mnemonicParsing="false" onAction="#dcl2" text="Decline" visible="false" />
+               </children></VBox>
          </children>
       </GridPane>
     </children>

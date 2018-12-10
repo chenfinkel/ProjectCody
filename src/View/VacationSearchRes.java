@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class VacationSearchRes {
@@ -95,52 +96,67 @@ public class VacationSearchRes {
                 if (i == 0) {
                     lbl0.setText(lab);
                     Buy0.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy0.setDisable(true);
                 }
                 if (i == 1) {
                     lbl1.setText(lab);
                     Buy1.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy1.setDisable(true);
                 }
                 if (i == 2) {
                     lbl2.setText(lab);
                     Buy2.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy2.setDisable(true);
                 }
                 if (i == 3) {
                     lbl3.setText(lab);
                     Buy3.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy3.setDisable(true);
                 }
                 if (i == 4) {
                     lbl4.setText(lab);
                     Buy4.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy4.setDisable(true);
                 }
                 if (i == 5) {
                     lbl5.setText(lab);
                     Buy5.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy5.setDisable(true);
                 }
                 if (i == 6) {
                     lbl6.setText(lab);
                     Buy6.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy6.setDisable(true);
                 }
                 if (i == 7) {
                     lbl7.setText(lab);
                     Buy7.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy7.setDisable(true);
                 }
                 if (i == 8) {
                     lbl8.setText(lab);
                     Buy8.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy8.setDisable(true);
                 }
                 if (i == 9) {
                     lbl9.setText(lab);
                     Buy9.setVisible(true);
+                    if(temp[16].equals("requested"))
+                        Buy9.setDisable(true);
                 }
             }
         }
     }
 
-    public void login(){
-        try {
-            view.returnLoginPage();
-        }catch(Exception e){System.out.println(e.getMessage());}
-    }
 
     public void setCurrentUser(String currentUser) {
         this.userName.setText(currentUser);
@@ -155,41 +171,51 @@ public class VacationSearchRes {
 
     public void request0(){
         view.requestVac(lbl0.getText());
+        Buy0.setDisable(true);
     }
 
     public void request1(){
         view.requestVac(lbl1.getText());
+        Buy1.setDisable(true);
     }
 
     public void request2(){
         view.requestVac(lbl2.getText());
+        Buy2.setDisable(true);
     }
 
     public void request3(){
         view.requestVac(lbl3.getText());
+        Buy3.setDisable(true);
     }
 
     public void request4(){
         view.requestVac(lbl4.getText());
+        Buy4.setDisable(true);
     }
 
     public void request5(){
         view.requestVac(lbl5.getText());
+        Buy5.setDisable(true);
     }
 
     public void request6(){
         view.requestVac(lbl6.getText());
+        Buy6.setDisable(true);
     }
 
     public void request7(){
         view.requestVac(lbl7.getText());
+        Buy7.setDisable(true);
     }
 
     public void request8(){
         view.requestVac(lbl8.getText());
+        Buy8.setDisable(true);
     }
 
     public void request9(){
         view.requestVac(lbl9.getText());
+        Buy9.setDisable(true);
     }
 }

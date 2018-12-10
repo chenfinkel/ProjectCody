@@ -14,6 +14,7 @@ public class Main extends Application {
     public static Stage primStage;
     public static int idVac;
     public static int idPurchas;
+    public static int idRequest;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -104,9 +105,11 @@ public class Main extends Application {
         String url = "jdbc:sqlite:Vacation4U.db";
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS requests (\n"
+                + "id INTEGER PRIMARY KEY, \n"
                 + "idVac INTEGER NOT NULL, \n"
                 + "seller text NOT NULL, \n"
                 + "buyer text NOT NULL, \n"
+                + "status text NOT NULL, \n"
                 + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
                 + "FOREIGN KEY(seller) REFERENCES users(userName), \n"
                 + "FOREIGN KEY(buyer) REFERENCES users(userName) \n"
@@ -117,7 +120,7 @@ public class Main extends Application {
             // create a new table
             stmt.execute(sql);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -164,6 +167,16 @@ public class Main extends Application {
             while (rs.next()) {
                 idPurchas = rs.getInt("MAX(id)");
                 idPurchas++;
+            }
+        }catch (Exception e){e.printStackTrace();}
+
+        sql="SELECT MAX(id) FROM requests ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt1.executeQuery();
+            while (rs.next()) {
+                idRequest = rs.getInt("MAX(id)");
+                idRequest++;
             }
         }catch (Exception e){e.printStackTrace();}
     }

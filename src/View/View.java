@@ -55,6 +55,7 @@ public class View {
         viewControl.setView(this);
         viewControl.setUserName();
         viewControl.setVacations();
+        viewControl.setRequests();
         window.show();
     }
 
@@ -176,8 +177,10 @@ public class View {
             String seller = split[1].split("  From")[0];
             if (currentUser.equals(seller))
                 alert("You can't submit a request for a vacation you added");
-            else
+            else {
                 control.requestVac(vac);
+                alert("Your request has been sent");
+            }
         }
         else{
             alert("Please login in order to submit a purchase request");
@@ -186,5 +189,21 @@ public class View {
 
     public List<String> getUserVac(String user){
         return control.getUserVac(user);
+    }
+
+    public List<String> getUserReq(String user) {
+        return control.getUserReq(user);
+    }
+
+    public void buyVac(String text) {
+
+    }
+
+    public void approveReq(String request) {
+        control.approveReq(request);
+    }
+
+    public void declineReq(String request) {
+        control.declineReq(request);
     }
 }

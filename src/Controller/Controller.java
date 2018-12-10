@@ -136,4 +136,16 @@ public class Controller {
     public List<String> getUserVac(String user) {
         return model.userVac(user);
     }
+
+    public List<String> getUserReq(String user) {
+        return model.userReq(user);
+    }
+
+    public void approveReq(String request) {
+        model.approveReq(request);
+    }
+
+    public void declineReq(String request) {
+        model.declineReq(request);
+    }
 }

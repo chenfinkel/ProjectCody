@@ -206,30 +206,33 @@ public class Model extends Observable {
              PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
-                String s= rs.getString("userName");
-                s+=(", " +rs.getString("airline"));
-                s+=(", " +rs.getString("fromC"));
-                s+=(", " +rs.getString("destination"));
-                s+=(", " +rs.getString("Depart"));
-                s+=(", " +rs.getString("Return"));
-                s+=(", " +rs.getString("travelersA"));
-                s+=(", " +rs.getString("travelersC"));
-                s+=(", " +rs.getString("travelersB"));
-                s+=(", " +rs.getString("direct"));
-                s+=(", " +rs.getString("price"));
-                s+=(", " +rs.getString("baggage"));
-                s+=(", " +rs.getString("type"));
-                s+=(", " +rs.getString("hotel"));
-                s+=(", " +rs.getString("hotelRating"));
-                s+=(", " +rs.getString("id"));
-                list.add(s);
+                if(rs.getString("status").equals("open")) {
+                    String s = rs.getString("userName");
+                    s += (", " + rs.getString("airline"));
+                    s += (", " + rs.getString("fromC"));
+                    s += (", " + rs.getString("destination"));
+                    s += (", " + rs.getString("Depart"));
+                    s += (", " + rs.getString("Return"));
+                    s += (", " + rs.getString("travelersA"));
+                    s += (", " + rs.getString("travelersC"));
+                    s += (", " + rs.getString("travelersB"));
+                    s += (", " + rs.getString("direct"));
+                    s += (", " + rs.getString("price"));
+                    s += (", " + rs.getString("baggage"));
+                    s += (", " + rs.getString("type"));
+                    s += (", " + rs.getString("hotel"));
+                    s += (", " + rs.getString("hotelRating"));
+                    s += (", " + rs.getString("id"));
+                    s += (", " + rs.getString("status"));
+                    list.add(s);
+                }
             }
-        } catch (Exception e){System.out.println(e.getMessage());}
+        } catch (Exception e){e.printStackTrace();}
         return list;
     }
 
     public void addVacation( String userName, String from, String to, String departDate, String returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
-        String sql1 = "INSERT INTO vacation(id,userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1 = "INSERT INTO vacation(id,userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating,status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         String url = "jdbc:sqlite:Vacation4U.db";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql1)) {
@@ -249,6 +252,7 @@ public class Model extends Observable {
             pstmt.setString(14, type);
             pstmt.setString(15, hotelName);
             pstmt.setString(16, hotelRank);
+            pstmt.setString(17, "open");
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -259,7 +263,7 @@ public class Model extends Observable {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM vacation WHERE userName = ? ";
-        String vacReq="SELECT buyer FROM requests WHERE idVac = ? ";
+        String vacReq="SELECT * FROM requests WHERE idVac = ? ";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vac);
              PreparedStatement pstmt2 = conn.prepareStatement(vacReq)) {
@@ -274,9 +278,11 @@ public class Model extends Observable {
                         ", To: " +rs.getString("destination") + "\n" +
                         "Depart: " + rs.getString("Depart")+
                         ", Return: " + rs.getString("Return")+ "\n" +
-                        "Price: " + rs.getString("price");
+                        "Price: " + rs.getString("price")+ "\n" +
+                        "Status: " + rs.getString("status");
                 while (rs2.next()){
-                    s+= ", Requested by: " + rs2.getString("buyer");
+                    s+= ", Requested by: " + rs2.getString("buyer") +"\n" +
+                            "Request ID: " + rs2.getString("id");
                 }
                 list.add(s);
             }
@@ -292,7 +298,7 @@ public class Model extends Observable {
         String[] temp3=temp[1].split("  ");
         String seller=temp3[0];
 
-        String sql="UPDATE status FROM vacation WHERE id = ?";
+        String sql="UPDATE vacation SET status = \"requested\" WHERE id = ?";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
@@ -300,13 +306,72 @@ public class Model extends Observable {
             pstmt1.executeUpdate();
         } catch (Exception e){}
 
-        String sql1 = "INSERT INTO requests(idVac,seller,buyer) VALUES(?,?,?)";
+        String sql1 = "INSERT INTO requests(id,idVac,seller,buyer,status) VALUES(?,?,?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
-            pstmt1.setInt(1,id);
-            pstmt1.setString(2,seller);
-            pstmt1.setString(3,currentUser);
+            pstmt1.setInt(1,Main.idRequest++);
+            pstmt1.setInt(2,id);
+            pstmt1.setString(3,seller);
+            pstmt1.setString(4,currentUser);
+            pstmt1.setString(5,"waiting");
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+    }
+
+    public List<String> userReq(String user) {
+        List<String> list=new LinkedList<>();
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String vacReq="SELECT * FROM requests WHERE buyer = ? ";
+        String vac="SELECT * FROM vacation WHERE id = ? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(vacReq);
+             PreparedStatement pstmt2 = conn.prepareStatement(vac)) {
+
+            pstmt1.setString(1,user);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                pstmt2.setString(1,rs.getString("idVac"));
+                ResultSet rs2  = pstmt2.executeQuery();
+                String s = "Request Id: " + rs.getString("id")+
+                            ", Status: " + rs.getString("status")+"\n";
+                while(rs2.next()) {
+                            s+="From: " + rs2.getString("fromC") +
+                            ", To: " + rs2.getString("destination") + "\n" +
+                            "Depart: " + rs2.getString("Depart") +
+                            ", Return: " + rs2.getString("Return") + "\n" +
+                            "Price: " + rs2.getString("price");
+                    list.add(s);
+                }
+            }
+        } catch (Exception e){e.printStackTrace();}
+        return list;
+    }
+
+    public void approveReq(String vacation) {
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String[] temp=vacation.split("Request ID: ");
+        int vacID=Integer.parseInt(temp[1]);
+
+        String sql="UPDATE requests SET status = \"approved\" WHERE id = ? ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setInt(1,vacID);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+    }
+
+    public void declineReq(String vacation) {
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String[] temp=vacation.split("Request ID: ");
+        int vacID=Integer.parseInt(temp[1]);
+
+        String sql="UPDATE requests SET status = \"declined\" WHERE id = ? ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setInt(1,vacID);
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
     }
