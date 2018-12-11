@@ -55,7 +55,8 @@ public class VacationSearchView {
     private Label Profile2;
     @FXML
     private Label LogOff;
-
+    @FXML
+    private Button advanced;
 
     public void setCombos(){
         Set<String> items=new HashSet<>();
@@ -79,6 +80,14 @@ public class VacationSearchView {
     }
 
     public void searchVac(){
+        if(!returnDate.getEditor().getText().equals("")) {
+            if (returnDate.getValue().isBefore(departDate.getValue())) {
+                Alert al = new Alert(Alert.AlertType.INFORMATION);
+                al.setContentText("Return date must be later than depart date");
+                al.show();
+                returnDate.getEditor().clear();
+            }
+        }
         if(!returnDate.getEditor().getText().equals("")) {
             if (returnDate.getValue().isBefore(departDate.getValue())) {
                 Alert al = new Alert(Alert.AlertType.INFORMATION);
@@ -125,9 +134,17 @@ public class VacationSearchView {
     }
 
     public void showAdv(){
-        type.setVisible(true);
-        hotelName.setVisible(true);
-        hotelRank.setVisible(true);
+        if (advanced.getText().equals("Advanced Search")) {
+            type.setVisible(true);
+            hotelName.setVisible(true);
+            hotelRank.setVisible(true);
+            advanced.setText("Simple Search");
+        } else {
+            type.setVisible(false);
+            hotelName.setVisible(false);
+            hotelRank.setVisible(false);
+            advanced.setText("Advanced Search");
+        }
     }
 
     public void setProfilLogOff() {

@@ -209,23 +209,48 @@ public class Model extends Observable {
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
                 if(rs.getString("status").equals("open")) {
-                    String s = rs.getString("userName");
-                    s += (", " + rs.getString("airline"));
-                    s += (", " + rs.getString("fromC"));
-                    s += (", " + rs.getString("destination"));
-                    s += (", " + rs.getString("Depart"));
-                    s += (", " + rs.getString("Return"));
-                    s += (", " + rs.getString("travelersA"));
-                    s += (", " + rs.getString("travelersC"));
-                    s += (", " + rs.getString("travelersB"));
-                    s += (", " + rs.getString("direct"));
-                    s += (", " + rs.getString("price"));
-                    s += (", " + rs.getString("baggage"));
-                    s += (", " + rs.getString("type"));
-                    s += (", " + rs.getString("hotel"));
-                    s += (", " + rs.getString("hotelRating"));
-                    s += (", " + rs.getString("id"));
-                    s += (", " + rs.getString("status"));
+                    String s = "Vacation id: " + rs.getString("id") + "\n";
+                    s += ("From: " + rs.getString("fromC"));
+                    s += (", To: " + rs.getString("destination"));
+                    s += (", Depart: " + rs.getString("Depart"));
+                    String ret = rs.getString("Return");
+                    if (!ret.equals(""))
+                        s += (", Return: " + ret + "\n");
+                    else
+                        s+="\n";
+                    s += ("Price: " + rs.getString("price") + "\n\n");
+                    s += ("Airline: " + rs.getString("airline"));
+                    s += (", Baggage: " + rs.getString("baggage"));
+                    String isDirect = rs.getString("direct");
+                    if (isDirect.equals("false"))
+                        s += "Direct: no\n";
+                    else
+                        s += "Direct: yes\n";
+                    s += ("Adults: " + rs.getString("travelersA"));
+                    String child = rs.getString("travelersC");
+                    if (!child.equals(""))
+                        s += ", Children: "+child;
+                    String baby = rs.getString("travelersB");
+                    if (!baby.equals(""))
+                        s += ", Babies: "+baby;
+                    s+="\n";
+                    String Type = rs.getString("type");
+                    if (!Type.equals(""))
+                        s += "Type: " + Type;
+                    String Hotel = rs.getString("hotel");
+                    if (!Hotel.equals("")){
+                        if (!Type.equals(""))
+                            s += ", ";
+                        s += "Hotel: " + Hotel;
+                    }
+                    String Rating = rs.getString("hotelRating");
+                    if (!Rating.equals("")) {
+                        if (!Type.equals("") || !Hotel.equals(""))
+                            s += ", ";
+                        s += "Rating: " + Rating;
+                    }
+                    s+="\n";
+                    s += "Seller: " + rs.getString("userName");
                     list.add(s);
                 }
             }
@@ -316,11 +341,11 @@ public class Model extends Observable {
 
     public void requestVac(String vac, String currentUser) {
         String url = "jdbc:sqlite:Vacation4U.db";
-        String[] temp=vac.split("  Seller: ");
-        String[] temp2=temp[0].split(": ");
-        int id= Integer.parseInt(temp2[1]);
-        String[] temp3=temp[1].split("  ");
-        String seller=temp3[0];
+        String[] temp=vac.split("Vacation id: ");
+        String[] temp2=temp[1].split("\n");
+        int id= Integer.parseInt(temp2[0]);
+        String[] temp3=temp[1].split("Seller: ");
+        String seller=temp3[temp3.length-1];
 
         String sql="UPDATE vacation SET status = \"requested\" WHERE id = ?";
 

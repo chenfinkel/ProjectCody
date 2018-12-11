@@ -140,11 +140,11 @@ public class UserPageView {
             lines.add("No requests submitted");
         }
         else {
+            userRequests = new ArrayList<>();
+            buyButtons = new ArrayList<>();
             for (int i = 0; i < l.size(); i++) {
                 String line = l.get(i);
                 if (line.contains("approved")) {
-                    userRequests = new ArrayList<>();
-                    buyButtons = new ArrayList<>();
                     HBox hbox = new HBox();
                     Label label = new Label(line);
                     userRequests.add(label.getText());
@@ -192,7 +192,7 @@ public class UserPageView {
 
     private void declineRequest(Button b) {
         String request = incomingRequests.get(declines.indexOf(b));
-        view.approveReq(request);
+        view.declineReq(request);
         b.setDisable(true);
         Button approve = approves.get(declines.indexOf(b));
         approve.setDisable(true);

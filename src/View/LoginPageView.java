@@ -79,6 +79,10 @@ public class LoginPageView {
         signUpCity.clear();
     }
 
-
+    public void goToSearch(){
+        try {
+            view.goToSearch();
+        }catch(Exception e){}
+    }
 
 }

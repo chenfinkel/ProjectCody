@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-image: url('Airplane.png'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationSearchView">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-image: url('Airplane.png'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationSearchView">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000079" height="54.0" layoutY="-1.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeType="INSIDE" width="1000.0" />
       <Text fill="#e8d50b" layoutX="15.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vacation4U" wrappingWidth="191.71484375">
@@ -21,12 +21,13 @@
          <Font name="Bauhaus 93" size="35.0" />
       </font>
       </Text>
-      <TextField fx:id="from" layoutX="22.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="From:" />
-      <TextField fx:id="to" layoutX="185.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="To:" />
-      <DatePicker fx:id="departDate" editable="false" layoutX="22.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Depart:" />
-      <DatePicker fx:id="returnDate" editable="false" layoutX="185.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Return:" />
-      <ComboBox fx:id="adultTravelers" layoutX="349.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Adult Travelers:" />
-      <Button layoutX="750.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchVac" opacity="0.78" prefHeight="32.0" prefWidth="60.0" text="Search">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000006c" height="414.0" layoutX="34.0" layoutY="136.0" stroke="BLACK" strokeType="INSIDE" width="932.0" />
+      <TextField fx:id="from" layoutX="52.0" layoutY="236.0" prefHeight="25.0" prefWidth="137.0" promptText="From:" />
+      <TextField fx:id="to" layoutX="215.0" layoutY="236.0" prefHeight="25.0" prefWidth="137.0" promptText="To:" />
+      <DatePicker fx:id="departDate" editable="false" layoutX="52.0" layoutY="290.0" prefHeight="25.0" prefWidth="137.0" promptText="Depart:" />
+      <DatePicker fx:id="returnDate" editable="false" layoutX="215.0" layoutY="290.0" prefHeight="25.0" prefWidth="137.0" promptText="Return:" />
+      <ComboBox fx:id="adultTravelers" layoutX="379.0" layoutY="236.0" prefHeight="25.0" prefWidth="137.0" promptText="Adult Travelers:" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="528.0" layoutY="425.0" mnemonicParsing="false" onAction="#searchVac" opacity="0.78" prefHeight="32.0" prefWidth="60.0" text="Search">
       <font>
          <Font name="System Bold" size="12.0" />
       </font>
@@ -34,7 +35,7 @@
          <InnerShadow />
       </effect>
       </Button>
-      <Button layoutX="602.0" layoutY="365.0" mnemonicParsing="false" onAction="#showAdv" opacity="0.78" prefHeight="32.0" prefWidth="121.0" text="Advanced Search">
+      <Button fx:id="advanced" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="425.0" mnemonicParsing="false" onAction="#showAdv" opacity="0.78" prefHeight="32.0" prefWidth="121.0" text="Advanced Search">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -72,7 +73,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Label>
-      <Label fx:id="LogOff" layoutX="920.0" layoutY="18.0" text="Log off" textFill="#3fe15d" onMouseClicked="#logOff" visible="false">
+      <Label fx:id="LogOff" layoutX="920.0" layoutY="18.0" onMouseClicked="#logOff" text="Log off" textFill="#3fe15d" visible="false">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
@@ -94,19 +95,19 @@
             <InnerShadow />
          </effect>
       </Button>
-      <ComboBox fx:id="childTravelers" layoutX="514.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Child Travelers:" />
-      <ComboBox fx:id="babyTravelers" layoutX="682.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Baby Travalers:" />
-      <TextField fx:id="airline" layoutX="349.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Airline:" />
-      <CheckBox fx:id="isDirect" layoutX="852.0" layoutY="129.0" mnemonicParsing="false" text="Direct" />
-      <ComboBox fx:id="baggage" layoutX="514.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Baggage:" />
-      <TextField fx:id="priceFrom" layoutX="682.0" layoutY="179.0" prefHeight="25.0" prefWidth="97.0" promptText="Price from:" />
-      <TextField fx:id="priceTo" layoutX="795.0" layoutY="179.0" prefHeight="25.0" prefWidth="97.0" promptText="Price to:" />
-      <ComboBox fx:id="type" layoutX="185.0" layoutY="235.0" prefHeight="25.0" prefWidth="137.0" promptText="Vacation type:" visible="false" />
-      <TextField fx:id="hotelName" layoutX="349.0" layoutY="235.0" prefHeight="25.0" prefWidth="137.0" promptText="Hotel name:" visible="false" />
-      <ComboBox fx:id="hotelRank" layoutX="514.0" layoutY="235.0" prefHeight="25.0" prefWidth="137.0" promptText="Hotel Rank:" visible="false" />
-      <Label layoutX="22.0" layoutY="74.0" prefHeight="32.0" prefWidth="192.0" text="Find your vacation:" textFill="WHITE">
+      <ComboBox fx:id="childTravelers" layoutX="544.0" layoutY="236.0" prefHeight="25.0" prefWidth="137.0" promptText="Child Travelers:" />
+      <ComboBox fx:id="babyTravelers" layoutX="712.0" layoutY="236.0" prefHeight="25.0" prefWidth="137.0" promptText="Baby Travalers:" />
+      <TextField fx:id="airline" layoutX="379.0" layoutY="290.0" prefHeight="25.0" prefWidth="137.0" promptText="Airline:" />
+      <CheckBox fx:id="isDirect" layoutX="882.0" layoutY="240.0" mnemonicParsing="false" text="Direct" textFill="WHITE" />
+      <ComboBox fx:id="baggage" layoutX="544.0" layoutY="290.0" prefHeight="25.0" prefWidth="137.0" promptText="Baggage:" />
+      <TextField fx:id="priceFrom" layoutX="712.0" layoutY="290.0" prefHeight="25.0" prefWidth="97.0" promptText="Price from:" />
+      <TextField fx:id="priceTo" layoutX="825.0" layoutY="290.0" prefHeight="25.0" prefWidth="97.0" promptText="Price to:" />
+      <ComboBox fx:id="type" layoutX="215.0" layoutY="346.0" prefHeight="25.0" prefWidth="137.0" promptText="Vacation type:" visible="false" />
+      <TextField fx:id="hotelName" layoutX="379.0" layoutY="346.0" prefHeight="25.0" prefWidth="137.0" promptText="Hotel name:" visible="false" />
+      <ComboBox fx:id="hotelRank" layoutX="544.0" layoutY="346.0" prefHeight="25.0" prefWidth="137.0" promptText="Hotel Rank:" visible="false" />
+      <Label layoutX="371.0" layoutY="158.0" prefHeight="32.0" prefWidth="230.0" text="Find your vacation:" textFill="WHITE">
          <font>
-            <Font name="Arial Rounded MT Bold" size="20.0" />
+            <Font name="Arial Rounded MT Bold" size="24.0" />
          </font>
       </Label>
    </children>

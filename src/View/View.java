@@ -18,36 +18,41 @@ public class View {
 
     private Stage updateStage;
 
-    public View(){
-        control=new Controller();
+    public View() {
+        control = new Controller();
         control.setView(this);
-        updateStage=new Stage();
+        updateStage = new Stage();
     }
 
     public void searchVac(String from, String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
-                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotelName, String hotelRank){
-        List<String> vacs=control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo, type, hotelName, hotelRank);
-        Stage window=Main.primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
-        Scene s=null;
-        Parent root=null;
-        try {
-            root=fxmlLoader.load(getClass().getResource("resources/VacationSearchRes.fxml").openStream());
-        }catch(IOException e){}
-        VacationSearchRes viewControl = fxmlLoader.getController();
-        viewControl.setView(this);
-        viewControl.setGrid(vacs);
-        viewControl.setCurrentUser(getCurrentUser());
-        s= new Scene(root, 1300, 650);
-        window.setScene(s);
-        window.show();
+                          String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotelName, String hotelRank) {
+        List<String> vacs = control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage, isDirect, priceFrom, priceTo, type, hotelName, hotelRank);
+        if (vacs.size() == 0)
+            alert("No matches found!");
+        else {
+            Stage window = Main.primStage;
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Scene s = null;
+            Parent root = null;
+            try {
+                root = fxmlLoader.load(getClass().getResource("resources/VacationSearchRes.fxml").openStream());
+            } catch (IOException e) {
+            }
+            VacationSearchRes viewControl = fxmlLoader.getController();
+            viewControl.setView(this);
+            viewControl.setResults(vacs);
+            viewControl.setCurrentUser(getCurrentUser());
+            s = new Scene(root, 1000, 650);
+            window.setScene(s);
+            window.show();
+        }
     }
 
     public boolean login(String userName, String password) {
-        return control.login(userName,password);
+        return control.login(userName, password);
     }
 
-    public void goToUserPage(){
+    public void goToUserPage() {
         try {
             Stage window = Main.primStage;
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -55,13 +60,13 @@ public class View {
             UserPageView viewControl = fxmlLoader.getController();
             viewControl.setView(this);
             viewControl.setUserName();
-            //viewControl.setVacations();
-            //viewControl.setRequests();
             window.show();
-        }catch (Exception e){ e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void goToProfile(){
+    public void goToProfile() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UpdateFile.fxml"));
         try {
             Parent root1 = fxmlLoader.load();
@@ -71,32 +76,34 @@ public class View {
             viewControl.setText();
             updateStage.setTitle("Settings");
             updateStage.show();
-        }catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void returnLoginPage() throws Exception{
-        Stage window=Main.primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
+    public void returnLoginPage() throws Exception {
+        Stage window = Main.primStage;
+        FXMLLoader fxmlLoader = new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/LoginPage.fxml").openStream()), 1000, 650));
         LoginPageView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
         window.show();
     }
 
-    public void showUserSearch(String user, String fName, String lName, String bDate, String city) throws Exception{
+    public void showUserSearch(String user, String fName, String lName, String bDate, String city) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/UserProfile.fxml"));
         Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));
         UserProfileView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
-        viewControl.setSearchText(user,fName,lName,bDate,city);
+        viewControl.setSearchText(user, fName, lName, bDate, city);
         stage.setTitle("Search Result");
         stage.show();
     }
 
     public void signUp(String userName, String password, String fName, String lName, LocalDate bDate, String city) {
-        control.signUp(userName,password,  fName, lName, bDate, city);
+        control.signUp(userName, password, fName, lName, bDate, city);
     }
 
     public void delete() {
@@ -109,7 +116,7 @@ public class View {
     }
 
     public void update(String userName, String password, String fName, String lName, LocalDate bDate, String city) {
-        control.update( userName,  password,  fName,  lName,  bDate,  city);
+        control.update(userName, password, fName, lName, bDate, city);
     }
 
     public void logOff() {
@@ -126,27 +133,27 @@ public class View {
         al.show();
     }
 
-    public void notFound(){
-        Alert al=new Alert(Alert.AlertType.INFORMATION);
+    public void notFound() {
+        Alert al = new Alert(Alert.AlertType.INFORMATION);
         al.setContentText("Username not found");
         al.show();
     }
 
     public String getCurrentUser() {
-        if(control.getCurrentUser()==null)
+        if (control.getCurrentUser() == null)
             return "guest";
         return control.getCurrentUser();
     }
 
-    public void goToSearch() throws Exception{
-        Stage window=Main.primStage;
-        FXMLLoader fxmlLoader=new FXMLLoader();
+    public void goToSearch() throws Exception {
+        Stage window = Main.primStage;
+        FXMLLoader fxmlLoader = new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream()), 1000, 650));
         VacationSearchView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
-        String s=getCurrentUser();
+        String s = getCurrentUser();
         viewControl.setCurrentUser(s);
-        if(!s.equals("guest")) {
+        if (!s.equals("guest")) {
             viewControl.setLoginButton();
             viewControl.setProfilLogOff();
         }
@@ -154,7 +161,7 @@ public class View {
         window.show();
     }
 
-    public void addVacation() throws Exception{
+    public void addVacation() throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/AddVacation.fxml"));
         Parent root1 = fxmlLoader.load();
         AddVacationView viewControl = fxmlLoader.getController();
@@ -167,7 +174,7 @@ public class View {
         stage.show();
     }
 
-    public void buy(String vacation) throws Exception{
+    public void buy(String vacation) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/buyVacation.fxml"));
         Parent root1 = fxmlLoader.load();
         BuyVacationView viewControl = fxmlLoader.getController();
@@ -187,24 +194,26 @@ public class View {
 
     }
 
-    public void requestVac(String vac) {
+    public boolean requestVac(String vac) {
         String currentUser = getCurrentUser();
-        if(!currentUser.equals("guest")){
+        if (!currentUser.equals("guest")) {
             String[] split = vac.split("Seller: ");
             String seller = split[1].split("  From")[0];
-            if (currentUser.equals(seller))
+            if (currentUser.equals(seller)) {
                 alert("You can't submit a request for a vacation you added");
-            else {
+                return false;
+            }else {
                 control.requestVac(vac);
                 alert("Your request has been sent");
+                return true;
             }
-        }
-        else{
+        } else {
             alert("Please login in order to submit a purchase request");
+            return true;
         }
     }
 
-    public List<String> getUserVac(String user){
+    public List<String> getUserVac(String user) {
         return control.getUserVac(user);
     }
 
@@ -212,7 +221,7 @@ public class View {
         return control.getUserReq(user);
     }
 
-    public List<String> getIncomingReq(String user){
+    public List<String> getIncomingReq(String user) {
         return control.getIncomingReq(user);
     }
 
