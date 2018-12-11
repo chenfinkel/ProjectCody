@@ -3,10 +3,12 @@ package Model;
 import View.Main;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Date;
 
 
 public class Model extends Observable {
@@ -322,7 +324,7 @@ public class Model extends Observable {
     public List<String> userReq(String user) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
-        String vacReq="SELECT * FROM requests WHERE buyer = ? ";
+        String vacReq="SELECT * FROM requests WHERE buyer = ? AND status != \"closed\"";
         String vac="SELECT * FROM vacation WHERE id = ? ";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vacReq);
@@ -403,5 +405,51 @@ public class Model extends Observable {
             pstmt1.setInt(1,vacID);
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
+    }
+
+    public void vacationPurchase(int requestID, String currentUser) {
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String vac="SELECT * FROM requests WHERE id = ? ";
+        String seller = "";
+        int vacID = 0;
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
+            pstmt1.setInt(1,requestID);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                seller = rs.getString("seller");
+                vacID = rs.getInt("idVac");
+            }
+        } catch (Exception e){e.printStackTrace();}
+
+        String sql="UPDATE vacation SET status = \"sold\" WHERE id = ? ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setInt(1,vacID);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+
+        String sql1 = "INSERT INTO purchases(id,idVac,Date,seller,buyer) VALUES(?,?,?,?,?)";
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
+            pstmt1.setInt(1,Main.idPurchas++);
+            pstmt1.setInt(2,vacID);
+            pstmt1.setString(3,date);
+            pstmt1.setString(4,seller);
+            pstmt1.setString(5,currentUser);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+
+        String sql2="UPDATE requests SET status = \"closed\" WHERE id = ? ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql2)) {
+            pstmt1.setInt(1,requestID);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+
     }
 }

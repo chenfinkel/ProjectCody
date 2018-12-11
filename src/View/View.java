@@ -167,12 +167,12 @@ public class View {
         stage.show();
     }
 
-    public void buy() throws Exception{
+    public void buy(String vacation) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/buyVacation.fxml"));
         Parent root1 = fxmlLoader.load();
-        AddVacationView viewControl = fxmlLoader.getController();
+        BuyVacationView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
-        viewControl.setCombos();
+        viewControl.initiate(vacation);
         viewControl.setCurrentUser(getCurrentUser());
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));
@@ -226,5 +226,9 @@ public class View {
 
     public void declineReq(String request) {
         control.declineReq(request);
+    }
+
+    public void order(String vacation, String currentUser) {
+        control.order(vacation, currentUser);
     }
 }

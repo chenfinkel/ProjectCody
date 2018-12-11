@@ -168,6 +168,10 @@ public class UserPageView {
     }
 
     private void buy(Button b) {
+        try {
+            String request = userRequests.get(buyButtons.indexOf(b));
+            view.buy(request);
+        }catch (Exception e) {e.printStackTrace();}
     }
 
     private void declineRequest(Button b) {

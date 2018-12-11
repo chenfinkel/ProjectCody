@@ -152,4 +152,11 @@ public class Controller {
     public List<String> getIncomingReq(String user) {
         return model.userIncomingReq(user);
     }
+
+    public void order(String vacation, String currentUser) {
+        String[] split = vacation.split("Request ID: ");
+        String vacationID = split[1].split(",")[0];
+        int vacationIDint = Integer.parseInt(vacationID);
+        model.vacationPurchase(vacationIDint, currentUser);
+    }
 }
