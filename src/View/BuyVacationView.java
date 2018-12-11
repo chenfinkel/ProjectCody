@@ -7,9 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
-
+/**
+ * controller of buy vacation fxml, responds to button clicks etc. and send to view to pass it on
+ */
 public class BuyVacationView {
-
 
     @FXML
     private TextField cardOwner;
@@ -51,6 +52,19 @@ public class BuyVacationView {
 
     private String paymethod;
 
+
+    /**
+     * set view
+     * @param v
+     */
+    public void setView(View v) {
+        view=v;
+    }
+
+    /**
+     * init combo boxes and details of vacation
+     * @param vacation- the vacation to buy
+     */
     public void initiate(String vacation){
         ObservableList<String> months = FXCollections.observableArrayList();
         months.addAll("01", "02", "03","04", "05", "06","07", "08", "09", "10", "11", "12");
@@ -65,26 +79,36 @@ public class BuyVacationView {
         this.vacation = vacation;
     }
 
-    public void setView(View v) {
-        view=v;
-    }
-
+    /**
+     * set current user field by given user name
+     * @param userName
+     */
     public void setCurrentUser(String userName){
         currentUser=userName;
     }
 
+    /**
+     * if chosen payment method is visa- show fields to fill
+     */
     public void visa(){
         PayPalPane.setVisible(false);
         VisaPane.setVisible(true);
         paymethod = "visa";
     }
 
+    /**
+     * if chosen payment method is visa- show fields to fill
+     */
     public void payPal(){
         VisaPane.setVisible(false);
         PayPalPane.setVisible(true);
         paymethod = "paypal";
     }
 
+    /**
+     * check if all data is filled correctly, if so,
+     * sends to view to pass it on to model and updates the user his payment has baan recieved.
+     */
     public void order(){
         if(paymethod==null){
             view.alert("Please select a payment method!");
@@ -109,6 +133,9 @@ public class BuyVacationView {
         order.setDisable(true);
     }
 
+    /**
+     * if discount code is valid , takes 10% off the vacation price
+     */
     public void applyDiscount(){
         if (discount.getText().equals("10off")){
             String s = subTotal.getText();

@@ -10,6 +10,9 @@ import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * controller of add vacation fxml, responds to button clicks etc. and send to view to pass it on
+ */
 public class AddVacationView {
 
     private View view;
@@ -43,7 +46,9 @@ public class AddVacationView {
     @FXML
     private ComboBox<String> hotelRank;
 
-
+    /**
+     * set values to the combo boxes in the fxml
+     */
     public void setCombos(){
         Set<String> items=new HashSet<>();
         for(int i=1; i<11; i++)
@@ -57,10 +62,17 @@ public class AddVacationView {
         hotelRank.getItems().addAll("1","2","3","4","5");
     }
 
+    /**
+     * get user name and update current user field
+     * @param userName
+     */
     public void setCurrentUser(String userName){
         currentUser=userName;
     }
 
+    /**
+     * clears all text fields and combo box choices
+     */
     private void clear(){
         from.clear();
         to.clear();
@@ -78,11 +90,17 @@ public class AddVacationView {
         hotelRank.getSelectionModel().clearSelection();
     }
 
-
+    /**
+     * set view
+     * @param v
+     */
     public void setView(View v) {
         view=v;
     }
 
+    /**
+     * check that all data valid than pass it to view to pass it on and insert to db
+     */
     public void add(){
         if(from.getText().equals("") || to.getText().equals("") || departDate.toString().equals("") || travelersA.getValue()==null
                 || airline.getText().equals("") || baggage.getValue()==null || price.getText().equals("")){
@@ -121,6 +139,11 @@ public class AddVacationView {
         }
     }
 
+    /**
+     * check if text is a number or contain any letters
+     * @param text
+     * @return true if text is a number
+     */
     private boolean isNumber(String text) {
         for(int i=0; i<text.length(); i++){
             if(text.charAt(i)<'0' || text.charAt(i)>'9')

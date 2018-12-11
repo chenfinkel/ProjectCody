@@ -30,7 +30,9 @@ public class Main extends Application {
         primStage.show();
     }
 
-
+    /**
+     * creates the db of the system
+     */
     public static void createNewDatabase() {
         String url = "jdbc:sqlite:Vacation4U.db";
         try (Connection conn = DriverManager.getConnection(url)) {
@@ -42,6 +44,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * creates vacation table
+     */
     public static void createVacationTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -76,6 +81,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * create purchases table
+     */
     public static void createPurchaseTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -101,6 +109,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * creats buy requests table
+     */
     public static void requestsTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -125,6 +136,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * create users table
+     */
     public static void createUsersTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -147,6 +161,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * get and set serial number for purchase,request and vacation
+     * the method look for max id in the tables and sets the next id to use
+     */
     public static void getID(){
         String url= "jdbc:sqlite:Vacation4U.db";
 
