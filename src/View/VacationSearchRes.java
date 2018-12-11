@@ -95,6 +95,7 @@ public class VacationSearchRes {
         if (currentUser.equals("guest"))
             loginButton.setVisible(true);
         else {
+            loginButton.setVisible(false);
             Profile.setVisible(true);
             Profile2.setVisible(true);
             LogOff.setVisible(true);
