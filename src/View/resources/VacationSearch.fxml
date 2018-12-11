@@ -7,12 +7,13 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-image: url('Airplane.png'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationSearchView">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-image: url('Airplane.png'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VacationSearchView">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000079" height="54.0" layoutY="-1.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeType="INSIDE" width="1000.0" />
       <Text fill="#e8d50b" layoutX="15.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vacation4U" wrappingWidth="191.71484375">
@@ -25,9 +26,30 @@
       <DatePicker fx:id="departDate" editable="false" layoutX="22.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Depart:" />
       <DatePicker fx:id="returnDate" editable="false" layoutX="185.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Return:" />
       <ComboBox fx:id="adultTravelers" layoutX="349.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Adult Travelers:" />
-      <Button layoutX="750.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchVac" prefHeight="32.0" prefWidth="60.0" text="Search" />
-      <Button layoutX="611.0" layoutY="365.0" mnemonicParsing="false" onAction="#showAdv" prefHeight="32.0" prefWidth="112.0" text="Advanced Search" />
-      <Button fx:id="loginButton" layoutX="834.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="25.0" prefWidth="104.0" text="Sign In/Sign Up" />
+      <Button layoutX="750.0" layoutY="365.0" mnemonicParsing="false" onAction="#searchVac" opacity="0.78" prefHeight="32.0" prefWidth="60.0" text="Search">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font>
+      <effect>
+         <InnerShadow />
+      </effect>
+      </Button>
+      <Button layoutX="602.0" layoutY="365.0" mnemonicParsing="false" onAction="#showAdv" opacity="0.78" prefHeight="32.0" prefWidth="121.0" text="Advanced Search">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+      <Button fx:id="loginButton" layoutX="834.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLogin" opacity="0.78" prefHeight="25.0" prefWidth="112.0" text="Sign In/Sign Up">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
       <Label layoutX="242.0" layoutY="17.0" text="Find a user:" textFill="#d7d6d6">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
@@ -43,14 +65,14 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="Profile" layoutX="855.0" layoutY="25.0" onMouseClicked="#goToProfile" text="Profile" textFill="#3fe15d" visible="false">
+      <Label fx:id="Profile" layoutX="857.0" layoutY="18.0" onMouseClicked="#goToProfile" text="Profile" textFill="#3fe15d" visible="false">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Label>
-      <Label fx:id="LogOff" layoutX="923.0" layoutY="25.0" text="Log off" textFill="#3fe15d" visible="false">
+      <Label fx:id="LogOff" layoutX="920.0" layoutY="18.0" text="Log off" textFill="#3fe15d" onMouseClicked="#logOff" visible="false">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
@@ -58,13 +80,20 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label fx:id="Profile2" layoutX="914.0" layoutY="25.0" text="|" textFill="#c9c9c9" visible="false">
+      <Label fx:id="Profile2" layoutX="905.0" layoutY="18.0" text="|" textFill="#c9c9c9" visible="false">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
       <TextField fx:id="searchUserName" layoutX="333.0" layoutY="14.0" prefHeight="25.0" prefWidth="112.0" promptText="Enter Username:" />
-      <Button layoutX="463.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchUser" text="find" />
+      <Button layoutX="463.0" layoutY="14.0" mnemonicParsing="false" onAction="#searchUser" opacity="0.78" text="find">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
       <ComboBox fx:id="childTravelers" layoutX="514.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Child Travelers:" />
       <ComboBox fx:id="babyTravelers" layoutX="682.0" layoutY="125.0" prefHeight="25.0" prefWidth="137.0" promptText="Baby Travalers:" />
       <TextField fx:id="airline" layoutX="349.0" layoutY="179.0" prefHeight="25.0" prefWidth="137.0" promptText="Airline:" />

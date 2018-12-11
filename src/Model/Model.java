@@ -23,7 +23,7 @@ public class Model extends Observable {
 
     public void logOff(){
         isLogin = false;
-        currentUser = "";
+        currentUser = null;
     }
 
     public String getCurrentUser(){
@@ -265,16 +265,13 @@ public class Model extends Observable {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM vacation WHERE userName = ? ";
-        //String vacReq="SELECT * FROM requests WHERE idVac = ? ";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vac);
-             /*PreparedStatement pstmt2 = conn.prepareStatement(vacReq)*/) {
+             ) {
 
             pstmt1.setString(1,userName);
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
-                //pstmt2.setString(1,rs.getString("id"));
-                //ResultSet rs2  = pstmt2.executeQuery();
                 String s="Vacation ID: "+ rs.getString("id") +
                         ", From: " + rs.getString("fromC")+
                         ", To: " +rs.getString("destination") + "\n" +
@@ -282,13 +279,38 @@ public class Model extends Observable {
                         ", Return: " + rs.getString("Return")+ "\n" +
                         "Price: " + rs.getString("price")+ "\n" +
                         "Status: " + rs.getString("status");
-                /*while (rs2.next()){
-                    s+= ", Requested by: " + rs2.getString("buyer") +"\n" +
-                            "Request ID: " + rs2.getString("id");
-                }*/
                 list.add(s);
             }
         } catch (Exception e){System.out.println(e.getMessage());}
+        return list;
+    }
+
+    public List<String> userPurch(String userName) {
+        List<String> list=new LinkedList<>();
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String vacPur="SELECT * FROM purchases WHERE buyer = ?";
+        String vac="SELECT * FROM vacation WHERE id = ? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(vacPur);
+             PreparedStatement pstmt2 = conn.prepareStatement(vac)) {
+
+            pstmt1.setString(1,userName);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                pstmt2.setString(1,rs.getString("idVac"));
+                ResultSet rs2  = pstmt2.executeQuery();
+                String s = "Purchase ID: " + rs.getString("id");
+                while(rs2.next()) {
+                    s+=", From: " + rs2.getString("fromC") +
+                            ", To: " + rs2.getString("destination") + "\n" +
+                            "Depart: " + rs2.getString("Depart") +
+                            ", Return: " + rs2.getString("Return") + "\n";
+
+                }
+                s+="Price: " + rs.getString("price") + ", Date: "+ rs.getString("Date");
+                list.add(s);
+            }
+        } catch (Exception e){e.printStackTrace();}
         return list;
     }
 
@@ -407,7 +429,7 @@ public class Model extends Observable {
         } catch (Exception e){e.printStackTrace();}
     }
 
-    public void vacationPurchase(int requestID, String currentUser) {
+    public void vacationPurchase(int requestID, String currentUser, String price) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM requests WHERE id = ? ";
         String seller = "";
@@ -430,7 +452,7 @@ public class Model extends Observable {
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
 
-        String sql1 = "INSERT INTO purchases(id,idVac,Date,seller,buyer) VALUES(?,?,?,?,?)";
+        String sql1 = "INSERT INTO purchases(id,idVac,Date,seller,buyer,price) VALUES(?,?,?,?,?,?)";
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -440,6 +462,7 @@ public class Model extends Observable {
             pstmt1.setString(3,date);
             pstmt1.setString(4,seller);
             pstmt1.setString(5,currentUser);
+            pstmt1.setString(6,price);
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
 

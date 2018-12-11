@@ -228,7 +228,11 @@ public class View {
         control.declineReq(request);
     }
 
-    public void order(String vacation, String currentUser) {
-        control.order(vacation, currentUser);
+    public void order(String vacation, String currentUser, String price) {
+        control.order(vacation, currentUser, price);
+    }
+
+    public List<String> purchaseHistory(String currentUser) {
+        return control.purchaseHistory(currentUser);
     }
 }

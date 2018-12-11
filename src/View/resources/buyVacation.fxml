@@ -8,16 +8,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BuyVacationView">
+<?import javafx.scene.Cursor?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BuyVacationView">
    <children>
-      <Label fx:id="priceLabel" layoutX="35.0" layoutY="173.0" text="Discount Code:">
+      <Label fx:id="subTotal" layoutX="110.0" layoutY="67.0" />
+      <Label layoutX="36.0" layoutY="67.0" text="Subtotal:">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="26.0" text="Order Summary:">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="173.0" text="Discount Code:">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Label>
       <TextField fx:id="discount" layoutX="34.0" layoutY="197.0" prefHeight="25.0" prefWidth="112.0" />
-      <Button fx:id="applyDisc" layoutX="163.0" layoutY="197.0" mnemonicParsing="false" text="Apply" />
-      <Pane fx:id="PayPalPane" layoutX="154.0" layoutY="281.0" prefHeight="200.0" prefWidth="246.0" visible="false">
+      <Button fx:id="applyDisc" layoutX="163.0" layoutY="197.0" mnemonicParsing="false" text="Apply" onAction="#applyDiscount" />
+      <Pane fx:id="PayPalPane" layoutX="186.0" layoutY="273.0" prefHeight="200.0" prefWidth="246.0" visible="false">
          <children>
             <TextField fx:id="PayPalUser" layoutX="20.0" layoutY="67.0" />
             <Label layoutX="20.0" layoutY="40.0" text="PayPal Username" />
@@ -25,15 +37,23 @@
             <Label layoutX="20.0" layoutY="118.0" text="Password" />
          </children>
       </Pane>
-      <Label layoutX="66.0" layoutY="405.0" text="PayPal">
+      <Label layoutX="66.0" layoutY="405.0" onMouseClicked="#payPal" text="PayPal">
          <font>
             <Font size="15.0" />
-         </font></Label>
-      <Label layoutX="74.0" layoutY="310.0" prefHeight="17.0" prefWidth="50.0" text="Visa">
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label layoutX="74.0" layoutY="310.0" prefHeight="17.0" prefWidth="50.0" onMouseClicked="#visa" text="Visa">
          <font>
             <Font size="15.0" />
-         </font></Label>
-      <Pane fx:id="VisaPane" layoutX="154.0" layoutY="273.0" prefHeight="208.0" prefWidth="286.0" visible="false">
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Pane fx:id="VisaPane" layoutX="186.0" layoutY="281.0" prefHeight="208.0" prefWidth="286.0" visible="false">
          <children>
             <TextField fx:id="cardOwner" layoutX="23.0" layoutY="30.0" />
             <Label layoutX="64.0" layoutY="167.0" text="/" />
@@ -47,12 +67,30 @@
             <Label layoutX="163.0" layoutY="141.0" text="CVV" />
          </children>
       </Pane>
-      <Button layoutX="171.0" layoutY="492.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="PLACE ORDER" />
-      <Label layoutX="31.0" layoutY="244.0" prefHeight="27.0" prefWidth="286.0" text="Please select payment method:">
+      <Button layoutX="202.0" layoutY="497.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="193.0" onAction="#order" text="PLACE ORDER">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="154.0" layoutY="246.0" prefHeight="27.0" prefWidth="286.0" text="Please select payment method:">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="36.0" layoutY="14.0" prefHeight="153.0" prefWidth="270.0" />
+      <Label layoutX="36.0" layoutY="101.0" text="Discount:">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="135.0" text="Grand Total:">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="discountLabel" layoutX="110.0" layoutY="101.0" text="-" />
+      <Label fx:id="grandTotal" layoutX="132.0" layoutY="135.0" />
    </children>
 </Pane>

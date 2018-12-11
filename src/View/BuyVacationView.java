@@ -32,9 +32,13 @@ public class BuyVacationView {
     @FXML
     private TextField discount;
     @FXML
-    private Label priceLabel;
-    @FXML
     private Button applyDisc;
+    @FXML
+    private Label subTotal;
+    @FXML
+    private Label discountLabel;
+    @FXML
+    private Label grandTotal;
 
 
     private String vacation;
@@ -52,6 +56,10 @@ public class BuyVacationView {
         ObservableList<String> years = FXCollections.observableArrayList();
         years.addAll("2022", "2021", "2020", "2019", "2018");
         year.setItems(years);
+        String[] split = vacation.split("Price: ");
+        String price = split[1];
+        subTotal.setText(price+"$");
+        grandTotal.setText(price+"$");
         this.vacation = vacation;
     }
 
@@ -88,13 +96,19 @@ public class BuyVacationView {
                 return;
             }
         }
-        view.order(vacation, currentUser);
+        String grandTotalText = grandTotal.getText();
+        String price = grandTotalText.substring(0, grandTotalText.length()-1);
+        view.order(vacation, currentUser, price);
         view.alert("Payment approved, Tickets were sent to your email.\nHave fun in your vacation!!!");
     }
 
     public void applyDiscount(){
         if (discount.getText().equals("10off")){
-            String s = priceLabel.getText();
+            String s = subTotal.getText();
+            double price = Double.parseDouble(s.substring(0,s.length()-1));
+            double priceAfterDisc = price*0.9;
+            discountLabel.setText("10%");
+            grandTotal.setText(priceAfterDisc+"$");
         }
     }
 

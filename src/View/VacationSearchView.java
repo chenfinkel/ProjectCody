@@ -74,6 +74,10 @@ public class VacationSearchView {
         view=v;
     }
 
+    public void logOff(){
+        view.logOff();
+    }
+
     public void searchVac(){
         if(!returnDate.getEditor().getText().equals("")) {
             if (returnDate.getValue().isBefore(departDate.getValue())) {

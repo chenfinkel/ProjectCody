@@ -167,6 +167,22 @@ public class UserPageView {
         viewList.setItems(lines);
     }
 
+    public void PurchaseHistory(){
+        viewList.setVisible(false);
+        List<String> l = view.purchaseHistory(currentUser.getText());
+        viewList.setVisible(true);
+        ObservableList vacations = FXCollections.observableArrayList();
+        if(l.size()==0){
+            vacations.add("No purchases were made yet");
+        }
+        else {
+            for (int i = 0; i < l.size(); i++) {
+                vacations.add(l.get(i));
+            }
+        }
+        viewList.setItems(vacations);
+    }
+
     private void buy(Button b) {
         try {
             String request = userRequests.get(buyButtons.indexOf(b));

@@ -33,7 +33,7 @@ public class Controller {
     public void logOff(){
         model.logOff();
         try {
-            view.returnLoginPage();
+            view.goToSearch();
         } catch (Exception e){
 
         }
@@ -153,10 +153,14 @@ public class Controller {
         return model.userIncomingReq(user);
     }
 
-    public void order(String vacation, String currentUser) {
+    public void order(String vacation, String currentUser, String price) {
         String[] split = vacation.split("Request ID: ");
         String vacationID = split[1].split(",")[0];
         int vacationIDint = Integer.parseInt(vacationID);
-        model.vacationPurchase(vacationIDint, currentUser);
+        model.vacationPurchase(vacationIDint, currentUser, price);
+    }
+
+    public List<String> purchaseHistory(String currentUser) {
+        return model.userPurch(currentUser);
     }
 }

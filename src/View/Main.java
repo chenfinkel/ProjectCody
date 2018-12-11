@@ -86,6 +86,7 @@ public class Main extends Application {
                 + "Date text, \n"
                 + "seller text NOT NULL, \n"
                 + "buyer text NOT NULL, \n"
+                + "price text NOT NULL, \n"
                 + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
                 + "FOREIGN KEY(seller) REFERENCES users(userName), \n"
                 + "FOREIGN KEY(buyer) REFERENCES users(userName) \n"

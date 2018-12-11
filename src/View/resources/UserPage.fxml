@@ -83,7 +83,7 @@
               <Cursor fx:constant="HAND" />
           </cursor>
       </Label>
-      <Label layoutX="47.0" layoutY="344.0" text="Purchase History" textFill="#e8d50b">
+      <Label layoutX="47.0" layoutY="344.0" text="Purchase History" onMouseClicked="#PurchaseHistory" textFill="#e8d50b">
           <font>
               <Font name="System Bold" size="20.0" />
           </font>
