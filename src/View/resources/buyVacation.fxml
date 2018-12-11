@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -8,8 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.Cursor?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BuyVacationView">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BuyVacationView">
    <children>
       <Label fx:id="subTotal" layoutX="110.0" layoutY="67.0" />
       <Label layoutX="36.0" layoutY="67.0" text="Subtotal:">
@@ -28,7 +28,7 @@
          </font>
       </Label>
       <TextField fx:id="discount" layoutX="34.0" layoutY="197.0" prefHeight="25.0" prefWidth="112.0" />
-      <Button fx:id="applyDisc" layoutX="163.0" layoutY="197.0" mnemonicParsing="false" text="Apply" onAction="#applyDiscount" />
+      <Button fx:id="applyDisc" layoutX="163.0" layoutY="197.0" mnemonicParsing="false" onAction="#applyDiscount" text="Apply" />
       <Pane fx:id="PayPalPane" layoutX="186.0" layoutY="273.0" prefHeight="200.0" prefWidth="246.0" visible="false">
          <children>
             <TextField fx:id="PayPalUser" layoutX="20.0" layoutY="67.0" />
@@ -45,7 +45,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label layoutX="74.0" layoutY="310.0" prefHeight="17.0" prefWidth="50.0" onMouseClicked="#visa" text="Visa">
+      <Label layoutX="74.0" layoutY="310.0" onMouseClicked="#visa" prefHeight="17.0" prefWidth="50.0" text="Visa">
          <font>
             <Font size="15.0" />
          </font>
@@ -67,7 +67,7 @@
             <Label layoutX="163.0" layoutY="141.0" text="CVV" />
          </children>
       </Pane>
-      <Button layoutX="202.0" layoutY="497.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="193.0" onAction="#order" text="PLACE ORDER">
+      <Button fx:id="order" layoutX="202.0" layoutY="497.0" mnemonicParsing="false" onAction="#order" prefHeight="34.0" prefWidth="193.0" text="PLACE ORDER">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>

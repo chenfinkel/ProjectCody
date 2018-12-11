@@ -58,7 +58,7 @@
              <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label layoutX="59.0" layoutY="224.0" text="Your Requests" onMouseClicked="#setRequests" textFill="#e8d50b">
+      <Label layoutX="59.0" layoutY="224.0" onMouseClicked="#setRequests" text="Your Requests" textFill="#e8d50b">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -83,13 +83,21 @@
               <Cursor fx:constant="HAND" />
           </cursor>
       </Label>
-      <Label layoutX="47.0" layoutY="344.0" text="Purchase History" onMouseClicked="#PurchaseHistory" textFill="#e8d50b">
+      <Label layoutX="47.0" layoutY="344.0" onMouseClicked="#PurchaseHistory" text="Purchase History" textFill="#e8d50b">
           <font>
               <Font name="System Bold" size="20.0" />
           </font>
           <cursor>
               <Cursor fx:constant="HAND" />
           </cursor>
+      </Label>
+      <Label fx:id="returnSearch" layoutX="63.0" layoutY="526.0" onMouseClicked="#returnSearch" text="Return Search" textFill="#e8d50b">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Label>
     </children>
 </Pane>

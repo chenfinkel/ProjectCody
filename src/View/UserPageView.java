@@ -16,6 +16,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -187,6 +188,7 @@ public class UserPageView {
         try {
             String request = userRequests.get(buyButtons.indexOf(b));
             view.buy(request);
+            b.setDisable(true);
         }catch (Exception e) {e.printStackTrace();}
     }
 
@@ -204,5 +206,11 @@ public class UserPageView {
         b.setDisable(true);
         Button decline = declines.get(approves.indexOf(b));
         decline.setDisable(true);
+    }
+
+    public void returnSearch(){
+        try {
+            view.goToSearch();
+        }catch (Exception e){e.printStackTrace();}
     }
 }

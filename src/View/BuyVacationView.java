@@ -39,6 +39,8 @@ public class BuyVacationView {
     private Label discountLabel;
     @FXML
     private Label grandTotal;
+    @FXML
+    private Button order;
 
 
     private String vacation;
@@ -84,13 +86,17 @@ public class BuyVacationView {
     }
 
     public void order(){
-        if (paymethod.equals("visa")){
+        if(paymethod==null){
+            view.alert("Please select a payment method!");
+            return;
+        }
+        else if (paymethod.equals("visa")){
             if (cardOwner.getText().equals("") || cardNumber.getText().equals("") ||
             cvv.getText().equals("") || month.getValue() == null || year.getValue() == null) {
                 view.alert("All fields are required!");
                 return;
             }
-        } else {
+        } else if(paymethod.equals("paypal")){
             if (PayPalUser.getText().equals("") || PayPalPass.getText().equals("")) {
                 view.alert("All fields are required!");
                 return;
@@ -100,6 +106,7 @@ public class BuyVacationView {
         String price = grandTotalText.substring(0, grandTotalText.length()-1);
         view.order(vacation, currentUser, price);
         view.alert("Payment approved, Tickets were sent to your email.\nHave fun in your vacation!!!");
+        order.setDisable(true);
     }
 
     public void applyDiscount(){
