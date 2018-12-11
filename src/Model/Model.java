@@ -11,12 +11,23 @@ import java.util.Observable;
 import java.util.Date;
 
 
+/**
+ *
+ * this class inserts and extracts data from the database at the user's request
+ * and also holds information about the logged on user
+ *
+ */
 public class Model extends Observable {
 
 
     private boolean isLogin;
     private String currentUser;
 
+    /**
+     *
+     * simple constructor
+     *
+     */
     public Model(){
         isLogin=false;
     }
@@ -26,10 +37,29 @@ public class Model extends Observable {
         currentUser = null;
     }
 
+    /**
+     *
+     * return the current logged on user
+     *
+     * @return logged on user
+     */
     public String getCurrentUser(){
         return currentUser;
     }
 
+    /**
+     *
+     * this function update profile information
+     *
+     * @param user the user we want to update its details
+     * @param password the users password
+     * @param fName the users private name
+     * @param lName the users family name
+     * @param day the day the user was born
+     * @param month the month the user was born
+     * @param year the year the user was born
+     * @param city the city where the user live in
+     */
     public void update(String user, String password, String fName, String lName, String day, String month, String year, String city){
 
         String url= "jdbc:sqlite:Vacation4U.db";
@@ -57,6 +87,13 @@ public class Model extends Observable {
     }
 
 
+    /**
+     *
+     * login a user to the system
+     *
+     * @param userName the user name
+     * @param password the user password
+     */
     public void login(String userName, String  password){
         isLogin=false;
         String url="jdbc:sqlite:Vacation4U.db";
@@ -77,6 +114,14 @@ public class Model extends Observable {
 
     }
 
+    /**
+     *
+     * return one detail of the user
+     *
+     * @param label the name of the detail we want to get
+     * @param user the user we want the detail from
+     * @return label detail of the user
+     */
     public String getDetails(String label, String user){
         String ans = "";
         if (user.equals(""))
@@ -97,6 +142,12 @@ public class Model extends Observable {
         return "";
     }
 
+    /**
+     *
+     * return if a user is login
+     *
+     * @return true if a user is login false otherwise
+     */
     public boolean isLogin() {
         return isLogin;
     }
@@ -114,6 +165,17 @@ public class Model extends Observable {
         logOff();
     }
 
+    /**
+     *
+     * this function sign up a new user
+     *
+     * @param user the user name
+     * @param password the user password
+     * @param fName the user first name
+     * @param lName the user last name
+     * @param bDate the user birth date
+     * @param city the city where the user lives in
+     */
     public void signUp(String user, String password, String fName, String lName, String bDate, String city){
             String sql1 = "INSERT INTO users(userName,password,firstName,lastName,birthDate,city) VALUES(?,?,?,?,?,?)";
             String url = "jdbc:sqlite:Vacation4U.db";
@@ -132,6 +194,13 @@ public class Model extends Observable {
             }
     }
 
+    /**
+     *
+     * check if a user name is taken
+     *
+     * @param user the user name we want to check
+     * @return true if user name is taken false otherwise
+     */
     public boolean UsernameExist(String user){
 
         if(user.equals(currentUser))
@@ -154,6 +223,27 @@ public class Model extends Observable {
         return true;
     }
 
+    /**
+     *
+     * search a vacation by according to all or part of the data
+     *
+     * @param from where the flight leave
+     * @param to the destination of the flight
+     * @param depart the date of the depart
+     * @param returnDate the return date
+     * @param travelersA number of adult travelers
+     * @param travelersC number of child travelers
+     * @param travelersB number of baby travelers
+     * @param airline the airline of the flight
+     * @param baggage what luggage included in the price
+     * @param direct if the flight is direct or not
+     * @param priceFrom the start of the price range
+     * @param priceTo the end of the price range
+     * @param type the type of the vacation
+     * @param hotel what hotel is included in the price
+     * @param rank the rank of the hotel
+     * @return list of all vacation that match the search
+     */
     public List<String> searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean direct, String priceFrom, String priceTo, String type, String hotel, String rank) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -258,6 +348,26 @@ public class Model extends Observable {
         return list;
     }
 
+    /**
+     *
+     * add a new vacation to the database
+     *
+     * @param userName the user name of the user who published the vacation
+     * @param from where the flight leave
+     * @param to the destination of the flight
+     * @param departDate the date of the depart
+     * @param returnDate the return date
+     * @param travelersA number of adult travelers
+     * @param travelersC number of child travelers
+     * @param travelersB number of baby travelers
+     * @param airline the airline of the flight
+     * @param baggage  what luggage included in the price
+     * @param isDirect if the flight is direct or not
+     * @param price the price of the vacation
+     * @param type the type of the vacation
+     * @param hotelName what hotel is included in the price
+     * @param hotelRank the rank of the hotel
+     */
     public void addVacation( String userName, String from, String to, String departDate, String returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
         String sql1 = "INSERT INTO vacation(id,userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating,status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -286,6 +396,13 @@ public class Model extends Observable {
         }
     }
 
+    /**
+     *
+     * search all vacations that the user published
+     *
+     * @param userName the user name
+     * @return list of all vacation that the user published
+     */
     public List<String> userVac(String userName) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -310,6 +427,13 @@ public class Model extends Observable {
         return list;
     }
 
+    /**
+     *
+     * search all user purchase
+     *
+     * @param userName the user name
+     * @return list of all vacation that the user buy
+     */
     public List<String> userPurch(String userName) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -339,6 +463,14 @@ public class Model extends Observable {
         return list;
     }
 
+    /**
+     *
+     * this function set the status of the vacation as requested
+     * and also insert to requests table
+     *
+     * @param vac the id of the vacation
+     * @param currentUser the user who send the request
+     */
     public void requestVac(String vac, String currentUser) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=vac.split("Vacation id: ");
@@ -368,6 +500,13 @@ public class Model extends Observable {
         } catch (Exception e){e.printStackTrace();}
     }
 
+    /**
+     *
+     * search all user requests
+     *
+     * @param user the user name
+     * @return list of all vacation that the user requests
+     */
     public List<String> userReq(String user) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -397,6 +536,13 @@ public class Model extends Observable {
         return list;
     }
 
+    /**
+     *
+     * search all user requests to buy their vacation
+     *
+     * @param user the user name
+     * @return list of all requests to buy the user vacation
+     */
     public List<String> userIncomingReq(String user) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
@@ -426,6 +572,12 @@ public class Model extends Observable {
         return list;
     }
 
+    /**
+     *
+     * set the status of vacation to approved
+     *
+     * @param vacation the id of the vacation
+     */
     public void approveReq(String vacation) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=vacation.split("Request ID: ");
@@ -440,6 +592,12 @@ public class Model extends Observable {
         } catch (Exception e){e.printStackTrace();}
     }
 
+    /**
+     *
+     * set the status of vacation to declined
+     *
+     * @param vacation the id of the vacation
+     */
     public void declineReq(String vacation) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=vacation.split("Request ID: ");
@@ -454,6 +612,15 @@ public class Model extends Observable {
         } catch (Exception e){e.printStackTrace();}
     }
 
+    /**
+     *
+     * set the status of vacation to sold
+     * and add to purchases table
+     *
+     * @param requestID the request ID
+     * @param currentUser the current user
+     * @param price the price of the vacation
+     */
     public void vacationPurchase(int requestID, String currentUser, String price) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM requests WHERE id = ? ";

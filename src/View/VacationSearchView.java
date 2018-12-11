@@ -10,6 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * this class is the controller of the search
+ *
+ */
 public class VacationSearchView {
 
     private View view;
@@ -58,6 +63,11 @@ public class VacationSearchView {
     @FXML
     private Button advanced;
 
+    /**
+     *
+     * set the combo box with values
+     *
+     */
     public void setCombos(){
         Set<String> items=new HashSet<>();
         for(int i=1; i<11; i++)
@@ -71,14 +81,30 @@ public class VacationSearchView {
         hotelRank.getItems().addAll("1","2","3","4","5");
     }
 
+    /**
+     *
+     * set view
+     *
+     * @param v view
+     */
     public void setView(View v){
         view=v;
     }
 
+    /**
+     *
+     * this function log off the user who is login
+     *
+     */
     public void logOff(){
         view.logOff();
     }
 
+    /**
+     *
+     * this function send the search values and change the view to search results
+     *
+     */
     public void searchVac(){
         if(!returnDate.getEditor().getText().equals("")) {
             if (returnDate.getValue().isBefore(departDate.getValue())) {
@@ -114,25 +140,52 @@ public class VacationSearchView {
                 isDirect.isSelected(), priceFrom.getText(), priceTo.getText(),types,hotelName.getText(),rank);
     }
 
+    /**
+     *
+     * this function change the view to the login page
+     *
+     */
     public void goToLogin(){
         try {
             view.returnLoginPage();
         }catch(Exception e){}
     }
 
+
+    /**
+     *
+     * this function search another user
+     *
+     */
     public void searchUser(){
         view.searchUser(searchUserName.getText());
         searchUserName.clear();
     }
 
+    /**
+     *
+     * set a user as current user
+     *
+     * @param currentUser the user name
+     */
     public void setCurrentUser(String currentUser) {
         this.currentUser.setText(currentUser);
     }
 
+    /**
+     *
+     * set the login button as not visible
+     *
+     */
     public void setLoginButton() {
         loginButton.setVisible(false);
     }
 
+    /**
+     *
+     * show another fields of search
+     *
+     */
     public void showAdv(){
         if (advanced.getText().equals("Advanced Search")) {
             type.setVisible(true);
@@ -147,12 +200,22 @@ public class VacationSearchView {
         }
     }
 
+    /**
+     *
+     * log off the user
+     *
+     */
     public void setProfilLogOff() {
         Profile.setVisible(true);
         Profile2.setVisible(true);
         LogOff.setVisible(true);
     }
 
+    /**
+     *
+     * change the view to user page
+     *
+     */
     public void goToProfile(){
         view.goToUserPage();
     }

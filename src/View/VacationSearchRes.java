@@ -24,6 +24,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *
+ * this class is the controller of the search results
+ *
+ */
 public class VacationSearchRes {
 
     private View view;
@@ -45,10 +50,23 @@ public class VacationSearchRes {
     private ArrayList<Button> requestButtons;
 
 
+     /**
+      *
+      * sey view
+      *
+     * @param v view
+     */
     public void setView(View v) {
         view = v;
     }
 
+    /**
+     *
+     * gets list of vacation match to search
+     * and display the list
+     *
+     * @param l list of vacation match to search
+     */
     public void setResults(List<String> l) {
         ObservableList lines = FXCollections.observableArrayList();
         if (l.size() == 0) {
@@ -80,6 +98,13 @@ public class VacationSearchRes {
         listView.setItems(lines);
     }
 
+    /**
+     *
+     * send a request to the publish
+     * and set a the button as disable
+     *
+     * @param b the send request button of the vacation
+     */
     private void sendRequest(Button b) {
         String vacation = vacations.get(requestButtons.indexOf(b));
         boolean bool = view.requestVac(vacation);
@@ -90,6 +115,12 @@ public class VacationSearchRes {
     }
 
 
+    /**
+     *
+     * set a user as current user
+     *
+     * @param currentUser user to set as current
+     */
     public void setCurrentUser(String currentUser) {
         this.userName.setText(currentUser);
         if (currentUser.equals("guest"))
@@ -103,6 +134,11 @@ public class VacationSearchRes {
 
     }
 
+    /**
+     *
+     * this function change the view to the login page
+     *
+     */
     public void goToLogin() {
         try {
             view.returnLoginPage();
@@ -110,6 +146,11 @@ public class VacationSearchRes {
         }
     }
 
+    /**
+     *
+     * this function change the view to the search page
+     *
+     */
     public void returnSearch() {
         try {
             view.goToSearch();
@@ -119,10 +160,20 @@ public class VacationSearchRes {
 
     }
 
+    /**
+     *
+     * this function change the view to the user page
+     *
+     */
     public void goToProfile() {
         view.goToUserPage();
     }
 
+    /**
+     *
+     * this function log off the user who is login
+     *
+     */
     public void logOff() {
         view.logOff();
     }
