@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * controller of user page fxml, responds to button clicks etc. and send to view to pass it on
+ */
 public class UserPageView {
 
 
@@ -30,7 +33,6 @@ public class UserPageView {
     @FXML
     private ListView viewList;
     @FXML
-
     private ArrayList<Button> approves;
 
     private ArrayList<Button> declines;
@@ -41,39 +43,57 @@ public class UserPageView {
 
     private ArrayList<Button> buyButtons;
 
-
-
-
+    /**
+     * set view
+     * @param v
+     */
     public void setView(View v){
         view=v;
     }
 
+    /**
+     * pass user request to log off
+     */
     public void LogOff(){
         view.logOff();
     }
 
+    /**
+     * open update file so the user can change its info
+     */
     public void goToProfile(){
         view.goToProfile();
     }
 
-
+    /**
+     * set current user name label
+     */
     public void setUserName(){
         currentUser.setText(view.getCurrentUser());
     }
 
+    /**
+     * return to main screen
+     */
     public void goToSearch(){
         try {
             view.goToSearch();
-        }catch(Exception e){}
+        }catch(Exception e){e.printStackTrace();}
     }
 
+    /**
+     * open add vacation screen so the user can add new vacation to sell
+     */
     public void addVacation(){
         try {
             viewList.setVisible(false);
             view.addVacation();
-        }catch(Exception e){System.out.println(e.getMessage());}
+        }catch(Exception e){e.printStackTrace();}
     }
 
+    /**
+     * gets from view a list of current user vacations he added and shows them
+     */
     public void setVacations() {
         viewList.setVisible(false);
         List<String> l=view.getUserVac(currentUser.getText());
@@ -90,6 +110,9 @@ public class UserPageView {
         viewList.setItems(vacations);
     }
 
+    /**
+     * gets from view a list of current user requests he need to approve or decline and shows them
+     */
     public void setIncomingRequests() {
         viewList.setVisible(false);
         approves = new ArrayList<>();
@@ -132,6 +155,9 @@ public class UserPageView {
         viewList.setItems(lines);
     }
 
+    /**
+    * gets from view a list of current user requests he applied and shows them
+     */
     public void setRequests() {
         viewList.setVisible(false);
         List<String> l=view.getUserReq(currentUser.getText());
@@ -168,6 +194,9 @@ public class UserPageView {
         viewList.setItems(lines);
     }
 
+    /**
+     * gets from view a list of current user past purchases and shows them
+     */
     public void PurchaseHistory(){
         viewList.setVisible(false);
         List<String> l = view.purchaseHistory(currentUser.getText());
@@ -184,6 +213,11 @@ public class UserPageView {
         viewList.setItems(vacations);
     }
 
+    /**
+     * send to view the request of vacation the user wants to buy
+     * to verify and sends the user to payment screen
+     * @param b
+     */
     private void buy(Button b) {
         try {
             String request = userRequests.get(buyButtons.indexOf(b));
@@ -192,6 +226,10 @@ public class UserPageView {
         }catch (Exception e) {e.printStackTrace();}
     }
 
+    /**
+     * current user wants to decline incoming request
+     * @param b
+     */
     private void declineRequest(Button b) {
         String request = incomingRequests.get(declines.indexOf(b));
         view.declineReq(request);
@@ -200,6 +238,10 @@ public class UserPageView {
         approve.setDisable(true);
     }
 
+    /**
+     * current user wants to approve incoming request
+     * @param b
+     */
     private void approveRequest(Button b) {
         String request = incomingRequests.get(approves.indexOf(b));
         view.approveReq(request);
@@ -208,6 +250,9 @@ public class UserPageView {
         decline.setDisable(true);
     }
 
+    /**
+     * return to main screen
+     */
     public void returnSearch(){
         try {
             view.goToSearch();

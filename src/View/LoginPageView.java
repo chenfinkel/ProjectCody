@@ -1,30 +1,14 @@
 package View;
 
-import Controller.Controller;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
-
+/**
+ * controller of login page fxml, responds to button clicks etc. and send to view to pass it on
+ */
 public class LoginPageView {
 
     private View view;
-    private Stage primStage;
-    private Stage updateStage;
-
-    public LoginPageView(){
-        view=new View();
-    }
-
-    public void setView(View v){
-        view=v;
-    }
 
     @FXML
     private TextField userName;
@@ -44,6 +28,19 @@ public class LoginPageView {
     private TextField signUpCity;
 
 
+    /**
+     * set view
+     * @param v
+     */
+    public void setView(View v){
+        view=v;
+    }
+
+    /**
+     * send to view which returns if log in succeeded
+     * if succeeded, returns the user to main screen
+     * if not succeeded, notify user and clear text fields
+     */
     public void signIn(){
         boolean isLogin=view.login(userName.getText(),password.getText());
         if(!isLogin) {
@@ -58,18 +55,27 @@ public class LoginPageView {
         }
     }
 
+    /**
+     * notify user login failed
+     */
     public void incorrectLogin(){
         Alert al=new Alert(Alert.AlertType.INFORMATION);
         al.setContentText("Username or password are incorrect");
         al.show();
     }
 
+    /**
+     * sends data of new user to view to pass it on to model and insert to db
+     */
     public void SignUp(){
         view.signUp(signUpUser.getText(),signUpPass.getText(),
                 signUpFname.getText(),signUpLname.getText(),signUpBdate.getValue(),signUpCity.getText());
         clear();
     }
 
+    /**
+     * clear field of sign up
+     */
     public void clear(){
         signUpUser.clear();
         signUpPass.clear();
@@ -79,10 +85,13 @@ public class LoginPageView {
         signUpCity.clear();
     }
 
+    /**
+     * return to main screen
+     */
     public void goToSearch(){
         try {
             view.goToSearch();
-        }catch(Exception e){}
+        }catch(Exception e){e.printStackTrace();}
     }
 
 }

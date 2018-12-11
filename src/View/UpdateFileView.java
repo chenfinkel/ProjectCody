@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+/**
+ * controller of update file fxml, updates user info by responding to button clicks etc. and send to view to pass it on
+ */
 public class UpdateFileView {
 
     private View view;
@@ -26,6 +29,10 @@ public class UpdateFileView {
     @FXML
     private javafx.scene.control.DatePicker bDate;
 
+    /**
+     * set view
+     * @param v
+     */
     public void setView(View v){
         view=v;
     }
@@ -42,11 +49,17 @@ public class UpdateFileView {
         city.setText(view.getDetails("city"));
     }
 
+    /**
+     * sends the new data of the user to view to inspect and pass to model to update dv
+     */
     public void update(){
         view.update(user.getText(), UpdatePass.getText(),fName.getText(),lName.getText(),bDate.getValue(),city.getText());
         setText();
     }
 
+    /**
+     * sent user request to delete his account to view to pass it on to model to update the db
+     */
     public void delete(){
         Alert al=new Alert(Alert.AlertType.CONFIRMATION);
         al.setContentText("Are you sure you want to delete your account?");
