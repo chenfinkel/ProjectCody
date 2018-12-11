@@ -29,6 +29,12 @@ public class BuyVacationView {
     private Pane PayPalPane;
     @FXML
     private Pane VisaPane;
+    @FXML
+    private TextField discount;
+    @FXML
+    private Label priceLabel;
+    @FXML
+    private Button applyDisc;
 
 
     private String vacation;
@@ -86,5 +92,10 @@ public class BuyVacationView {
         view.alert("Payment approved, Tickets were sent to your email.\nHave fun in your vacation!!!");
     }
 
+    public void applyDiscount(){
+        if (discount.getText().equals("10off")){
+            String s = priceLabel.getText();
+        }
+    }
 
 }
