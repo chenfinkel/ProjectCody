@@ -74,7 +74,7 @@
              <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <ListView fx:id="RequestsList" layoutX="248.0" layoutY="73.0" opacity="0.5" prefHeight="550.0" prefWidth="721.0" visible="false" />
+      <ListView fx:id="viewList" layoutX="248.0" layoutY="73.0" opacity="0.5" prefHeight="550.0" prefWidth="721.0" visible="false" />
       <Label layoutX="56.0" layoutY="164.0" onMouseClicked="#setVacations" text="Your Vacations" textFill="#e8d50b">
           <font>
               <Font name="System Bold" size="20.0" />
@@ -83,7 +83,6 @@
               <Cursor fx:constant="HAND" />
           </cursor>
       </Label>
-      <ListView fx:id="VacationList" layoutX="248.0" layoutY="73.0" opacity="0.5" prefHeight="550.0" prefWidth="721.0" visible="false" />
       <Label layoutX="47.0" layoutY="344.0" text="Purchase History" textFill="#e8d50b">
           <font>
               <Font name="System Bold" size="20.0" />

@@ -167,6 +167,19 @@ public class View {
         stage.show();
     }
 
+    public void buy() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/buyVacation.fxml"));
+        Parent root1 = fxmlLoader.load();
+        AddVacationView viewControl = fxmlLoader.getController();
+        viewControl.setView(this);
+        viewControl.setCombos();
+        viewControl.setCurrentUser(getCurrentUser());
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+        stage.setTitle("Buy Vacation");
+        stage.show();
+    }
+
     public void addVac(String userName, String from, String to, LocalDate departDate, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline,
                        String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
         control.addVac(userName, from, to, departDate, returnDate, travelersA, travelersC, travelersB, airline,
