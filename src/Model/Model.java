@@ -601,7 +601,7 @@ public class Model extends Observable {
     public void declineReq(String vacation) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=vacation.split("Request ID: ");
-        int vacID=Integer.parseInt(temp[1]);
+        int vacID=Integer.parseInt(temp[1].split(",")[0]);
 
         String sql="UPDATE requests SET status = \"declined\" WHERE id = ? ";
 

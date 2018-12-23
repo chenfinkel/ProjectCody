@@ -470,4 +470,16 @@ public class View {
     public List<String> purchaseHistory(String currentUser) {
         return control.purchaseHistory(currentUser);
     }
+
+    public void getUserVacations() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/VacationsToSwitch.fxml"));
+        Parent root1 = fxmlLoader.load();
+        VacationsToSwitchView viewControl = fxmlLoader.getController();
+        viewControl.setView(this);
+        viewControl.setVacations(getCurrentUser());
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+        stage.setTitle("Your Vacations");
+        stage.show();
+    }
 }

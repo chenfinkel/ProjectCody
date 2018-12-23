@@ -2,9 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -29,15 +27,7 @@
       </Label>
       <TextField fx:id="discount" layoutX="34.0" layoutY="197.0" prefHeight="25.0" prefWidth="112.0" />
       <Button fx:id="applyDisc" layoutX="163.0" layoutY="197.0" mnemonicParsing="false" onAction="#applyDiscount" text="Apply" />
-      <Pane fx:id="PayPalPane" layoutX="186.0" layoutY="273.0" prefHeight="200.0" prefWidth="246.0" visible="false">
-         <children>
-            <TextField fx:id="PayPalUser" layoutX="20.0" layoutY="67.0" />
-            <Label layoutX="20.0" layoutY="40.0" text="PayPal Username" />
-            <PasswordField fx:id="PayPalPass" layoutX="20.0" layoutY="142.0" />
-            <Label layoutX="20.0" layoutY="118.0" text="Password" />
-         </children>
-      </Pane>
-      <Label layoutX="66.0" layoutY="405.0" onMouseClicked="#payPal" text="PayPal">
+      <Label layoutX="31.0" layoutY="360.0" onMouseClicked="#payPal" text="Message to seller:">
          <font>
             <Font size="15.0" />
          </font>
@@ -45,7 +35,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label layoutX="74.0" layoutY="310.0" onMouseClicked="#visa" prefHeight="17.0" prefWidth="50.0" text="Visa">
+      <Label layoutX="31.0" layoutY="309.0" onMouseClicked="#visa" prefHeight="21.0" prefWidth="112.0" text="Phone Number:">
          <font>
             <Font size="15.0" />
          </font>
@@ -53,20 +43,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Pane fx:id="VisaPane" layoutX="186.0" layoutY="281.0" prefHeight="208.0" prefWidth="286.0" visible="false">
-         <children>
-            <TextField fx:id="cardOwner" layoutX="23.0" layoutY="30.0" />
-            <Label layoutX="64.0" layoutY="167.0" text="/" />
-            <Label layoutX="23.0" layoutY="6.0" text="Card Owner Name" />
-            <Label layoutX="25.0" layoutY="73.0" text="Card Number" />
-            <TextField fx:id="cvv" layoutX="162.0" layoutY="163.0" prefHeight="25.0" prefWidth="47.0" />
-            <TextField fx:id="cardNumber" layoutX="22.0" layoutY="99.0" />
-            <ChoiceBox fx:id="month" layoutX="22.0" layoutY="163.0" prefHeight="25.0" prefWidth="34.0" />
-            <ChoiceBox fx:id="year" layoutX="79.0" layoutY="163.0" prefHeight="25.0" prefWidth="22.0" />
-            <Label layoutX="22.0" layoutY="141.0" text="Experation Date" />
-            <Label layoutX="163.0" layoutY="141.0" text="CVV" />
-         </children>
-      </Pane>
       <Button fx:id="order" layoutX="202.0" layoutY="497.0" mnemonicParsing="false" onAction="#order" prefHeight="34.0" prefWidth="193.0" text="PLACE ORDER">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
@@ -75,7 +51,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="154.0" layoutY="246.0" prefHeight="27.0" prefWidth="286.0" text="Please select payment method:">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="258.0" prefHeight="27.0" prefWidth="185.0" text="Contact Information:">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
@@ -92,5 +68,7 @@
       </Label>
       <Label fx:id="discountLabel" layoutX="110.0" layoutY="101.0" text="-" />
       <Label fx:id="grandTotal" layoutX="132.0" layoutY="135.0" />
+      <TextField layoutX="163.0" layoutY="307.0" />
+      <TextField layoutX="163.0" layoutY="358.0" prefHeight="119.0" prefWidth="274.0" />
    </children>
 </Pane>

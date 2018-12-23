@@ -47,7 +47,9 @@ public class VacationSearchRes {
 
     private ArrayList<String> vacations;
 
-    private ArrayList<Button> requestButtons;
+    private ArrayList<Button> PurchaseReqButtons;
+
+    private ArrayList<Button> ExchangeReqButtons;
 
 
      /**
@@ -73,25 +75,36 @@ public class VacationSearchRes {
             lines.add("No matches found");
         } else {
             vacations = new ArrayList<>();
-            requestButtons = new ArrayList<>();
+            PurchaseReqButtons = new ArrayList<>();
+            ExchangeReqButtons = new ArrayList<>();
             for (int i = 0; i < l.size(); i++) {
                 String line = l.get(i);
                 Label label = new Label(line);
                 HBox hbox = new HBox();
                 vacations.add(line);
-                Button request = new Button("Send Request");
-                request.setOnAction(new EventHandler<ActionEvent>() {
+                Button PurchaseReq = new Button("Apply Purchase Request");
+                Button ExchangeReq = new Button("Apply Exchange Request");
+                PurchaseReq.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
-                        sendRequest((Button) e.getSource());
+                        sendPurchaseRequest((Button) e.getSource());
                     }
                 });
-                request.setCursor(Cursor.HAND);
-                requestButtons.add(request);
+                ExchangeReq.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                        sendExchangeRequest((Button) e.getSource());
+                    }
+                });
+                PurchaseReq.setCursor(Cursor.HAND);
+                ExchangeReq.setCursor(Cursor.HAND);
+                PurchaseReqButtons.add(PurchaseReq);
+                ExchangeReqButtons.add(ExchangeReq);
                 hbox.setSpacing(20);
                 hbox.setHgrow(label, Priority.ALWAYS);
-                hbox.setHgrow(request, Priority.ALWAYS);
-                hbox.getChildren().addAll(label, request);
+                hbox.setHgrow(PurchaseReq, Priority.ALWAYS);
+                hbox.setHgrow(ExchangeReq, Priority.ALWAYS);
+                hbox.getChildren().addAll(label, PurchaseReq, ExchangeReq);
                 lines.add(hbox);
             }
         }
@@ -105,8 +118,8 @@ public class VacationSearchRes {
      *
      * @param b the send request button of the vacation
      */
-    private void sendRequest(Button b) {
-        String vacation = vacations.get(requestButtons.indexOf(b));
+    private void sendPurchaseRequest(Button b) {
+        String vacation = vacations.get(PurchaseReqButtons.indexOf(b));
         boolean bool = view.requestVac(vacation);
         if (bool)
             b.setDisable(true);
@@ -114,6 +127,12 @@ public class VacationSearchRes {
             b.setVisible(false);
     }
 
+
+    private void sendExchangeRequest(Button b){
+        try {
+            view.getUserVacations();
+        } catch(Exception e){e.printStackTrace();}
+    }
 
     /**
      *

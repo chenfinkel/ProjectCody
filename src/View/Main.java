@@ -121,8 +121,10 @@ public class Main extends Application {
                 + "idVac INTEGER NOT NULL, \n"
                 + "seller text NOT NULL, \n"
                 + "buyer text NOT NULL, \n"
+                + "ExchangeVacID INTEGER, \n"
                 + "status text NOT NULL, \n"
                 + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
+                + "FOREIGN KEY(ExchangeVacID) REFERENCES vacation(id), \n"
                 + "FOREIGN KEY(seller) REFERENCES users(userName), \n"
                 + "FOREIGN KEY(buyer) REFERENCES users(userName) \n"
                 + ");";
