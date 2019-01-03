@@ -471,15 +471,27 @@ public class View {
         return control.purchaseHistory(currentUser);
     }
 
-    public void getUserVacations() throws Exception{
+    public void getUserVacations(String vacToSwitch) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/VacationsToSwitch.fxml"));
         Parent root1 = fxmlLoader.load();
         VacationsToSwitchView viewControl = fxmlLoader.getController();
         viewControl.setView(this);
-        viewControl.setVacations(getCurrentUser());
+        viewControl.setVacations(getCurrentUser(),vacToSwitch);
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));
         stage.setTitle("Your Vacations");
         stage.show();
+    }
+
+    public void approveCash(String request) {
+        control.approveCash(request);
+    }
+
+    public void sendVacToSwitch(String request,String vacToSwitch) {
+        control.sendVacToSwitch(request,vacToSwitch);
+    }
+
+    public List<String> getExchangableUserVac(String currentUser) {
+        return control.getExchangableUserVac(currentUser);
     }
 }

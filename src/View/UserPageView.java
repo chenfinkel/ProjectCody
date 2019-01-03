@@ -32,7 +32,7 @@ public class UserPageView {
     private Label currentUser;
     @FXML
     private ListView viewList;
-    @FXML
+
     private ArrayList<Button> approves;
 
     private ArrayList<Button> declines;
@@ -126,33 +126,91 @@ public class UserPageView {
         }
         else {
             for (int i = 0; i < l.size(); i++) {
-                HBox hbox = new HBox();
-                Label label = new Label(l.get(i));
-                incomingRequests.add(label.getText());
-                Button app = new Button("Approve");
-                app.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override public void handle(ActionEvent e) {
-                        approveRequest((Button)e.getSource());
-                    }
-                });
-                approves.add(app);
-                app.setLayoutY(label.getHeight());
-                Button dec = new Button("Decline");
-                dec.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override public void handle(ActionEvent e) {
-                        declineRequest((Button)e.getSource());
-                    }
-                });
-                declines.add(dec);
-                hbox.setSpacing(20);
-                hbox.setHgrow(label, Priority.ALWAYS);
-                hbox.setHgrow(app, Priority.ALWAYS);
-                hbox.setHgrow(dec, Priority.ALWAYS);
-                hbox.getChildren().addAll(label, app, dec);
-                lines.add(hbox);
+                String isCash=l.get(i).split("Status: ")[1].split("\n")[0];
+                if(isCash.equals("waiting")) {
+                    HBox hbox = new HBox();
+                    Label label = new Label(l.get(i));
+                    incomingRequests.add(label.getText());
+                    Button app = new Button("Approve");
+                    app.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            approveRequest((Button) e.getSource());
+                        }
+                    });
+                    approves.add(app);
+                    app.setLayoutY(label.getHeight());
+                    Button dec = new Button("Decline");
+                    dec.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            declineRequest((Button) e.getSource());
+                        }
+                    });
+                    declines.add(dec);
+                    hbox.setSpacing(20);
+                    hbox.setHgrow(label, Priority.ALWAYS);
+                    hbox.setHgrow(app, Priority.ALWAYS);
+                    hbox.setHgrow(dec, Priority.ALWAYS);
+                    hbox.getChildren().addAll(label, app, dec);
+                    lines.add(hbox);
+                }
+                else if(isCash.equals("waitingCash")){
+                    HBox hbox = new HBox();
+                    Label label = new Label(l.get(i));
+                    incomingRequests.add(label.getText());
+                    Button app = new Button("Approve Payment");
+                    app.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            approveCash((Button) e.getSource());
+                        }
+                    });
+                    approves.add(app);
+                    app.setLayoutY(label.getHeight());
+                    hbox.setSpacing(20);
+                    hbox.setHgrow(label, Priority.ALWAYS);
+                    hbox.setHgrow(app, Priority.ALWAYS);
+                    hbox.getChildren().addAll(label, app);
+                    lines.add(hbox);
+                }
+                else{
+                    HBox hbox = new HBox();
+                    Label label = new Label(l.get(i));
+                    incomingRequests.add(label.getText());
+                    Button app = new Button("Approve");
+                    app.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            approveRequest((Button) e.getSource());
+                        }
+                    });
+                    approves.add(app);
+                    app.setLayoutY(label.getHeight());
+                    Button dec = new Button("Decline");
+                    dec.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            declineRequest((Button) e.getSource());
+                        }
+                    });
+                    declines.add(dec);
+                    hbox.setSpacing(20);
+                    hbox.setHgrow(label, Priority.ALWAYS);
+                    hbox.setHgrow(app, Priority.ALWAYS);
+                    hbox.setHgrow(dec, Priority.ALWAYS);
+                    hbox.getChildren().addAll(label, app, dec);
+                    lines.add(hbox);
+                }
             }
         }
         viewList.setItems(lines);
+    }
+
+    private void approveCash(Button b) {
+        String request = incomingRequests.get(approves.indexOf(b));
+        view.approveCash(request);
+        b.setDisable(true);
     }
 
     /**

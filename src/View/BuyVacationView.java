@@ -50,8 +50,6 @@ public class BuyVacationView {
 
     private String currentUser;
 
-    private String paymethod;
-
 
     /**
      * set view
@@ -66,12 +64,6 @@ public class BuyVacationView {
      * @param vacation- the vacation to buy
      */
     public void initiate(String vacation){
-        ObservableList<String> months = FXCollections.observableArrayList();
-        months.addAll("01", "02", "03","04", "05", "06","07", "08", "09", "10", "11", "12");
-        month.setItems(months);
-        ObservableList<String> years = FXCollections.observableArrayList();
-        years.addAll("2022", "2021", "2020", "2019", "2018");
-        year.setItems(years);
         String[] split = vacation.split("Price: ");
         String price = split[1];
         subTotal.setText(price+"$");
@@ -88,48 +80,14 @@ public class BuyVacationView {
     }
 
     /**
-     * if chosen payment method is visa- show fields to fill
-     */
-    public void visa(){
-        PayPalPane.setVisible(false);
-        VisaPane.setVisible(true);
-        paymethod = "visa";
-    }
-
-    /**
-     * if chosen payment method is visa- show fields to fill
-     */
-    public void payPal(){
-        VisaPane.setVisible(false);
-        PayPalPane.setVisible(true);
-        paymethod = "paypal";
-    }
-
-    /**
      * check if all data is filled correctly, if so,
      * sends to view to pass it on to model and updates the user his payment has baan recieved.
      */
     public void order(){
-        if(paymethod==null){
-            view.alert("Please select a payment method!");
-            return;
-        }
-        else if (paymethod.equals("visa")){
-            if (cardOwner.getText().equals("") || cardNumber.getText().equals("") ||
-            cvv.getText().equals("") || month.getValue() == null || year.getValue() == null) {
-                view.alert("All fields are required!");
-                return;
-            }
-        } else if(paymethod.equals("paypal")){
-            if (PayPalUser.getText().equals("") || PayPalPass.getText().equals("")) {
-                view.alert("All fields are required!");
-                return;
-            }
-        }
         String grandTotalText = grandTotal.getText();
         String price = grandTotalText.substring(0, grandTotalText.length()-1);
         view.order(vacation, currentUser, price);
-        view.alert("Payment approved, Tickets were sent to your email.\nHave fun in your vacation!!!");
+        view.alert("The seller will contact you in order to complete the purchase");
         order.setDisable(true);
     }
 

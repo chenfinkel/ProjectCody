@@ -429,6 +429,37 @@ public class Model extends Observable {
 
     /**
      *
+     * search all vacations that the user published
+     *
+     * @param userName the user name
+     * @return list of all vacation that the user published
+     */
+    public List<String> userExchangableVac(String userName) {
+        List<String> list=new LinkedList<>();
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String vac="SELECT * FROM vacation WHERE userName = ? AND NOT status=\"sold\"";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(vac);
+        ) {
+
+            pstmt1.setString(1,userName);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                String s="Vacation ID: "+ rs.getString("id") +
+                        ", From: " + rs.getString("fromC")+
+                        ", To: " +rs.getString("destination") + "\n" +
+                        "Depart: " + rs.getString("Depart")+
+                        ", Return: " + rs.getString("Return")+ "\n" +
+                        "Price: " + rs.getString("price")+ "\n" +
+                        "Status: " + rs.getString("status");
+                list.add(s);
+            }
+        } catch (Exception e){System.out.println(e.getMessage());}
+        return list;
+    }
+
+    /**
+     *
      * search all user purchase
      *
      * @param userName the user name
@@ -546,7 +577,7 @@ public class Model extends Observable {
     public List<String> userIncomingReq(String user) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
-        String vacReq="SELECT * FROM requests WHERE seller = ? AND status=\"waiting\"";
+        String vacReq="SELECT * FROM requests WHERE seller = ? AND (status=\"waiting\" OR status=\"waitingCash\" OR status=\"waitingSwitch\")";
         String vac="SELECT * FROM vacation WHERE id = ? ";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vacReq);
@@ -561,6 +592,15 @@ public class Model extends Observable {
                         ", Status: " + rs.getString("status")+"\n";
                 while(rs2.next()) {
                     s+="From: " + rs2.getString("fromC") +
+                            ", To: " + rs2.getString("destination") + "\n" +
+                            "Depart: " + rs2.getString("Depart") +
+                            ", Return: " + rs2.getString("Return") + "\n" +
+                            "Price: " + rs2.getString("price");
+                }
+                pstmt2.setString(1,rs.getString("ExchangeVacID"));
+                ResultSet rs3  = pstmt2.executeQuery();
+                while(rs3.next()) {
+                    s+="\nSwitch:\nFrom: " + rs2.getString("fromC") +
                             ", To: " + rs2.getString("destination") + "\n" +
                             "Depart: " + rs2.getString("Depart") +
                             ", Return: " + rs2.getString("Return") + "\n" +
@@ -581,15 +621,83 @@ public class Model extends Observable {
     public void approveReq(String vacation) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=vacation.split("Request ID: ");
-        int vacID=Integer.parseInt(temp[1].split(",")[0]);
+        int reqID=Integer.parseInt(temp[1].split(",")[0]);
 
         String sql="UPDATE requests SET status = \"approved\" WHERE id = ? ";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
-            pstmt1.setInt(1,vacID);
+            pstmt1.setInt(1,reqID);
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
+
+        String[] split = vacation.split("Switch:\n");
+        if (split.length > 1){
+            vacationSwitch(reqID);
+        }
+    }
+
+    /**
+     *
+     * set the status of vacation to sold
+     * and add to purchases table
+     *
+     * @param requestID the request ID
+     */
+    public void vacationSwitch(int requestID) {
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String vac="SELECT * FROM requests WHERE id = ? ";
+        String buyer = "";
+        int vacID = 0, ExchangeVacID = 0;
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
+            pstmt1.setInt(1,requestID);
+            ResultSet rs  = pstmt1.executeQuery();
+            while (rs.next()) {
+                buyer = rs.getString("buyer");
+                vacID = rs.getInt("idVac");
+                ExchangeVacID = rs.getInt("ExchangeVacID");
+            }
+        } catch (Exception e){e.printStackTrace();}
+
+        String sql="UPDATE vacation SET status = \"sold\" WHERE id = ? ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setInt(1,vacID);
+            pstmt1.executeUpdate();
+            pstmt1.setInt(1,ExchangeVacID);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+
+        String sql1 = "INSERT INTO purchases(id,idVac,Date,seller,buyer,price) VALUES(?,?,?,?,?,?)";
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
+            pstmt1.setInt(1,Main.idPurchas++);
+            pstmt1.setInt(2,vacID);
+            pstmt1.setString(3,date);
+            pstmt1.setString(4,currentUser);
+            pstmt1.setString(5,buyer);
+            pstmt1.setString(6,"exchanged");
+            pstmt1.executeUpdate();
+            pstmt1.setInt(1,Main.idPurchas++);
+            pstmt1.setInt(2,ExchangeVacID);
+            pstmt1.setString(3,date);
+            pstmt1.setString(4,buyer);
+            pstmt1.setString(5,currentUser);
+            pstmt1.setString(6,"exchanged");
+        } catch (Exception e){e.printStackTrace();}
+
+        String sql2="UPDATE requests SET status = \"closed\" WHERE id = ? ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql2)) {
+            pstmt1.setInt(1,requestID);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+
     }
 
     /**
@@ -658,7 +766,7 @@ public class Model extends Observable {
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
 
-        String sql2="UPDATE requests SET status = \"closed\" WHERE id = ? ";
+        String sql2="UPDATE requests SET status = \"waitingCash\" WHERE id = ? ";
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(sql2)) {
@@ -666,5 +774,54 @@ public class Model extends Observable {
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
 
+    }
+
+    public void approveCash(String request) {
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String[] temp=request.split("Request ID: ");
+        int vacID=Integer.parseInt(temp[1].split(",")[0]);
+
+        String sql="UPDATE requests SET status = \"closed\" WHERE id = ? ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setInt(1,vacID);
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
+    }
+
+    public void sendVacToSwitch(String request,String vacToSwitch) {
+        String url = "jdbc:sqlite:Vacation4U.db";
+        String[] temp=request.split("Vacation ID: ");
+        String[] temp2=temp[1].split(",");
+        int ExchangeVacID= Integer.parseInt(temp2[0]);
+
+        String[] split = vacToSwitch.split("Vacation id: ");
+        String idString = split[1].split("\n")[0];
+        int idVac = Integer.parseInt(idString);
+        String[] split2 = vacToSwitch.split("Seller: ");
+        String seller = split2[1];
+
+
+        String sql="UPDATE vacation SET status = \"requested\" WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setInt(1,idVac);
+            pstmt1.executeUpdate();
+        } catch (Exception e){}
+
+        String sql1 = "INSERT INTO requests(id,idVac,seller,buyer,ExchangeVacID,status) VALUES(?,?,?,?,?,?)";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
+            pstmt1.setInt(1,Main.idRequest++);
+            pstmt1.setInt(2,idVac);
+            pstmt1.setString(3,seller);
+            pstmt1.setString(4,currentUser);
+            pstmt1.setInt(5,ExchangeVacID);
+            pstmt1.setString(6,"waiting");
+            pstmt1.executeUpdate();
+        } catch (Exception e){e.printStackTrace();}
     }
 }

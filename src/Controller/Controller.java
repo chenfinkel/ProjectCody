@@ -188,7 +188,7 @@ public class Controller {
     }
 
     /**
-     * add new vacation by parameters given
+     * add new vacation by given parameters
      *
      * @param userName
      * @param from
@@ -298,5 +298,17 @@ public class Controller {
      */
     public List<String> purchaseHistory(String currentUser) {
         return model.userPurch(currentUser);
+    }
+
+    public void approveCash(String request) {
+        model.approveCash(request);
+    }
+
+    public void sendVacToSwitch(String request,String vacToSwitch) {
+        model.sendVacToSwitch(request,vacToSwitch);
+    }
+
+    public List<String> getExchangableUserVac(String currentUser) {
+        return model.userExchangableVac(currentUser);
     }
 }

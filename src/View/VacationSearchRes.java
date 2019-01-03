@@ -120,18 +120,27 @@ public class VacationSearchRes {
      */
     private void sendPurchaseRequest(Button b) {
         String vacation = vacations.get(PurchaseReqButtons.indexOf(b));
-        boolean bool = view.requestVac(vacation);
-        if (bool)
-            b.setDisable(true);
-        else
-            b.setVisible(false);
+        view.requestVac(vacation);
     }
 
 
     private void sendExchangeRequest(Button b){
-        try {
-            view.getUserVacations();
-        } catch(Exception e){e.printStackTrace();}
+        if (!userName.getText().equals("guest")) {
+            String[] split = vacations.get(ExchangeReqButtons.indexOf(b)).split("Seller: ");
+            String seller = split[1].split("  From")[0];
+            if (userName.getText().equals(seller)) {
+                view.alert("You can't submit a request for a vacation you added");
+            }
+            else{
+                try {
+                    view.getUserVacations(vacations.get(ExchangeReqButtons.indexOf(b)));
+                } catch(Exception e){e.printStackTrace();}
+            }
+        }
+        else{
+            view.alert("Please login in order to submit a purchase request");
+        }
+
     }
 
     /**

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BuyVacationView">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="291.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BuyVacationView">
    <children>
       <Label fx:id="subTotal" layoutX="110.0" layoutY="67.0" />
       <Label layoutX="36.0" layoutY="67.0" text="Subtotal:">
@@ -27,23 +27,7 @@
       </Label>
       <TextField fx:id="discount" layoutX="34.0" layoutY="197.0" prefHeight="25.0" prefWidth="112.0" />
       <Button fx:id="applyDisc" layoutX="163.0" layoutY="197.0" mnemonicParsing="false" onAction="#applyDiscount" text="Apply" />
-      <Label layoutX="31.0" layoutY="360.0" onMouseClicked="#payPal" text="Message to seller:">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Label>
-      <Label layoutX="31.0" layoutY="309.0" onMouseClicked="#visa" prefHeight="21.0" prefWidth="112.0" text="Phone Number:">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Label>
-      <Button fx:id="order" layoutX="202.0" layoutY="497.0" mnemonicParsing="false" onAction="#order" prefHeight="34.0" prefWidth="193.0" text="PLACE ORDER">
+      <Button fx:id="order" layoutX="43.0" layoutY="260.0" mnemonicParsing="false" onAction="#order" prefHeight="34.0" prefWidth="193.0" text="PLACE ORDER">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
@@ -51,11 +35,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="258.0" prefHeight="27.0" prefWidth="185.0" text="Contact Information:">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font>
-      </Label>
       <Label layoutX="36.0" layoutY="101.0" text="Discount:">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
@@ -68,7 +47,5 @@
       </Label>
       <Label fx:id="discountLabel" layoutX="110.0" layoutY="101.0" text="-" />
       <Label fx:id="grandTotal" layoutX="132.0" layoutY="135.0" />
-      <TextField layoutX="163.0" layoutY="307.0" />
-      <TextField layoutX="163.0" layoutY="358.0" prefHeight="119.0" prefWidth="274.0" />
    </children>
 </Pane>
