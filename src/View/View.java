@@ -21,6 +21,8 @@ public class View {
 
     private Controller control;
 
+    public static Stage primStage;
+
     private Stage updateStage;
 
     /**
@@ -60,7 +62,7 @@ public class View {
         if (vacs.size() == 0)
             alert("No matches found!");
         else {
-            Stage window = Main.primStage;
+            Stage window = primStage;
             FXMLLoader fxmlLoader = new FXMLLoader();
             Scene s = null;
             Parent root = null;
@@ -97,7 +99,7 @@ public class View {
      */
     public void goToUserPage() {
         try {
-            Stage window = Main.primStage;
+            Stage window = primStage;
             FXMLLoader fxmlLoader = new FXMLLoader();
             window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/UserPage.fxml").openStream()), 1000, 650));
             UserPageView viewControl = fxmlLoader.getController();
@@ -136,7 +138,7 @@ public class View {
      * @throws Exception if change was not successful
      */
     public void returnLoginPage() throws Exception {
-        Stage window = Main.primStage;
+        Stage window = primStage;
         FXMLLoader fxmlLoader = new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/LoginPage.fxml").openStream()), 1000, 650));
         LoginPageView viewControl = fxmlLoader.getController();
@@ -279,7 +281,7 @@ public class View {
      * @throws Exception if change was not successful
      */
     public void goToSearch() throws Exception {
-        Stage window = Main.primStage;
+        Stage window = primStage;
         FXMLLoader fxmlLoader = new FXMLLoader();
         window.setScene(new Scene(fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream()), 1000, 650));
         VacationSearchView viewControl = fxmlLoader.getController();
@@ -493,5 +495,20 @@ public class View {
 
     public List<String> getExchangableUserVac(String currentUser) {
         return control.getExchangableUserVac(currentUser);
+    }
+
+    public void start(Stage primaryStage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream());
+            VacationSearchView viewControl = fxmlLoader.getController();
+            viewControl.setView(new View());
+            viewControl.setCombos();
+            primaryStage.setTitle("Vacation4U");
+            Scene scene = new Scene(root, 1000, 650);
+            primaryStage.setScene(scene);
+            primStage = primaryStage;
+            primStage.show();
+        }catch (Exception e) { e.printStackTrace(); }
     }
 }

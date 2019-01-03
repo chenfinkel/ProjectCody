@@ -11,23 +11,15 @@ import java.time.LocalDate;
 
 public class Main extends Application {
 
-    public static Stage primStage;
+
     public static int idVac;
     public static int idPurchas;
     public static int idRequest;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader=new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("resources/VacationSearch.fxml").openStream());
-        VacationSearchView viewControl = fxmlLoader.getController();
-        viewControl.setView(new View());
-        viewControl.setCombos();
-        primaryStage.setTitle("Vacation4U");
-        Scene scene = new Scene(root, 1000, 650);
-        primaryStage.setScene(scene);
-        primStage=primaryStage;
-        primStage.show();
+        View view = new View();
+        view.start(primaryStage);
     }
 
     /**
