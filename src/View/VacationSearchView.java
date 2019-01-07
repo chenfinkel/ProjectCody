@@ -62,6 +62,8 @@ public class VacationSearchView {
     private Label LogOff;
     @FXML
     private Button advanced;
+    @FXML
+    private CheckBox Switch;
 
     /**
      *
@@ -137,7 +139,7 @@ public class VacationSearchView {
             travelersB=babyTravelers.getValue();
         view.searchVac(from.getText(),to.getText(),departDate.getValue(),returnDate.getValue(),travelersA,
                 travelersC, travelersB, airline.getText(),baggageS,
-                isDirect.isSelected(), priceFrom.getText(), priceTo.getText(),types,hotelName.getText(),rank);
+                isDirect.isSelected(), priceFrom.getText(), priceTo.getText(),types,hotelName.getText(),rank, Switch.isSelected());
     }
 
     /**

@@ -57,8 +57,8 @@ public class View {
      * @param hotelRank the rank of the hotel
      */
     public void searchVac(String from, String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
-                          String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotelName, String hotelRank) {
-        List<String> vacs = control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage, isDirect, priceFrom, priceTo, type, hotelName, hotelRank);
+                          String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotelName, String hotelRank, boolean Switch) {
+        List<String> vacs = control.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage, isDirect, priceFrom, priceTo, type, hotelName, hotelRank, Switch);
         if (vacs.size() == 0)
             alert("No matches found!");
         else {
@@ -355,9 +355,9 @@ public class View {
      * @param hotelRank the rank of the hotel
      */
     public void addVac(String userName, String from, String to, LocalDate departDate, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline,
-                       String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
+                       String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank, boolean Switch) {
         control.addVac(userName, from, to, departDate, returnDate, travelersA, travelersC, travelersB, airline,
-                baggage, isDirect, price, type, hotelName, hotelRank);
+                baggage, isDirect, price, type, hotelName, hotelRank, Switch);
 
     }
 

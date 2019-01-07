@@ -45,6 +45,8 @@ public class AddVacationView {
     private TextField hotelName;
     @FXML
     private ComboBox<String> hotelRank;
+    @FXML
+    private CheckBox Switch;
 
     /**
      * set values to the combo boxes in the fxml
@@ -133,7 +135,7 @@ public class AddVacationView {
                 rank=hotelRank.getValue();
             view.addVac(currentUser, from.getText(), to.getText(), departDate.getValue(), returnDate.getValue(), travelersA.getValue(),
                     StravelersC, StravelersB, airline.getText(), baggage.getValue(),
-                    isDirect.isSelected(), price.getText(), types, hotelName.getText(), rank);
+                    isDirect.isSelected(), price.getText(), types, hotelName.getText(), rank, Switch.isSelected());
             view.alert("vacation added");
             clear();
         }

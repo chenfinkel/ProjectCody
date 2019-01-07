@@ -30,6 +30,7 @@
       <ComboBox fx:id="baggage" layoutX="403.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
       <Label layoutX="535.0" layoutY="94.0" text="Price:" />
       <TextField fx:id="price" layoutX="535.0" layoutY="116.0" prefHeight="25.0" prefWidth="99.0" />
+      <CheckBox fx:id="Switch" layoutX="405.0" layoutY="185.0" mnemonicParsing="false" text="Available for switch" />
       <CheckBox fx:id="isDirect" layoutX="678.0" layoutY="86.0" mnemonicParsing="false" text="Direct" />
       <Label layoutX="21.0" layoutY="164.0" text="Type:" />
       <ComboBox fx:id="type" layoutX="19.0" layoutY="181.0" prefHeight="25.0" prefWidth="99.0" />

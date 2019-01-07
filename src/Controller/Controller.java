@@ -182,8 +182,8 @@ public class Controller {
      * @return a list of matching vacations found in the db
      */
     public List<String> searchVac(String from, String to, LocalDate departDate, LocalDate returnDate, String adultTravelers, String childTravelers,
-                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotel, String rank) {
-       return model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo, type, hotel, rank);
+                                  String babyTravelers, String airline, String baggage, boolean isDirect, String priceFrom, String priceTo, String type, String hotel, String rank, boolean Switch) {
+       return model.searchVac(from, to, departDate, returnDate, adultTravelers, childTravelers, babyTravelers, airline, baggage,isDirect, priceFrom, priceTo, type, hotel, rank, Switch);
 
     }
 
@@ -206,7 +206,7 @@ public class Controller {
      * @param hotelName
      * @param hotelRank
      */
-    public void addVac( String userName, String from, String to, LocalDate departDate, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
+    public void addVac( String userName, String from, String to, LocalDate departDate, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank, boolean Switch) {
         if (Period.between(LocalDate.now(), departDate).isNegative()){
             view.alert("please enter a depart date starting from today");
         }
@@ -223,7 +223,7 @@ public class Controller {
                 returnDateS = returnDay + "/" + returnMonth + "/" + returnYear;
             }
             model.addVacation(userName, from, to, departDateS, returnDateS, travelersA, travelersC, travelersB, airline,
-                    baggage, isDirect, price, type, hotelName, hotelRank);
+                    baggage, isDirect, price, type, hotelName, hotelRank, Switch);
         }
     }
 

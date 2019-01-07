@@ -244,7 +244,7 @@ public class Model extends Observable {
      * @param rank the rank of the hotel
      * @return list of all vacation that match the search
      */
-    public List<String> searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean direct, String priceFrom, String priceTo, String type, String hotel, String rank) {
+    public List<String> searchVac(String from, String to, LocalDate depart, LocalDate returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean direct, String priceFrom, String priceTo, String type, String hotel, String rank, boolean Switch) {
         List<String> list=new LinkedList<>();
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM vacation";
@@ -293,7 +293,8 @@ public class Model extends Observable {
         if(!rank.equals("")){
             vac+=(" INTERSECT SELECT * FROM vacation WHERE hotelRating >= "+Integer.parseInt(rank));
         }
-
+        if (Switch)
+            vac+=(" INTERSECT SELECT * FROM vacation WHERE switch = \"yes\"");
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(vac)) {
             ResultSet rs  = pstmt1.executeQuery();
@@ -340,7 +341,8 @@ public class Model extends Observable {
                         s += "Rating: " + Rating;
                     }
                     s+="\n";
-                    s += "Seller: " + rs.getString("userName");
+                    s += "Seller: " + rs.getString("userName") + "\n";
+                    s += "Available for switch: " + rs.getString("switch");
                     list.add(s);
                 }
             }
@@ -368,8 +370,11 @@ public class Model extends Observable {
      * @param hotelName what hotel is included in the price
      * @param hotelRank the rank of the hotel
      */
-    public void addVacation( String userName, String from, String to, String departDate, String returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank) {
-        String sql1 = "INSERT INTO vacation(id,userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating,status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public void addVacation( String userName, String from, String to, String departDate, String returnDate, String travelersA, String travelersC, String travelersB, String airline, String baggage, boolean isDirect, String price, String type, String hotelName, String hotelRank, boolean Switch) {
+        String isForSwitch = "no";
+        if (Switch)
+            isForSwitch = "yes";
+        String sql1 = "INSERT INTO vacation(id,userName,airline,fromC,destination,Depart,Return,travelersA,travelersC,travelersB,direct,price,baggage,type,hotel,hotelRating,status,switch) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         String url = "jdbc:sqlite:Vacation4U.db";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt = conn.prepareStatement(sql1)) {
@@ -390,6 +395,7 @@ public class Model extends Observable {
             pstmt.setString(15, hotelName);
             pstmt.setString(16, hotelRank);
             pstmt.setString(17, "open");
+            pstmt.setString(18, isForSwitch);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -61,6 +61,7 @@ public class Main extends Application {
                 + "hotel text, \n"
                 + "hotelRating INTEGER, \n"
                 + "status text, \n"
+                + "switch text, \n"
                 + "FOREIGN KEY(userName) REFERENCES users(userName) \n"
                 + ");";
 
@@ -192,6 +193,30 @@ public class Main extends Application {
                 idRequest++;
             }
         }catch (Exception e){e.printStackTrace();}
+    }
+
+    /**
+     * create exchanges table
+     */
+    public static void createExchangeTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Vacation4U.db";
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS exchanges (\n"
+                + "id INTEGER PRIMARY KEY, \n"
+                + "idVac1 INTEGER NOT NULL, \n"
+                + "idVac2 INTEGER NOT NULL, \n"
+                + "Date text, \n"
+                + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

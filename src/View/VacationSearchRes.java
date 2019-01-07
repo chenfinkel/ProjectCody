@@ -82,29 +82,35 @@ public class VacationSearchRes {
                 Label label = new Label(line);
                 HBox hbox = new HBox();
                 vacations.add(line);
+                String Switch = line.split("Available for switch: ")[1];
                 Button PurchaseReq = new Button("Apply Purchase Request");
-                Button ExchangeReq = new Button("Apply Exchange Request");
                 PurchaseReq.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
                         sendPurchaseRequest((Button) e.getSource());
                     }
                 });
-                ExchangeReq.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        sendExchangeRequest((Button) e.getSource());
-                    }
-                });
                 PurchaseReq.setCursor(Cursor.HAND);
-                ExchangeReq.setCursor(Cursor.HAND);
                 PurchaseReqButtons.add(PurchaseReq);
-                ExchangeReqButtons.add(ExchangeReq);
                 hbox.setSpacing(20);
                 hbox.setHgrow(label, Priority.ALWAYS);
                 hbox.setHgrow(PurchaseReq, Priority.ALWAYS);
-                hbox.setHgrow(ExchangeReq, Priority.ALWAYS);
-                hbox.getChildren().addAll(label, PurchaseReq, ExchangeReq);
+                hbox.getChildren().addAll(label, PurchaseReq);
+                if (Switch.equals("yes")) {
+                    Button ExchangeReq = new Button("Apply Exchange Request");
+                    ExchangeReq.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            sendExchangeRequest((Button) e.getSource());
+                        }
+                    });
+                    ExchangeReq.setCursor(Cursor.HAND);
+                    ExchangeReqButtons.add(ExchangeReq);
+                    hbox.setHgrow(ExchangeReq, Priority.ALWAYS);
+                    hbox.getChildren().addAll(ExchangeReq);
+                } else {
+                    ExchangeReqButtons.add(new Button());
+                }
                 lines.add(hbox);
             }
         }
