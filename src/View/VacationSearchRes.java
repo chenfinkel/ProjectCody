@@ -83,11 +83,16 @@ public class VacationSearchRes {
                 HBox hbox = new HBox();
                 vacations.add(line);
                 String Switch = line.split("Available for switch: ")[1];
+                Button ExchangeReq = new Button("Apply Exchange Request");
+                ExchangeReq.setVisible(false);
                 Button PurchaseReq = new Button("Apply Purchase Request");
                 PurchaseReq.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e) {
                         sendPurchaseRequest((Button) e.getSource());
+                        ExchangeReq.setDisable(true);
+                        PurchaseReq.setDisable(true);
+
                     }
                 });
                 PurchaseReq.setCursor(Cursor.HAND);
@@ -97,11 +102,13 @@ public class VacationSearchRes {
                 hbox.setHgrow(PurchaseReq, Priority.ALWAYS);
                 hbox.getChildren().addAll(label, PurchaseReq);
                 if (Switch.equals("yes")) {
-                    Button ExchangeReq = new Button("Apply Exchange Request");
+                    ExchangeReq.setVisible(true);
                     ExchangeReq.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
                             sendExchangeRequest((Button) e.getSource());
+                            ExchangeReq.setDisable(true);
+                            PurchaseReq.setDisable(true);
                         }
                     });
                     ExchangeReq.setCursor(Cursor.HAND);
@@ -126,14 +133,28 @@ public class VacationSearchRes {
      */
     private void sendPurchaseRequest(Button b) {
         String vacation = vacations.get(PurchaseReqButtons.indexOf(b));
-        view.requestVac(vacation);
+        if (!userName.getText().equals("guest")) {
+            String[] split = vacation.split("Seller: ");
+            String seller = split[1].split("\n")[0];
+            if (userName.getText().equals(seller)) {
+                view.alert("You can't submit a request for a vacation you added");
+            }
+            else{
+                try {
+                    view.requestVac(vacation);
+                } catch(Exception e){e.printStackTrace();}
+            }
+        }
+        else{
+            view.alert("Please login in order to submit a purchase request");
+        }
     }
 
 
     private void sendExchangeRequest(Button b){
         if (!userName.getText().equals("guest")) {
             String[] split = vacations.get(ExchangeReqButtons.indexOf(b)).split("Seller: ");
-            String seller = split[1].split("  From")[0];
+            String seller = split[1].split("\n")[0];
             if (userName.getText().equals(seller)) {
                 view.alert("You can't submit a request for a vacation you added");
             }

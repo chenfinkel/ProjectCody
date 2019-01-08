@@ -43,7 +43,7 @@ public class UpdateFileView {
         fName.setText(view.getDetails("firstName"));
         lName.setText(view.getDetails("lastName"));
         String date=view.getDetails("birthDate");
-        DateTimeFormatter form= DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter form= DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate ldate = LocalDate.parse(date,form);
         bDate.setValue(ldate);
         city.setText(view.getDetails("city"));

@@ -116,6 +116,7 @@ public class Main extends Application {
                 + "buyer text NOT NULL, \n"
                 + "ExchangeVacID INTEGER, \n"
                 + "status text NOT NULL, \n"
+                + "isSwitch text, \n"
                 + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
                 + "FOREIGN KEY(ExchangeVacID) REFERENCES vacation(id), \n"
                 + "FOREIGN KEY(seller) REFERENCES users(userName), \n"

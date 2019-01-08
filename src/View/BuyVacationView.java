@@ -13,27 +13,9 @@ import javafx.scene.layout.Pane;
 public class BuyVacationView {
 
     @FXML
-    private TextField cardOwner;
-    @FXML
-    private TextField cardNumber;
-    @FXML
-    private TextField cvv;
-    @FXML
-    private TextField PayPalUser;
-    @FXML
-    private PasswordField PayPalPass;
-    @FXML
-    private ChoiceBox month;
-    @FXML
-    private ChoiceBox year;
-    @FXML
-    private Pane PayPalPane;
-    @FXML
-    private Pane VisaPane;
+    private TextField phoneNO;
     @FXML
     private TextField discount;
-    @FXML
-    private Button applyDisc;
     @FXML
     private Label subTotal;
     @FXML
@@ -86,9 +68,14 @@ public class BuyVacationView {
     public void order(){
         String grandTotalText = grandTotal.getText();
         String price = grandTotalText.substring(0, grandTotalText.length()-1);
-        view.order(vacation, currentUser, price);
-        view.alert("The seller will contact you in order to complete the purchase");
-        order.setDisable(true);
+        if(phoneNO.getText().equals("")){
+            view.alert("Please enter phone number to proceed!");
+        }
+        else {
+            view.order(vacation, currentUser, price);
+            view.alert("The seller will contact you in order to complete the purchase");
+            order.setDisable(true);
+        }
     }
 
     /**
