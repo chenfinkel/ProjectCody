@@ -43,6 +43,8 @@ public class UserPageView {
 
     private ArrayList<Button> buyButtons;
 
+    private ArrayList<Button> approvePayment;
+
     /**
      * set view
      * @param v
@@ -117,6 +119,7 @@ public class UserPageView {
         viewList.setVisible(false);
         approves = new ArrayList<>();
         declines = new ArrayList<>();
+        approvePayment = new ArrayList<>();
         incomingRequests = new ArrayList<>();
         List<String> l=view.getIncomingReq(currentUser.getText());
         viewList.setVisible(true);
@@ -148,6 +151,7 @@ public class UserPageView {
                         }
                     });
                     declines.add(dec);
+                    approvePayment.add(new Button());
                     hbox.setSpacing(20);
                     hbox.setHgrow(label, Priority.ALWAYS);
                     hbox.setHgrow(app, Priority.ALWAYS);
@@ -157,7 +161,9 @@ public class UserPageView {
                 }
                 else if(isCash.equals("waitingCash")){
                     HBox hbox = new HBox();
-                    Label label = new Label(l.get(i));
+                    String line = l.get(i);
+                    String buyer = line.split("Requested by: ")[1];
+                    Label label = new Label(line);
                     incomingRequests.add(label.getText());
                     Button app = new Button("Approve Payment");
                     app.setOnAction(new EventHandler<ActionEvent>() {
@@ -166,7 +172,9 @@ public class UserPageView {
                             approveCash((Button) e.getSource());
                         }
                     });
-                    approves.add(app);
+                    approvePayment.add(app);
+                    approves.add(new Button());
+                    declines.add(new Button());
                     app.setLayoutY(label.getHeight());
                     hbox.setSpacing(20);
                     hbox.setHgrow(label, Priority.ALWAYS);
@@ -195,6 +203,7 @@ public class UserPageView {
                         }
                     });
                     declines.add(dec);
+                    approvePayment.add(new Button());
                     hbox.setSpacing(20);
                     hbox.setHgrow(label, Priority.ALWAYS);
                     hbox.setHgrow(app, Priority.ALWAYS);
@@ -208,7 +217,7 @@ public class UserPageView {
     }
 
     private void approveCash(Button b) {
-        String request = incomingRequests.get(approves.indexOf(b));
+        String request = incomingRequests.get(approvePayment.indexOf(b));
         view.approveCash(request);
         b.setDisable(true);
     }

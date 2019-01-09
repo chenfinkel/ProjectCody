@@ -15,6 +15,7 @@ public class Main extends Application {
     public static int idVac;
     public static int idPurchas;
     public static int idRequest;
+    public static int idExchange;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -88,6 +89,7 @@ public class Main extends Application {
                 + "seller text NOT NULL, \n"
                 + "buyer text NOT NULL, \n"
                 + "price text NOT NULL, \n"
+                + "buyerPhone text, \n"
                 + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
                 + "FOREIGN KEY(seller) REFERENCES users(userName), \n"
                 + "FOREIGN KEY(buyer) REFERENCES users(userName) \n"

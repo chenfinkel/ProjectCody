@@ -284,11 +284,11 @@ public class Controller {
      * @param currentUser- user Name that want to buy
      * @param price- vacation price
      */
-    public void order(String vacation, String currentUser, String price) {
+    public void order(String vacation, String currentUser, String phoneNumber, String price) {
         String[] split = vacation.split("Request ID: ");
         String vacationID = split[1].split(",")[0];
         int vacationIDint = Integer.parseInt(vacationID);
-        model.vacationPurchase(vacationIDint, currentUser, price);
+        model.vacationPurchase(vacationIDint, currentUser, phoneNumber, price);
     }
 
     /**

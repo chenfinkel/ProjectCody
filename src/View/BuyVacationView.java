@@ -24,6 +24,8 @@ public class BuyVacationView {
     private Label grandTotal;
     @FXML
     private Button order;
+    @FXML
+    private ChoiceBox code;
 
 
     private String vacation;
@@ -51,6 +53,10 @@ public class BuyVacationView {
         subTotal.setText(price+"$");
         grandTotal.setText(price+"$");
         this.vacation = vacation;
+        ObservableList codes = FXCollections.observableArrayList();
+        codes.addAll("050","052","054","058", "02","03","04","08","09");
+        code.setItems(codes);
+
     }
 
     /**
@@ -68,14 +74,31 @@ public class BuyVacationView {
     public void order(){
         String grandTotalText = grandTotal.getText();
         String price = grandTotalText.substring(0, grandTotalText.length()-1);
-        if(phoneNO.getText().equals("")){
+        String phoneNumber = phoneNO.getText();
+        if(phoneNumber.equals("")){
             view.alert("Please enter phone number to proceed!");
         }
         else {
-            view.order(vacation, currentUser, price);
-            view.alert("The seller will contact you in order to complete the purchase");
-            order.setDisable(true);
+            if(validPhoneNum(phoneNumber)) {
+                phoneNumber = (String)code.getSelectionModel().getSelectedItem() + phoneNumber;
+                view.order(vacation, currentUser, phoneNumber, price);
+                view.alert("The seller will contact you in order to complete the purchase");
+                order.setDisable(true);
+            }else {
+                view.alert("Please enter a valid phone number!");
+            }
         }
+    }
+
+    private boolean validPhoneNum(String phoneNumber) {
+        if(phoneNumber.length() == 7) {
+            for (int i = 0; i < phoneNumber.length(); i++){
+                if (!Character.isDigit(phoneNumber.charAt(i)))
+                    return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -458,8 +458,8 @@ public class View {
      * @param currentUser user name
      * @param price of the vacation
      */
-    public void order(String vacation, String currentUser, String price) {
-        control.order(vacation, currentUser, price);
+    public void order(String vacation, String currentUser, String phoneNumber, String price) {
+        control.order(vacation, currentUser, phoneNumber, price);
     }
 
     /**

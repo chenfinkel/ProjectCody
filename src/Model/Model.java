@@ -5,9 +5,7 @@ import View.Main;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Observable;
+import java.util.*;
 import java.util.Date;
 
 
@@ -590,10 +588,21 @@ public class Model extends Observable {
             pstmt1.setString(1,user);
             ResultSet rs  = pstmt1.executeQuery();
             while (rs.next()) {
-                pstmt2.setString(1,rs.getString("idVac"));
+                String idVac = rs.getString("idVac");
+                pstmt2.setString(1,idVac);
                 ResultSet rs2  = pstmt2.executeQuery();
+                String status = rs.getString("status");
                 String s = "Request ID: " + rs.getString("id")+
-                        ", Status: " + rs.getString("status")+"\n";
+                        ", Status: " + status+"\n";
+                String phoneNum = null;
+                if(status.equals("waitingCash")){
+                    String purch = "SELECT * FROM purchases WHERE idVac = ? ";
+                    PreparedStatement pstmt3 = conn.prepareStatement(purch);
+                    pstmt3.setString(1,idVac);
+                    ResultSet rs3 = pstmt3.executeQuery();
+                    phoneNum = rs3.getString("buyerPhone");
+                }
+                String buyer = rs.getString("buyer");
                 while(rs2.next()) {
                     s+="From: " + rs2.getString("fromC") +
                             ", To: " + rs2.getString("destination") + "\n" +
@@ -611,6 +620,9 @@ public class Model extends Observable {
                             "Price: " + rs2.getString("price");
 
                 }
+                s+="\nRequested by: "+ buyer;
+                if (phoneNum != null)
+                    s+="\nPhone number: "+ phoneNum;
                 list.add(s);
             }
         } catch (Exception e){e.printStackTrace();}
@@ -675,24 +687,16 @@ public class Model extends Observable {
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
 
-        String sql1 = "INSERT INTO purchases(id,idVac,Date,seller,buyer,price) VALUES(?,?,?,?,?,?)";
+        String sql1 = "INSERT INTO exchanges(id,idVac1,idVac2,Date) VALUES(?,?,?,?)";
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
-            pstmt1.setInt(1,Main.idPurchas++);
+            pstmt1.setInt(1,Main.idExchange++);
             pstmt1.setInt(2,vacID);
-            pstmt1.setString(3,date);
-            pstmt1.setString(4,currentUser);
-            pstmt1.setString(5,buyer);
-            pstmt1.setString(6,"exchanged");
+            pstmt1.setInt(3,ExchangeVacID);
+            pstmt1.setString(4,date);
             pstmt1.executeUpdate();
-            pstmt1.setInt(1,Main.idPurchas++);
-            pstmt1.setInt(2,ExchangeVacID);
-            pstmt1.setString(3,date);
-            pstmt1.setString(4,buyer);
-            pstmt1.setString(5,currentUser);
-            pstmt1.setString(6,"exchanged");
         } catch (Exception e){e.printStackTrace();}
 
         String sql2="UPDATE requests SET status = \"closed\" WHERE id = ? ";
@@ -774,7 +778,7 @@ public class Model extends Observable {
      * @param currentUser the current user
      * @param price the price of the vacation
      */
-    public void vacationPurchase(int requestID, String currentUser, String price) {
+    public void vacationPurchase(int requestID, String currentUser, String phoneNumber, String price) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String vac="SELECT * FROM requests WHERE id = ? ";
         String seller = "";
@@ -797,7 +801,7 @@ public class Model extends Observable {
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
 
-        String sql1 = "INSERT INTO purchases(id,idVac,Date,seller,buyer,price) VALUES(?,?,?,?,?,?)";
+        String sql1 = "INSERT INTO purchases(id,idVac,Date,seller,buyer,price,buyerPhone) VALUES(?,?,?,?,?,?,?)";
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -808,6 +812,7 @@ public class Model extends Observable {
             pstmt1.setString(4,seller);
             pstmt1.setString(5,currentUser);
             pstmt1.setString(6,price);
+            pstmt1.setString(7,phoneNumber);
             pstmt1.executeUpdate();
         } catch (Exception e){e.printStackTrace();}
 
