@@ -177,6 +177,17 @@ public class Main extends Application {
             }
         }catch (Exception e){e.printStackTrace();}
 
+        sql = "SELECT MAX(id) FROM exchanges ";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt1.executeQuery();
+            while (rs.next()) {
+                idExchange = rs.getInt("MAX(id)");
+                idExchange++;
+            }
+        }catch (Exception e){e.printStackTrace();}
+
         sql="SELECT MAX(id) FROM purchases ";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
@@ -210,7 +221,8 @@ public class Main extends Application {
                 + "idVac1 INTEGER NOT NULL, \n"
                 + "idVac2 INTEGER NOT NULL, \n"
                 + "Date text, \n"
-                + "FOREIGN KEY(idVac) REFERENCES vacation(id), \n"
+                + "FOREIGN KEY(idVac1) REFERENCES vacation(id), \n"
+                + "FOREIGN KEY(idVac2) REFERENCES vacation(id) \n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -229,6 +241,7 @@ public class Main extends Application {
         createVacationTable();
         createPurchaseTable();
         requestsTable();
+        createExchangeTable();
         getID();
         launch(args);
     }
