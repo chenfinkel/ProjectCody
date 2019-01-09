@@ -20,23 +20,34 @@ public class VacationsToSwitchView {
     @FXML
     private ListView viewList;
 
+    /** the vacation asked to switch*/
     private String vacToSwitch;
 
-    private ArrayList<Button> approves;
+    /** exchange buttons */
+    private ArrayList<Button> exchangeButtons;
 
+    /** users vacations that are available for switch*/
     private ArrayList<String> vacation;
 
-
+    /**
+     * set main view
+     * @param v view
+     */
     public void setView(View v){
         view=v;
     }
 
+    /**
+     * sets the vacations of a user that are available for switch
+     * @param currentUser the user asking for an exchange
+     * @param vacToSwitch the vacation to switch
+     */
     public void setVacations(String currentUser, String vacToSwitch){
         this.vacToSwitch=vacToSwitch;
         viewList.setVisible(false);
         List<String> l=view.getExchangableUserVac(currentUser);
         vacation=new ArrayList<>();
-        approves = new ArrayList<>();
+        exchangeButtons = new ArrayList<>();
         viewList.setVisible(true);
         ObservableList vacations = FXCollections.observableArrayList();
         if(l.size()==0){
@@ -54,7 +65,7 @@ public class VacationsToSwitchView {
                         sendVacToSwitch((Button) e.getSource());
                     }
                 });
-                approves.add(app);
+                exchangeButtons.add(app);
                 app.setLayoutY(label.getHeight());
                 hbox.setSpacing(20);
                 hbox.setHgrow(label, Priority.ALWAYS);
@@ -67,8 +78,9 @@ public class VacationsToSwitchView {
         viewList.setItems(vacations);
     }
 
+    //send an exchange request with a chosen vacation
     private void sendVacToSwitch(Button b) {
-        String request = vacation.get(approves.indexOf(b));
+        String request = vacation.get(exchangeButtons.indexOf(b));
         view.sendVacToSwitch(request,vacToSwitch);
         b.setDisable(true);
         view.alert("waiting for seller approval");

@@ -37,6 +37,9 @@ public class UpdateFileView {
         view=v;
     }
 
+    /**
+     * set values to fields
+     */
     public void setText(){
         user.setText(view.getDetails("userName"));
         UpdatePass.setText(view.getDetails("password"));

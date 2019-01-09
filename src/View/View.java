@@ -473,6 +473,11 @@ public class View {
         return control.purchaseHistory(currentUser);
     }
 
+    /**
+     * gets user vacations
+     * @param vacToSwitch the vacation requested for switch
+     * @throws Exception
+     */
     public void getUserVacations(String vacToSwitch) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resources/VacationsToSwitch.fxml"));
         Parent root1 = fxmlLoader.load();
@@ -485,18 +490,36 @@ public class View {
         stage.show();
     }
 
+    /**
+     * approve payment by cash
+     * @param request the purchase request
+     */
     public void approveCash(String request) {
         control.approveCash(request);
     }
 
+    /**
+     * send an exchange request
+     * @param request first vacation
+     * @param vacToSwitch second vacation
+     */
     public void sendVacToSwitch(String request,String vacToSwitch) {
         control.sendVacToSwitch(request,vacToSwitch);
     }
 
+    /**
+     * gets user vacations that are available for switch
+     * @param currentUser the user
+     * @throws Exception
+     */
     public List<String> getExchangableUserVac(String currentUser) {
         return control.getExchangableUserVac(currentUser);
     }
 
+    /**
+     * start the program
+     * @param primaryStage the primary stage of  the program
+     */
     public void start(Stage primaryStage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();

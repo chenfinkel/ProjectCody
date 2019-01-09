@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class Main extends Application {
 
-
+    /** id's for records */
     public static int idVac;
     public static int idPurchas;
     public static int idRequest;
@@ -105,7 +105,7 @@ public class Main extends Application {
     }
 
     /**
-     * creats buy requests table
+     * creates buy requests table
      */
     public static void requestsTable() {
         // SQLite connection string

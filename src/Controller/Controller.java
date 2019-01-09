@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class Controller {
 
+    /** the model of the program*/
     private Model model;
+    /** the view of the program */
     private View view;
 
     public Controller(){
@@ -300,14 +302,28 @@ public class Controller {
         return model.userPurch(currentUser);
     }
 
+    /**
+     * approve payment of a purchase
+     * @param request the purchase request that was payed
+     */
     public void approveCash(String request) {
         model.approveCash(request);
     }
 
+    /**
+     * Switch vacations
+     * @param request first vacation
+     * @param vacToSwitch second vacation
+     */
     public void sendVacToSwitch(String request,String vacToSwitch) {
         model.sendVacToSwitch(request,vacToSwitch);
     }
 
+    /**
+     * get vacations available for switch by username
+     * @param currentUser the seller of the available to switch vacations
+     * @return  vacations available for switch by username
+     */
     public List<String> getExchangableUserVac(String currentUser) {
         return model.userExchangableVac(currentUser);
     }

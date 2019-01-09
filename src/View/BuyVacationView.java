@@ -28,6 +28,7 @@ public class BuyVacationView {
     private ChoiceBox code;
 
 
+    /** the vacation to buy*/
     private String vacation;
 
     private View view;
@@ -90,6 +91,7 @@ public class BuyVacationView {
         }
     }
 
+    //check if a number is a valid phone number
     private boolean validPhoneNum(String phoneNumber) {
         if(phoneNumber.length() == 7) {
             for (int i = 0; i < phoneNumber.length(); i++){

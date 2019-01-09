@@ -33,16 +33,22 @@ public class UserPageView {
     @FXML
     private ListView viewList;
 
+    /** approve buttons*/
     private ArrayList<Button> approves;
 
+    /** decline buttons*/
     private ArrayList<Button> declines;
 
+    /** user incoming requests*/
     private ArrayList<String> incomingRequests;
 
+    /** user submitted requests*/
     private ArrayList<String> userRequests;
 
+    /** buy buttons */
     private ArrayList<Button> buyButtons;
 
+    /** approve payment buttons*/
     private ArrayList<Button> approvePayment;
 
     /**
@@ -216,6 +222,7 @@ public class UserPageView {
         viewList.setItems(lines);
     }
 
+    //approve payment
     private void approveCash(Button b) {
         String request = incomingRequests.get(approvePayment.indexOf(b));
         view.approveCash(request);

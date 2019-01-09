@@ -18,7 +18,9 @@ import java.util.Date;
 public class Model extends Observable {
 
 
+    /** is a user logged in or not*/
     private boolean isLogin;
+    /** the logged-in user */
     private String currentUser;
 
     /**
@@ -30,6 +32,9 @@ public class Model extends Observable {
         isLogin=false;
     }
 
+    /**
+     * log off current user
+     */
     public void logOff(){
         isLogin = false;
         currentUser = null;
@@ -430,11 +435,9 @@ public class Model extends Observable {
     }
 
     /**
-     *
-     * search all vacations that the user published
-     *
-     * @param userName the user name
-     * @return list of all vacation that the user published
+     * get vacations available for switch by username
+     * @param userName the seller of the available to switch vacations
+     * @return  vacations available for switch by username
      */
     public List<String> userExchangableVac(String userName) {
         List<String> list=new LinkedList<>();
@@ -826,6 +829,10 @@ public class Model extends Observable {
 
     }
 
+    /**
+     * approve payment of a purchase
+     * @param request the purchase request that was payed
+     */
     public void approveCash(String request) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=request.split("Request ID: ");
@@ -840,6 +847,11 @@ public class Model extends Observable {
         } catch (Exception e){e.printStackTrace();}
     }
 
+    /**
+     * Switch vacations
+     * @param request first vacation
+     * @param vacToSwitch second vacation
+     */
     public void sendVacToSwitch(String request,String vacToSwitch) {
         String url = "jdbc:sqlite:Vacation4U.db";
         String[] temp=request.split("Vacation ID: ");

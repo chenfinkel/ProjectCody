@@ -45,10 +45,13 @@ public class VacationSearchRes {
     @FXML
     private Button loginButton;
 
+    /** search results*/
     private ArrayList<String> vacations;
 
+    /** purchase request buttons*/
     private ArrayList<Button> PurchaseReqButtons;
 
+    /** exchange request buttons */
     private ArrayList<Button> ExchangeReqButtons;
 
 
@@ -150,7 +153,7 @@ public class VacationSearchRes {
         }
     }
 
-
+    //send a request for exchange
     private void sendExchangeRequest(Button b){
         if (!userName.getText().equals("guest")) {
             String[] split = vacations.get(ExchangeReqButtons.indexOf(b)).split("Seller: ");

@@ -15,6 +15,7 @@ import java.util.Set;
  */
 public class AddVacationView {
 
+
     private View view;
     private String currentUser;
     @FXML
